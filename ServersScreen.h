@@ -5,11 +5,14 @@
 #include "Font3x5.h"
 #include "State.h"
 #include "commonUi.h"
+#include "gameLogic.h"
 
 extern Arduboy2 arduboy;
 extern Font3x5 font3x5;
 //cursor 
-uint8_t cursorPosition = 0;
+uint8_t cursorPosition = 3;
+
+uint8_t visibleRack = 0;
 
 void drawServerSlot(uint8_t x, uint8_t y) {
   arduboy.drawBitmap(x, y, serverBlank, 28, 8, WHITE);
@@ -45,14 +48,50 @@ void drawRack(uint8_t x, uint8_t y, uint8_t state[RackSize]) {
 
 void drawServerStats() {
   
-  arduboy.drawLine(85, 11, 85, 50, WHITE);
+  arduboy.drawLine(85, 11, 85, 33, WHITE);
+  arduboy.drawLine(85, 33, 126, 33, WHITE);
 
   font3x5.setCursor(90, 12);
   font3x5.print(F("Capacity"));
 
   arduboy.drawBitmap(90, 23, inboundSymbol, 13, 8, WHITE);
   font3x5.setCursor(107, 22);
-  font3x5.print(F("1M"));
+  font3x5.print(parseValue(totalCapacity));
+
+}
+
+bool canPurchaseSelectedServer() {
+  return racks[visibleRack][cursorPosition] < MaxServerLevel;
+}
+
+void purchaseSelectedServer() {
+  racks[visibleRack][cursorPosition]++;
+}
+
+uint32_t getServerPurchasePrice() {
+  if (racks[visibleRack][cursorPosition] > 0) {
+    return getServerUpgradeCost(racks[visibleRack][cursorPosition]);
+  } else {
+    return serverPrice;
+  }
+}
+
+void drawSelectedCost() {
+  if (!canPurchaseSelectedServer()){
+    return;
+  }
+
+  arduboy.drawBitmap(85, 45, currencySymbol, 5,8);
+
+  font3x5.setCursor(85, 35);
+  if (racks[visibleRack][cursorPosition] > 0) {
+    font3x5.print(F("Upgrade"));
+  } else {
+    font3x5.print(F("Buy"));
+  }
+  
+  font3x5.setCursor(93, 45);
+  font3x5.print(parseValue(getServerPurchasePrice()));
 
 }
 
@@ -60,15 +99,15 @@ void drawServersNavigation() {
   //left button
   Arduboy2Base::drawBitmap(45, 57, buttonsLeft, 7, 8, WHITE);
   font3x5.setCursor(55, 57);
+  font3x5.print(F("Office"));
+
+  Arduboy2Base::drawBitmap(90, 57, buttonsRight, 7, 8, WHITE);
+  font3x5.setCursor(100, 57);
   if (racks[visibleRack][cursorPosition] > 0) {
     font3x5.print(F("Upgrade"));
   } else {
     font3x5.print(F("Buy"));
   }
-
-  Arduboy2Base::drawBitmap(90, 57, buttonsRight, 7, 8, WHITE);
-  font3x5.setCursor(100, 57);
-  font3x5.print(F("Office"));
 
 }
 
@@ -89,10 +128,20 @@ void screenServer() {
     }
   }
 
+  if (arduboy.justPressed(B_BUTTON)) {
+    // buy or upgrade
+
+    if (canPurchaseSelectedServer() && buyIfPosible(getServerPurchasePrice())) {
+      purchaseSelectedServer();
+      recalculateStats();
+    }
+
+  }
 
   drawRack(4, 11, racks[visibleRack]);
   drawCursor(0, (cursorPosition * 9) + 16);
 
+  drawSelectedCost();
   drawServerStats();
   drawServersNavigation();
 }

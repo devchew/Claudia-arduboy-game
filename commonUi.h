@@ -4,6 +4,8 @@
 #include "image.h"
 #include "Font3x5.h"
 #include "State.h"
+#include "gameLogic.h"
+
 
 extern Arduboy2 arduboy;
 extern Font3x5 font3x5;
@@ -40,9 +42,11 @@ void drawStatusBar() {
   //load
   arduboy.drawBitmap(70,1, loadSymbol, 5, 8, WHITE);
   arduboy.drawRect(77, 1, 50, 7, WHITE);
-  arduboy.drawBitmap(78, 2, loadBarFilled, loadPercent/2, 8);
+  arduboy.drawBitmap(78, 2, loadBarFilled, min(loadPercent/2,48) , 8);
   //linfill;
-  arduboy.drawLine(77 + loadPercent/2, 1, 77 + loadPercent/2, 7, WHITE);
+  if (loadPercent < 100) {
+    arduboy.drawLine(77 + loadPercent/2, 1, 77 + loadPercent/2, 7, WHITE);
+  }
   
 }
 

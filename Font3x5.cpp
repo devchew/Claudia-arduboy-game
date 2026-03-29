@@ -16,14 +16,17 @@
 #define CHAR_LETTER_Z_LOWER 122
 #define CHAR_NUMBER_0 48
 #define CHAR_NUMBER_9 57
+#define CHAR_PLUS 43
 
 #ifdef USE_LOWER_CASE
   #define FONT_EXCLAMATION_INDEX 62
   #define FONT_PERIOD_INDEX 63
+  #define FONT_PLUS_INDEX 64
   #define FONT_NUMBER_INDEX 52
 #else
   #define FONT_EXCLAMATION_INDEX 36
   #define FONT_PERIOD_INDEX 37
+  #define FONT_PLUS_INDEX 38
   #define FONT_NUMBER_INDEX 26
 #endif
 
@@ -352,7 +355,12 @@ const uint8_t PROGMEM font_images[] = {
   // #46 Symbol '.'.
   0x00,  // ░░░░░░░░
   0x10,  // ░░░▓░░░░
-  0x00   // ░░░░░░░░
+  0x00,  // ░░░░░░░░
+
+  // #43 Symbol '+'.
+  0x04,  // ░░░░░▓░░
+  0x0E,  // ░░░░▓▓▓░
+  0x04   // ░░░░░▓░░
 
 };
 
@@ -409,6 +417,10 @@ void Font3x5::printChar(const char c, const int8_t x, int8_t y) {
       
     case CHAR_PERIOD:
       idx = FONT_PERIOD_INDEX;
+      break;
+
+    case CHAR_PLUS:
+      idx = FONT_PLUS_INDEX;
       break;
 
   }
