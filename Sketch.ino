@@ -5,6 +5,7 @@
 #include "State.h"
 #include "commonUi.h"
 #include "OfficeScreen.h"
+#include "SettingsScreen.h"
 #include "gameLogic.h"
 
 #include <ArduboyPlaytune.h>
@@ -38,7 +39,7 @@ void loop() {
 
   }
 
-  if (!tune.playing()) {
+  if (!tune.playing() && music) {
     tune.playScore(music_loop);
   }
 
@@ -49,8 +50,23 @@ void loop() {
 
   arduboy.pollButtons();
 
-  if (arduboy.justPressed(A_BUTTON)) {
-    currentScreen = (currentScreen + 1) % 2;
+  if (currentScreen == 2) {
+    if (arduboy.justPressed(A_BUTTON)) {
+      currentScreen = previousScreen;
+    }
+  } else {
+    if (arduboy.pressed(A_BUTTON)) {
+      aHoldFrames++;
+      if (aHoldFrames == A_HOLD_THRESHOLD) {
+        previousScreen = currentScreen;
+        currentScreen = 2;
+      }
+    } else {
+      if (aHoldFrames > 0 && aHoldFrames < A_HOLD_THRESHOLD) {
+        currentScreen = (currentScreen + 1) % 2;
+      }
+      aHoldFrames = 0;
+    }
   }
 
   arduboy.clear();
@@ -61,6 +77,9 @@ void loop() {
   }
   if (currentScreen == 1) {
     screenOffice();
+  }
+  if (currentScreen == 2) {
+    screenSettings();
   }
 
   // Your code here

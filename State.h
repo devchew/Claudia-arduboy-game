@@ -9,6 +9,10 @@ const uint8_t FRAME_DELAY = 8;  // game frames between animation steps (~7 fps a
 
 bool music = true;
 
+uint8_t aHoldFrames = 0;
+const uint8_t A_HOLD_THRESHOLD = 120; // 3s at 60fps
+uint8_t previousScreen = 0;
+
 
 
 #define RackSize 4
