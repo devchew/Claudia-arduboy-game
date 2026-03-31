@@ -19,7 +19,7 @@ void purchaseSelectedOfficeUpgrade() {
   upgrades[listOffest].have++;
 
   //update nextBonus
-  upgrades[listOffest].nextBonus = upgrades[listOffest].nextBonus;
+  upgrades[listOffest].nextBonus *= 1.5;
 }
 
 uint32_t getOfficeUpgradePurchasePrice() {
@@ -90,6 +90,9 @@ void drawUpgades() {
 
 
 void screenOffice() {
+  if (helpVisible) {
+    return;
+  }
   if (arduboy.justPressed(UP_BUTTON)) {
     if (listOffest == 0) {
       listOffest = MaxUpgrades - 1;

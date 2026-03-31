@@ -112,6 +112,9 @@ void drawServersNavigation() {
 }
 
 void screenServer() {
+  if (helpVisible) {
+    return;
+  }
   if (arduboy.justPressed(UP_BUTTON)) {
     if (cursorPosition == 0) {
       cursorPosition = RackSize - 1;

@@ -5,16 +5,16 @@
 extern Arduboy2 arduboy;
 
 
-uint32_t money = 0;
+uint32_t money = 350;
 uint32_t inbound = 0;
 uint8_t loadPercent = 0;
 uint32_t totalCapacity = 0;
 
-const uint16_t serverPrice = 5000;
+const uint16_t serverPrice = 1000;
 
-#define serverLevelCapacityScale 10
+#define serverLevelCapacityScale 15
 #define serverCostFactor 2
-#define moneyPerUser 1
+#define moneyPerUser 2
 #define startingInbound 1
 
 bool buyIfPosible(uint32_t price) {
@@ -44,7 +44,7 @@ void recalculateStats() {
   }
 
 
-  loadPercent = min(inbound * 100 / max(totalCapacity, 1),100);
+  loadPercent = inbound * 100 / max(totalCapacity, 1);
 }
 
 void tickUpdate() {
@@ -52,9 +52,9 @@ void tickUpdate() {
 }
 
 uint32_t getServerUpgradeCost(uint8_t level) {
-  return level > 0 ? pow(serverCostFactor, level - 1) : 0;
+  return serverPrice * pow(1.4, level);
 }
 
 uint32_t getOfficeUpgradeCost(Upgrade upgrade){
-  return upgrade.cost + upgrade.nextBonus * upgrade.have;
+  return upgrade.cost * pow(1.5, upgrade.have);
 }

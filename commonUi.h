@@ -6,6 +6,7 @@
 #include "State.h"
 #include "gameLogic.h"
 
+#include "companion.h"
 
 extern Arduboy2 arduboy;
 extern Font3x5 font3x5;
@@ -46,6 +47,12 @@ void drawStatusBar() {
   //linfill;
   if (loadPercent < 100) {
     arduboy.drawLine(77 + loadPercent/2, 1, 77 + loadPercent/2, 7, WHITE);
+  }
+
+  if (loadPercent > 105) {
+    arduboy.fillRoundRect(85, 2, 33, 5, 1, BLACK);
+    font3x5.setCursor(86, 1);
+    font3x5.print(F("OVERLOAD"));
   }
   
 }

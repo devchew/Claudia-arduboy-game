@@ -11,6 +11,19 @@
 #include <ArduboyPlaytune.h>
 #include "intro.h"
 #include "loop.h"
+#include "companion.h"
+
+
+/**
+
+todo:
+
+- [] ekran ustawień bez przytrzymywania klawisza A, jako osobny screen w office < >
+- [] zmiana powerupów na takie zwiaane z software, aby nawiązac od historii rozwoju AI
+- [] dodanie komunikatow do akcji, gdzu rośnie ruch, gdy maleje, doanie intro z wprowadzeniem w historię
+
+
+*/
 
 ArduboyPlaytune tune(arduboy.audio.enabled);
 
@@ -50,22 +63,24 @@ void loop() {
 
   arduboy.pollButtons();
 
-  if (currentScreen == 2) {
-    if (arduboy.justPressed(A_BUTTON)) {
-      currentScreen = previousScreen;
-    }
-  } else {
-    if (arduboy.pressed(A_BUTTON)) {
-      aHoldFrames++;
-      if (aHoldFrames == A_HOLD_THRESHOLD) {
-        previousScreen = currentScreen;
-        currentScreen = 2;
+  if (!helpVisible) {
+    if (currentScreen == 2) {
+      if (arduboy.justPressed(A_BUTTON)) {
+        currentScreen = previousScreen;
       }
     } else {
-      if (aHoldFrames > 0 && aHoldFrames < A_HOLD_THRESHOLD) {
-        currentScreen = (currentScreen + 1) % 2;
+      if (arduboy.pressed(A_BUTTON)) {
+        aHoldFrames++;
+        if (aHoldFrames == A_HOLD_THRESHOLD) {
+          previousScreen = currentScreen;
+          currentScreen = 2;
+        }
+      } else {
+        if (aHoldFrames > 0 && aHoldFrames < A_HOLD_THRESHOLD) {
+          currentScreen = (currentScreen + 1) % 2;
+        }
+        aHoldFrames = 0;
       }
-      aHoldFrames = 0;
     }
   }
 
@@ -81,6 +96,8 @@ void loop() {
   if (currentScreen == 2) {
     screenSettings();
   }
+
+  compainionHelp();
 
   // Your code here
 
