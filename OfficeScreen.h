@@ -1,6 +1,6 @@
 
 uint8_t listOffest = 0;
-
+uint8_t visibleUpgrades = 5;
 
 bool canPurchaseSelectedOfficeUpgrade() {
   return upgrades[listOffest].have < upgrades[listOffest].max;
@@ -42,15 +42,16 @@ void drawOfficeNavigation() {
 
 }
 
-void drawUpgrade(int8_t x, int8_t y, Upgrade upgrade) {
+void drawUpgrade(int8_t x, int8_t y, uint8_t upgradeIndex) {
   arduboy.drawRoundRect(x, y, 120, 17, 1, WHITE);
   
   font3x5.setCursor(x+2, y+1);
-  font3x5.print(upgrade.name);
-  if (upgrade.have > 0) {
+  font3x5.print(upgradesNames[upgradeIndex]);
+  // font3x5.print(String(upgradeIndex));
+  if (upgrades[upgradeIndex].have > 0) {
     font3x5.print(F(" x"));
-    font3x5.print(upgrade.have);
-    if (upgrade.have >= upgrade.max) {
+    font3x5.print(upgrades[upgradeIndex].have);
+    if (upgrades[upgradeIndex].have >= upgrades[upgradeIndex].max) {
       font3x5.print(F(" max"));
     }
   }
@@ -58,18 +59,18 @@ void drawUpgrade(int8_t x, int8_t y, Upgrade upgrade) {
   // inbound
   arduboy.drawBitmap(x + 2, y+9, inboundSymbol, 13, 8, WHITE);
   font3x5.setCursor(x + 18, y+8);
-  font3x5.print(parseValue(upgrade.bonus));
+  font3x5.print(parseValue(upgrades[upgradeIndex].bonus));
 
   // cost
-  if (upgrade.max > upgrade.have) {
+  if (upgrades[upgradeIndex].max > upgrades[upgradeIndex].have) {
     font3x5.setCursor(x+68, y+8);
-    arduboy.drawBitmap(x+61, y+8, currencySymbol, 5,8);
-    font3x5.print(parseValue(upgrade.cost));
+    arduboy.drawBitmap(x+51, y+8, currencySymbol, 5,8);
+    font3x5.print(parseValue(upgrades[upgradeIndex].cost));
 
     arduboy.drawBitmap(x + 85, y+9, inboundSymbol, 13, 8, WHITE);
     font3x5.setCursor(x + 102, y+8);
     font3x5.print(F("+"));
-    font3x5.print(parseValue(upgrade.nextBonus));
+    font3x5.print(parseValue(upgrades[upgradeIndex].nextBonus));
   }
 
 
@@ -80,10 +81,9 @@ void drawUpgades() {
   drawCursor(0, 18);
 
   for(int i = 0; i <= 2; i++) {
-    if (i + listOffest >= MaxUpgrades) {
-      continue;
+    if (i + listOffest < visibleUpgrades) {
+      drawUpgrade(5, 12 + (i*18), i + listOffest);
     }
-    drawUpgrade(5, 12 + (i*18), upgrades[i + listOffest]);
   }
 
 }
@@ -95,14 +95,14 @@ void screenOffice() {
   }
   if (arduboy.justPressed(UP_BUTTON)) {
     if (listOffest == 0) {
-      listOffest = MaxUpgrades - 1;
+      listOffest = visibleUpgrades - 1;
     } else {
       listOffest--;
     }
   }
 
   if (arduboy.justPressed(DOWN_BUTTON)) {
-    if (listOffest >= MaxUpgrades - 1) {
+    if (listOffest >= visibleUpgrades - 1) {
       listOffest = 0;
     } else {
       listOffest++;

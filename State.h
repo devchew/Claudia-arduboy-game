@@ -30,7 +30,6 @@ uint8_t racks[MaxRacks][RackSize] = {
 
 // list of upgrades
 struct Upgrade {
-  String name;
   uint16_t cost;
   uint16_t bonus;
   uint16_t nextBonus;
@@ -38,12 +37,35 @@ struct Upgrade {
   uint8_t max;
 };
 
-#define MaxUpgrades 3
+#define MaxUpgrades 4
+
+String upgradesNames[MaxUpgrades] = {
+  "User messaging",            
+  "Push notifications",        
+  // "Load balancing",            
+  // "Request routing",           
+  // "Async processing",          
+  // "AI core upgrade",           
+  // "AI Context awareness",      
+  // "AI Smart responses",        
+  // "Predictive AI",             
+  "Self evolving AI",          
+};
+
+// String upgradesNames[MaxUpgrades] = {"AA"};
 
 Upgrade upgrades[MaxUpgrades] = {
-  {"Post on twiXer",  100,  0,  5,    0,  10},
-  {"Buy ads",         200,  0,  10,   0,  100},
-  {"Tv ad",           500,  0,  20,   0,  100}
+/* cost | bonus | nextB | have | max | */
+  {80   ,  0  ,   2   ,  0   ,  5  },
+  {140  ,  0  ,   5   ,  0   ,  5  },
+  // {100  ,  0  ,   10  ,  0   ,  2  },
+  // {180  ,  0  ,   14  ,  0   ,  2  },
+  // {260  ,  0  ,   20  ,  0   ,  5  },
+  // {500  ,  0  ,   30  ,  0   ,  5  },
+  // {800  ,  0  ,   50  ,  0   ,  5  },
+  // {1000 ,  0  ,   60  ,  0   ,  5  },
+  // {5000 ,  0  ,   80  ,  0   ,  5  },
+  {10000,  0  ,   100 ,  0   ,  1  }
 };
 
 

@@ -11,7 +11,6 @@ extern Arduboy2 arduboy;
 extern Font3x5 font3x5;
 //cursor 
 uint8_t cursorPosition = 3;
-
 uint8_t visibleRack = 0;
 
 void drawServerSlot(uint8_t x, uint8_t y) {
@@ -28,7 +27,12 @@ void drawServer(uint8_t x, uint8_t y, uint8_t level) {
 
 
 void drawRack(uint8_t x, uint8_t y, uint8_t state[RackSize]) {
-  Sprites::drawOverwrite(x, y, rack, 0);
+
+  if (currentRackEmpty) {
+    Sprites::drawOverwrite(x, y, sprite_rack, 1);
+    return;
+  }
+  Sprites::drawOverwrite(x, y, sprite_rack, 0);
   arduboy.drawPixel(32 + x, y + 1, currentFrame % 10 ? BLACK : WHITE); //@todo: tweak this to blink more randomly
   arduboy.drawPixel(34 + x, y + 1, currentFrame % 12 ? BLACK : WHITE); //@todo: tweak this to blink more randomly
   
@@ -61,6 +65,9 @@ void drawServerStats() {
 }
 
 bool canPurchaseSelectedServer() {
+  if (currentRackEmpty) {
+    return true;
+  }
   return racks[visibleRack][cursorPosition] < MaxServerLevel;
 }
 
@@ -69,11 +76,15 @@ void purchaseSelectedServer() {
 }
 
 uint32_t getServerPurchasePrice() {
+  if (currentRackEmpty) {
+    return rackPrice;
+  }
+
   if (racks[visibleRack][cursorPosition] > 0) {
     return getServerUpgradeCost(racks[visibleRack][cursorPosition]);
-  } else {
-    return serverPrice;
   }
+
+  return serverPrice;
 }
 
 void drawSelectedCost() {
@@ -109,6 +120,26 @@ void drawServersNavigation() {
     font3x5.print(F("Buy"));
   }
 
+  if (availableRacks > 1) {
+    font3x5.setCursor(8, 57);
+    font3x5.print(F("<"));
+
+    font3x5.setCursor(37, 57);
+    font3x5.print(F(">"));
+
+    font3x5.setCursor(19, 57);
+    font3x5.print(visibleRack + 1);
+    font3x5.print(F("/"));
+    font3x5.print(availableRacks);
+  }
+
+}
+
+void changeRack() {
+  currentRackEmpty = true;
+  for(int i = 0; i < RackSize; i++) {
+    currentRackEmpty = racks[visibleRack][i] == 0 && currentRackEmpty == true;
+  }
 }
 
 void screenServer() {
@@ -131,15 +162,34 @@ void screenServer() {
     }
   }
 
+  if (availableRacks > 1) {
+    if (arduboy.justPressed(LEFT_BUTTON)) {
+      if (visibleRack < 1) {
+        visibleRack = availableRacks - 1;
+      } else {
+        visibleRack--;
+      }
+      changeRack();
+    }
+    if (arduboy.justPressed(RIGHT_BUTTON)) {
+      if (visibleRack >= availableRacks - 1) {
+        visibleRack = 0;
+      } else {
+        visibleRack++;
+      }
+      changeRack();
+    }
+  }
+
   if (arduboy.justPressed(B_BUTTON)) {
     // buy or upgrade
-
     if (canPurchaseSelectedServer() && buyIfPosible(getServerPurchasePrice())) {
       purchaseSelectedServer();
       recalculateStats();
     }
-
   }
+
+
 
   drawRack(4, 11, racks[visibleRack]);
   drawCursor(0, (cursorPosition * 9) + 16);

@@ -31,14 +31,17 @@ void drawStatusBar() {
   arduboy.drawLine(0, 9, 128, 9, WHITE);
 
   // money
-  arduboy.drawBitmap(3,1, currencySymbol, 5,8);
-  font3x5.setCursor(10, 1);
+  arduboy.drawBitmap(1,1, currencySymbol, 5,8);
+  font3x5.setCursor(8, 1);
   font3x5.print(parseValue(money));
 
   // inbound
-  arduboy.drawBitmap(37, 2, inboundSymbol, 13, 8, WHITE);
-  font3x5.setCursor(52, 1);
+  arduboy.drawBitmap(32, 2, inboundSymbol, 13, 8, WHITE);
+  font3x5.setCursor(47, 1);
   font3x5.print(parseValue(inbound));
+  if (inboundPenalty) {
+    font3x5.print(F("!"));
+  }
 
   //load
   arduboy.drawBitmap(70,1, loadSymbol, 5, 8, WHITE);

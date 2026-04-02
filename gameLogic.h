@@ -4,18 +4,22 @@
 
 extern Arduboy2 arduboy;
 
-
 uint32_t money = 350;
 uint32_t inbound = 0;
-uint8_t loadPercent = 0;
+uint16_t loadPercent = 0;
 uint32_t totalCapacity = 0;
+bool inboundPenalty = false;
 
 const uint16_t serverPrice = 1000;
+const uint16_t rackPrice = 10000;
+uint8_t availableRacks = 1;
+bool currentRackEmpty = false;
 
 #define serverLevelCapacityScale 15
 #define serverCostFactor 2
 #define moneyPerUser 2
 #define startingInbound 1
+#define maxUsersPenaltyCap 10
 
 bool buyIfPosible(uint32_t price) {
   if (money >= price) {
@@ -26,6 +30,8 @@ bool buyIfPosible(uint32_t price) {
 }
 
 void recalculateStats() {
+  inboundPenalty = false;
+
   // inbound based on office upgrades
   inbound = startingInbound;
 
@@ -45,6 +51,15 @@ void recalculateStats() {
 
 
   loadPercent = inbound * 100 / max(totalCapacity, 1);
+
+  // penalty for overload
+  if (loadPercent > 190) {
+    inboundPenalty = true;
+    inbound = inbound / 2;
+    if (inbound > maxUsersPenaltyCap) {
+      inbound = maxUsersPenaltyCap;
+    }
+  }
 }
 
 void tickUpdate() {

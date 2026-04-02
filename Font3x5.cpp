@@ -17,16 +17,25 @@
 #define CHAR_NUMBER_0 48
 #define CHAR_NUMBER_9 57
 #define CHAR_PLUS 43
+#define CHAR_GREATER 62
+#define CHAR_LESS 60
+#define CHAR_SLASH 47
 
 #ifdef USE_LOWER_CASE
   #define FONT_EXCLAMATION_INDEX 62
   #define FONT_PERIOD_INDEX 63
   #define FONT_PLUS_INDEX 64
+  #define FONT_GREATER_INDEX 65
+  #define FONT_LESS_INDEX 66
+  #define FONT_SLASH_INDEX 67
   #define FONT_NUMBER_INDEX 52
 #else
   #define FONT_EXCLAMATION_INDEX 36
   #define FONT_PERIOD_INDEX 37
   #define FONT_PLUS_INDEX 38
+  #define FONT_GREATER_INDEX 39
+  #define FONT_LESS_INDEX 40
+  #define FONT_SLASH_INDEX 41
   #define FONT_NUMBER_INDEX 26
 #endif
 
@@ -360,7 +369,23 @@ const uint8_t PROGMEM font_images[] = {
   // #43 Symbol '+'.
   0x04,  // ░░░░░▓░░
   0x0E,  // ░░░░▓▓▓░
-  0x04   // ░░░░░▓░░
+  0x04,  // ░░░░░▓░░
+
+  // #60 Symbol '<'.
+  0x11,  // ░░░▓░░░▓
+  0x0A,  // ░░░░▓░▓░
+  0x04,  // ░░░░░▓░░
+
+
+  // #62 Symbol '>'.
+  0x04,  // ░░░░░▓░░
+  0x0A,  // ░░░░▓░▓░
+  0x11,  // ░░░▓░░░▓
+
+  // #47 Symbol '/'.
+  0x00,  // ░░░░░░░░
+  0x1C,  // ░░▓▓▓░░░
+  0x07,  // ░░░░░▓▓▓
 
 };
 
@@ -421,6 +446,18 @@ void Font3x5::printChar(const char c, const int8_t x, int8_t y) {
 
     case CHAR_PLUS:
       idx = FONT_PLUS_INDEX;
+      break;
+    
+    case CHAR_GREATER:
+      idx = FONT_GREATER_INDEX;
+      break;
+    
+    case CHAR_LESS:
+      idx = FONT_LESS_INDEX;
+      break;
+
+    case CHAR_SLASH:
+      idx = FONT_SLASH_INDEX;
       break;
 
   }

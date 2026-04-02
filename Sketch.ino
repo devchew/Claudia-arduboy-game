@@ -13,7 +13,6 @@
 #include "loop.h"
 #include "companion.h"
 
-
 /**
 
 todo:
@@ -57,7 +56,7 @@ void loop() {
   }
 
   // every x frames, update the game state
-  if (currentFrame == 0) {
+  if (currentFrame == 0 && introSequence == 255) {
     tickUpdate();
   }
 
@@ -85,16 +84,18 @@ void loop() {
   }
 
   arduboy.clear();
-  drawStatusBar();
+  if (introSequence == 255) {
+    drawStatusBar();
 
-  if (currentScreen == 0){
-    screenServer();
-  }
-  if (currentScreen == 1) {
-    screenOffice();
-  }
-  if (currentScreen == 2) {
-    screenSettings();
+    if (currentScreen == 0){
+      screenServer();
+    }
+    if (currentScreen == 1) {
+      screenOffice();
+    }
+    if (currentScreen == 2) {
+      screenSettings();
+    }
   }
 
   compainionHelp();
