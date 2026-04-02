@@ -17,6 +17,8 @@
 
 todo:
 
+- pierwsza seria upgrade nie pozwala na zapełnienie pierwszego racka, trzeba podbić bonusy
+wszystkie bonusy dają max 406 userów
 - gdy wykupimy wszystkie upgrade do racka 1 - komunikat od claudi ze mamy juz max serwerów i trzeba zainwestować w kolejna serwerownie
 - po wykupieniu 2go serwera odblokowują się kolejne upgrade do nr 7, komunikat o nowych upgrade
 - claudia zaczyna byc self aware po pierwszych ai update
