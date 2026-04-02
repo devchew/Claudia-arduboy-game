@@ -13,7 +13,7 @@ bool helpVisible = false;
 uint8_t companionPopupTimeout = 0;
 uint8_t companionPopupCloseTimeout = 0;
 
-uint8_t introSequence = 255;
+uint8_t introSequence = 0;
 
 const String helpPrompts[13] = {
   /* 0  */ "Initializing system...",

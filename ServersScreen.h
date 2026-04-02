@@ -60,7 +60,7 @@ void drawServerStats() {
 
   arduboy.drawBitmap(90, 23, inboundSymbol, 13, 8, WHITE);
   font3x5.setCursor(107, 22);
-  font3x5.print(parseValue(totalCapacity));
+  printValue(totalCapacity);
 
 }
 
@@ -102,7 +102,7 @@ void drawSelectedCost() {
   }
   
   font3x5.setCursor(93, 45);
-  font3x5.print(parseValue(getServerPurchasePrice()));
+  printValue(getServerPurchasePrice());
 
 }
 

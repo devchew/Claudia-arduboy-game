@@ -11,15 +11,15 @@
 extern Arduboy2 arduboy;
 extern Font3x5 font3x5;
 
-String parseValue(uint32_t value) {
+void printValue(uint32_t value) {
   if (value < 1000) {
-    return String(value);
+    font3x5.print(value);
   } else if (value < 1000000) {
-    return String(value / 1000.0, 1) + "K";
+    font3x5.print(String(value / 1000.0, 1) + "K");
   } else if (value < 1000000000) {
-    return String(value / 1000000.0, 1) + "M";
+    font3x5.print(String(value / 1000000.0, 1) + "M");
   } else {
-    return String(value / 1000000000.0, 1) + "B";
+    font3x5.print(String(value / 1000000000.0, 1) + "B");
   }
 }
 
@@ -33,12 +33,12 @@ void drawStatusBar() {
   // money
   arduboy.drawBitmap(1,1, currencySymbol, 5,8);
   font3x5.setCursor(8, 1);
-  font3x5.print(parseValue(money));
+  printValue(money);
 
   // inbound
   arduboy.drawBitmap(32, 2, inboundSymbol, 13, 8, WHITE);
   font3x5.setCursor(47, 1);
-  font3x5.print(parseValue(inbound));
+  printValue(inbound);
   if (inboundPenalty) {
     font3x5.print(F("!"));
   }
