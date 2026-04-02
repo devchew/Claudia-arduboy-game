@@ -17,10 +17,11 @@
 
 todo:
 
-- [] ekran ustawień bez przytrzymywania klawisza A, jako osobny screen w office < >
-- [] zmiana powerupów na takie zwiaane z software, aby nawiązac od historii rozwoju AI
-- [] dodanie komunikatow do akcji, gdzu rośnie ruch, gdy maleje, doanie intro z wprowadzeniem w historię
-
+- gdy wykupimy wszystkie upgrade do racka 1 - komunikat od claudi ze mamy juz max serwerów i trzeba zainwestować w kolejna serwerownie
+- po wykupieniu 2go serwera odblokowują się kolejne upgrade do nr 7, komunikat o nowych upgrade
+- claudia zaczyna byc self aware po pierwszych ai update
+- po wykupieniu 3ch serwerów i minimum 3/4 wypełnienia każdego odblokowuje się ostatnia seria upgrade
+- po zakupieniu ostatniego upgrade claudia wyswietla ostatni komunikat i konic gry
 
 */
 
@@ -62,23 +63,19 @@ void loop() {
 
   arduboy.pollButtons();
 
-  if (!helpVisible) {
-    if (currentScreen == 2) {
-      if (arduboy.justPressed(A_BUTTON)) {
-        currentScreen = previousScreen;
-      }
-    } else {
-      if (arduboy.pressed(A_BUTTON)) {
-        aHoldFrames++;
-        if (aHoldFrames == A_HOLD_THRESHOLD) {
-          previousScreen = currentScreen;
-          currentScreen = 2;
-        }
+  if (arduboy.justPressed(A_BUTTON)) {
+    currentScreen++;
+    if (currentScreen >= 2) {
+      currentScreen = 0; // 0 - server; 1 - office; 2 - settings
+    }
+  }
+  if (currentScreen > 0) {
+    if (arduboy.justReleased(LEFT_BUTTON)) {
+      // toggle between office and settings
+      if (currentScreen == 1) {
+        currentScreen = 2; // 0 - server; 1 - office; 2 - settings
       } else {
-        if (aHoldFrames > 0 && aHoldFrames < A_HOLD_THRESHOLD) {
-          currentScreen = (currentScreen + 1) % 2;
-        }
-        aHoldFrames = 0;
+        currentScreen = 1; // 0 - server; 1 - office; 2 - settings
       }
     }
   }

@@ -1,6 +1,6 @@
 
 uint8_t listOffest = 0;
-uint8_t visibleUpgrades = MaxUpgrades;
+uint8_t visibleUpgrades = 5;
 
 bool canPurchaseSelectedOfficeUpgrade() {
   return upgrades[listOffest].have < upgrades[listOffest].max;
@@ -39,6 +39,12 @@ void drawOfficeNavigation() {
     font3x5.setCursor(100, 57);
     font3x5.print(F("Buy"));
   }
+
+  font3x5.setCursor(2, 57);
+  font3x5.print(F("<"));
+
+  font3x5.setCursor(8, 57);
+  font3x5.print(F("Settings"));
 
 }
 

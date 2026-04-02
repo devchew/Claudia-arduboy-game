@@ -88,6 +88,7 @@ void compainionHelp() {
       introSequence++;
       if (introSequence > 10) {
         introSequence = 255;
+        currentScreen = 1; // 0 - server; 1 - office; 2 - settings
       }
     }
   }

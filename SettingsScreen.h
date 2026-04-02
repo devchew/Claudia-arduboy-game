@@ -17,13 +17,21 @@ const uint8_t settingsCount = 2;
 void drawSettingsNavigation() {
   arduboy.fillRect(0, 56, 128, 8, BLACK);
 
+  //left button
   Arduboy2Base::drawBitmap(45, 57, buttonsLeft, 7, 8, WHITE);
   font3x5.setCursor(55, 57);
-  font3x5.print(F("Back"));
+  font3x5.print(F("Servers"));
 
   Arduboy2Base::drawBitmap(90, 57, buttonsRight, 7, 8, WHITE);
   font3x5.setCursor(100, 57);
   font3x5.print(F("Toggle"));
+
+  font3x5.setCursor(2, 57);
+  font3x5.print(F("<"));
+
+  font3x5.setCursor(8, 57);
+  font3x5.print(F("Office"));
+
 }
 
 void drawSettingsItems() {
