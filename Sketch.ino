@@ -18,8 +18,10 @@
 todo:
 
 - pierwsza seria upgrade nie pozwala na zapełnienie pierwszego racka, trzeba podbić bonusy
-wszystkie bonusy dają max 406 userów
-- gdy wykupimy wszystkie upgrade do racka 1 - komunikat od claudi ze mamy juz max serwerów i trzeba zainwestować w kolejna serwerownie
+wszystkie bonusy dają max 406 userów, wymaxowany serwer to 1.2k
+upgrade office powinna kończyć się na 150% capacity serwera userów, aby przekroczyć capacity serwera
+
+- gdy wykupimy minimum łącznie 60lvl do racka 1 - komunikat od claudi ze mamy juz dużo serwerów i trzeba zainwestować w kolejna serwerownie
 - po wykupieniu 2go serwera odblokowują się kolejne upgrade do nr 7, komunikat o nowych upgrade
 - claudia zaczyna byc self aware po pierwszych ai update
 - po wykupieniu 3ch serwerów i minimum 3/4 wypełnienia każdego odblokowuje się ostatnia seria upgrade
