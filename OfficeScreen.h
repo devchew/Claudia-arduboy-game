@@ -1,6 +1,5 @@
 
 uint8_t listOffest = 0;
-uint8_t visibleUpgrades = 5;
 
 bool canPurchaseSelectedOfficeUpgrade() {
   return upgrades[listOffest].have < upgrades[listOffest].max;

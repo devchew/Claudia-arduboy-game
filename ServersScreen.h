@@ -72,6 +72,11 @@ bool canPurchaseSelectedServer() {
 }
 
 void purchaseSelectedServer() {
+  if (currentRackEmpty) {
+    racks[visibleRack][3] = 1;
+    currentRackEmpty = false;
+    return;
+  }
   racks[visibleRack][cursorPosition]++;
 }
 

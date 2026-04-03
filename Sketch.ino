@@ -21,17 +21,12 @@ todo:
 - [x] pierwsza seria upgrade nie pozwala na zapełnienie pierwszego racka, trzeba podbić bonusy
 wszystkie bonusy dają max 406 userów, wymaxowany serwer to 1.2k
 upgrade office powinna kończyć się na 150% capacity serwera userów, aby przekroczyć capacity serwera
-
 - [x] komunikat: 300 U/m - claudia: informacja, ze dobrze idzie, widać napływ userów, i w zalenosci od loadu komuniakt o stabilności systemu, albo o potrzebie dokupienia serwerów
-
-
-- gdy wykupimy minimum łącznie 60lvl serwera i aktywujemy minimum lvl 1 wszystkich upgrade  - komunikat od claudi ze mamy juz dużo serwerów i trzeba zainwestować w kolejna serwerownie
-
-- koszt nowego racka: ilość racków * 100K, max 3 racki
-- overload od 110% - komunikat o overloadzie i potrzebie dokupienia serwerów
-- overload od 150% - komunikat o krytycznym overloadzie i odpływie userów
-
-- po wykupieniu 2go serwera odblokowują się kolejne upgrade do nr 7, komunikat o nowych upgrade
+- [x] gdy wykupimy minimum łącznie 60lvl serwera  - komunikat od claudi ze mamy juz dużo serwerów i trzeba zainwestować w kolejna serwerownie
+- [x] koszt nowego racka: 100K, max 3 racki
+- [x] overload od 110% - komunikat o overloadzie i potrzebie dokupienia serwerów
+- [x] overload od 150% - komunikat o krytycznym overloadzie i odpływie userów
+- [x] po wykupieniu 2go serwera odblokowują się kolejne upgrade do nr 7, komunikat o nowych upgrade
 - claudia zaczyna byc self aware po pierwszych ai update
 - po wykupieniu 3ch serwerów i minimum 3/4 wypełnienia każdego odblokowuje się ostatnia seria upgrade
 - po zakupieniu ostatniego upgrade claudia wyswietla ostatni komunikat i konic gry

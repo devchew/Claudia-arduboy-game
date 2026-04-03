@@ -15,6 +15,8 @@ uint8_t companionPopupCloseTimeout = 0;
 
 uint8_t introSequence = 0;
 
+#define MaxHelpPrompts 17
+
 const PROGMEM char helpPrompt0[] = "Initializing system...";
 const PROGMEM char helpPrompt1[] = "Connecting to node...";
 const PROGMEM char helpPrompt2[] = "Data center status:\nONLINE";
@@ -30,8 +32,10 @@ const PROGMEM char helpPrompt11[] = "System is overloaded\nbuy more servers\nor 
 const PROGMEM char helpPrompt12[] = "System is overloaded\nusers are leaving!";
 const PROGMEM char helpPrompt13[] = "Great progress!\nUsers are flowing in.\nSystems are stable.";
 const PROGMEM char helpPrompt14[] = "Users are flooding in!\nWe need more servers\nto handle the load.";
+const PROGMEM char helpPrompt15[] = "You have unlocked\nmore racks!\nExpand your server room!";
+const PROGMEM char helpPrompt16[] = "You have unlocked\nAI upgrades!\nBoost your system with AI!";
 
-const char* const helpPrompts[15] PROGMEM = {
+const char* const helpPrompts[MaxHelpPrompts] PROGMEM = {
   helpPrompt0,
   helpPrompt1,
   helpPrompt2,
@@ -46,10 +50,12 @@ const char* const helpPrompts[15] PROGMEM = {
   helpPrompt11,
   helpPrompt12,
   helpPrompt13,
-  helpPrompt14
+  helpPrompt14,
+  helpPrompt15,
+  helpPrompt16
 };
 
-boolean helpProptsState[15] = {
+boolean helpProptsState[MaxHelpPrompts] = {
   false
 };
 
@@ -114,8 +120,19 @@ void compainionHelp() {
     }
   }
 
+  // load above 110% - warning about overload
+  if (loadPercent > 105) {
+    drawCompainionHelp(11);
+  }
+
+  // load above 150% - warning about users leaving
+  if (inboundPenalty) {
+    drawCompainionHelp(12);
+  }
+
+
   // milestone: 300 inbound - message depends on load
-  if (inbound >= 300 && !helpProptsState[13] && !helpProptsState[14]) {
+  if (inbound >= 300) {
     if (loadPercent < 80) {
       drawCompainionHelp(13);
     } else {
@@ -123,10 +140,14 @@ void compainionHelp() {
     }
   }
 
-  if (loadPercent > 105) {
-    drawCompainionHelp(11);
+  // more racks unlocked - message about unlocking more racks
+  if (availableRacks > 1) {
+    drawCompainionHelp(15);
   }
-  if (inboundPenalty) {
-    drawCompainionHelp(12);
+
+  //unlock AI upgrades
+  if (visibleUpgrades > 5) {
+    drawCompainionHelp(16);
   }
+
 }

@@ -11,15 +11,18 @@ uint32_t totalCapacity = 0;
 bool inboundPenalty = false;
 
 const uint16_t serverPrice = 1000;
-const uint16_t rackPrice = 10000;
+const uint16_t rackPrice = 100000;
 uint8_t availableRacks = 1;
 bool currentRackEmpty = false;
 
 #define serverLevelCapacityScale 15
 #define serverCostFactor 2
-#define moneyPerUser 2
+#define moneyPerUser 9
 #define startingInbound 1
 #define maxUsersPenaltyCap 10
+
+uint8_t visibleUpgrades = 5;
+uint8_t filledRacksSlots = 0;
 
 bool buyIfPosible(uint32_t price) {
   if (money >= price) {
@@ -43,9 +46,13 @@ void recalculateStats() {
 
   totalCapacity = 0;
 
+  filledRacksSlots = 0;
   for(uint8_t r = 0; r < racksAmmount; r++) {
     for(uint8_t s = 0; s < RackSize; s++) {
       totalCapacity += racks[r][s] * serverLevelCapacityScale;
+      if (racks[r][s] > 0) {
+        filledRacksSlots++;
+      }
     }
   }
 
@@ -59,6 +66,17 @@ void recalculateStats() {
     if (inbound > maxUsersPenaltyCap) {
       inbound = maxUsersPenaltyCap;
     }
+  }
+
+  // if there is at least total level 50 of servers, unlock all racks
+  // level 50 * serverLevelCapacityScale 15 = 750 total capacity
+  if (totalCapacity >= 750 && availableRacks <= 1) {
+    availableRacks = MaxRacks;
+  }
+
+  // if there is at least morse than 1 rack fully filled, unlock all but the last upgrade
+  if (filledRacksSlots > RackSize && visibleUpgrades <= 5) {
+    visibleUpgrades = MaxUpgrades -1; // unlock all but the last upgrade
   }
 }
 
