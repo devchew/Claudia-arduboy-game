@@ -14,14 +14,14 @@ uint8_t cursorPosition = 3;
 uint8_t visibleRack = 0;
 
 void drawServerSlot(uint8_t x, uint8_t y) {
-  arduboy.drawBitmap(x, y, serverBlank, 28, 8, WHITE);
+  arduboy.drawBitmap(x, y, sprite_serverBlank, 28, 8, WHITE);
 }
 
 
 void drawServer(uint8_t x, uint8_t y, uint8_t level) {
   arduboy.drawRoundRect(x,y,28,8,1,WHITE);
   for (int i = 0; i <= level / 5; i++) {
-    arduboy.drawBitmap(x+2 + (i * 5), y+2, serverSlots[max(min(level - (i * 4),3),3)], 4, 8, WHITE); //@todo fix the slot number
+    arduboy.drawBitmap(x+2 + (i * 5), y+2, sprite_serverSlots[max(min(level - (i * 4),3),3)], 4, 8, WHITE); //@todo fix the slot number
   }
 }
 
@@ -58,7 +58,7 @@ void drawServerStats() {
   font3x5.setCursor(90, 12);
   font3x5.print(F("Capacity"));
 
-  arduboy.drawBitmap(90, 23, inboundSymbol, 13, 8, WHITE);
+  arduboy.drawBitmap(90, 23, sprite_inboundSymbol, 13, 8, WHITE);
   font3x5.setCursor(107, 22);
   printValue(totalCapacity);
 
@@ -92,7 +92,7 @@ void drawSelectedCost() {
     return;
   }
 
-  arduboy.drawBitmap(85, 45, currencySymbol, 5,8);
+  arduboy.drawBitmap(85, 45, sprite_currencySymbol, 5,8);
 
   font3x5.setCursor(85, 35);
   if (racks[visibleRack][cursorPosition] > 0) {
@@ -108,11 +108,11 @@ void drawSelectedCost() {
 
 void drawServersNavigation() {
   //left button
-  Arduboy2Base::drawBitmap(45, 57, buttonsLeft, 7, 8, WHITE);
+  Arduboy2Base::drawBitmap(45, 57, sprite_buttonsLeft, 7, 8, WHITE);
   font3x5.setCursor(55, 57);
   font3x5.print(F("Office"));
 
-  Arduboy2Base::drawBitmap(90, 57, buttonsRight, 7, 8, WHITE);
+  Arduboy2Base::drawBitmap(90, 57, sprite_buttonsRight, 7, 8, WHITE);
   font3x5.setCursor(100, 57);
   if (racks[visibleRack][cursorPosition] > 0) {
     font3x5.print(F("Upgrade"));

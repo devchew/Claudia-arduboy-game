@@ -18,11 +18,11 @@ void drawSettingsNavigation() {
   arduboy.fillRect(0, 56, 128, 8, BLACK);
 
   //left button
-  Arduboy2Base::drawBitmap(45, 57, buttonsLeft, 7, 8, WHITE);
+  Arduboy2Base::drawBitmap(45, 57, sprite_buttonsLeft, 7, 8, WHITE);
   font3x5.setCursor(55, 57);
   font3x5.print(F("Servers"));
 
-  Arduboy2Base::drawBitmap(90, 57, buttonsRight, 7, 8, WHITE);
+  Arduboy2Base::drawBitmap(90, 57, sprite_buttonsRight, 7, 8, WHITE);
   font3x5.setCursor(100, 57);
   font3x5.print(F("Toggle"));
 

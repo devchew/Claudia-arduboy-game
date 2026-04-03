@@ -70,7 +70,7 @@ boolean drawCompainionHelp(uint8_t helpIndex) {
   arduboy.fillRoundRect(8, 6, 115, 50, 5, BLACK);
   arduboy.drawRoundRect(8, 5, 115, 50, 5, WHITE);
   if (helpIndex >= 6) {
-    Sprites::drawOverwrite(90, 18, claudia, 0); //@todo blink eye fliping the 0
+    Sprites::drawOverwrite(90, 18, sprite_claudia, 0); //@todo blink eye fliping the 0
     arduboy.drawLine(12, 52, min(companionPopupCloseTimeout, 90) + 20, 52, WHITE);
   }
   font3x5.setCursor(11, 8);
@@ -80,7 +80,7 @@ boolean drawCompainionHelp(uint8_t helpIndex) {
   font3x5.print(buffer);
 
   arduboy.fillRect(0, 56,128,8, BLACK);
-  Arduboy2Base::drawBitmap(90, 57, buttonsRight, 7, 8, WHITE);
+  Arduboy2Base::drawBitmap(90, 57, sprite_buttonsRight, 7, 8, WHITE);
   font3x5.setCursor(100, 57);
   font3x5.print(F("Ok"));
 

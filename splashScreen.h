@@ -30,7 +30,7 @@ bool splashScreen() {
     blink = true;
     blinkCounter = 0;
   }
-  Sprites::drawOverwrite(76, 24, claudia, blink ? 0 : 1);
+  Sprites::drawOverwrite(76, 24, sprite_claudia, blink ? 0 : 1);
   arduboy.drawBitmap(20, 7, sprite_game_intro, 86, 32, WHITE);
   arduboy.drawBitmap(0, 53, sprite_devchew, 13, 11, WHITE);
   font3x5.setCursor(15, 57);

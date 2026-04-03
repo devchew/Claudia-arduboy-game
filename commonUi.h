@@ -24,19 +24,19 @@ void printValue(uint32_t value) {
 }
 
 void drawCursor(uint8_t x, uint8_t y) {
-  arduboy.drawBitmap(x, y, cursor, 5, 8, WHITE);
+  arduboy.drawBitmap(x, y, sprite_cursor, 5, 8, WHITE);
 }
 
 void drawStatusBar() {
   arduboy.drawLine(0, 9, 128, 9, WHITE);
 
   // money
-  arduboy.drawBitmap(1,1, currencySymbol, 5,8);
+  arduboy.drawBitmap(1,1, sprite_currencySymbol, 5,8);
   font3x5.setCursor(8, 1);
   printValue(money);
 
   // inbound
-  arduboy.drawBitmap(32, 2, inboundSymbol, 13, 8, WHITE);
+  arduboy.drawBitmap(32, 2, sprite_inboundSymbol, 13, 8, WHITE);
   font3x5.setCursor(47, 1);
   printValue(inbound);
   if (inboundPenalty) {
@@ -44,9 +44,9 @@ void drawStatusBar() {
   }
 
   //load
-  arduboy.drawBitmap(70,1, loadSymbol, 5, 8, WHITE);
+  arduboy.drawBitmap(70,1, sprite_loadSymbol, 5, 8, WHITE);
   arduboy.drawRect(77, 1, 50, 7, WHITE);
-  arduboy.drawBitmap(78, 2, loadBarFilled, min(loadPercent/2,48) , 8);
+  arduboy.drawBitmap(78, 2, sprite_loadBarFilled, min(loadPercent/2,48) , 8);
   //linfill;
   if (loadPercent < 100) {
     arduboy.drawLine(77 + loadPercent/2, 1, 77 + loadPercent/2, 7, WHITE);

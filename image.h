@@ -47,17 +47,17 @@ const uint8_t PROGMEM sprite_rack[] = {
 };
 
 // 13x8, 1 frame(s), 13 bytes
-// Example: Arduboy2Base::drawBitmap(x, y, inboundSymbol, 13, 8, WHITE);
-const uint8_t PROGMEM inboundSymbol[] = {
+// Example: Arduboy2Base::drawBitmap(x, y, sprite_inboundSymbol, 13, 8, WHITE);
+const uint8_t PROGMEM sprite_inboundSymbol[] = {
   0x0f, 0x10, 0x10, 0x0f, 0x00, 0x1c, 0x07, 0x00, 0x1f, 0x02, 0x04, 0x02,
   0x1f,
 };
 
 // 50x8, 1 frame(s), 50 bytes
-// Example: Arduboy2Base::drawBitmap(x, y, loadBarFilled, 50, 8, WHITE);
+// Example: Arduboy2Base::drawBitmap(x, y, sprite_loadBarFilled, 50, 8, WHITE);
 // 48x8, 1 frame(s), 48 bytes
-// Example: Arduboy2Base::drawBitmap(x, y, loadBarFilled, 48, 8, WHITE);
-const uint8_t PROGMEM loadBarFilled[] = {
+// Example: Arduboy2Base::drawBitmap(x, y, sprite_loadBarFilled, 48, 8, WHITE);
+const uint8_t PROGMEM sprite_loadBarFilled[] = {
   0x15, 0x0a, 0x15, 0x0a, 0x15, 0x0a, 0x15, 0x0a, 0x15, 0x0a, 0x15, 0x0a,
   0x15, 0x0a, 0x15, 0x0a, 0x15, 0x0a, 0x15, 0x0a, 0x15, 0x0a, 0x15, 0x0a,
   0x15, 0x0a, 0x15, 0x0a, 0x15, 0x0a, 0x15, 0x0a, 0x15, 0x0a, 0x15, 0x0a,
@@ -65,85 +65,85 @@ const uint8_t PROGMEM loadBarFilled[] = {
 };
 
 // 28x8, 1 frame(s), 28 bytes
-// Example: Arduboy2Base::drawBitmap(x, y, serverBlank, 28, 8, WHITE);
-const uint8_t PROGMEM serverBlank[] = {
+// Example: Arduboy2Base::drawBitmap(x, y, sprite_serverBlank, 28, 8, WHITE);
+const uint8_t PROGMEM sprite_serverBlank[] = {
   0x5a, 0x81, 0x00, 0x81, 0x00, 0x81, 0x00, 0x81, 0x00, 0x81, 0x00, 0x81,
   0x00, 0x81, 0x81, 0x00, 0x81, 0x00, 0x81, 0x00, 0x81, 0x00, 0x81, 0x00,
   0x81, 0x00, 0x81, 0x5a,
 };
 
 // 4x8, 1 frame(s), 4 bytes
-// Example: Arduboy2Base::drawBitmap(x, y, serverSlot, 4, 8, WHITE);
-const uint8_t PROGMEM serverSlot1[] = {
+// Example: Arduboy2Base::drawBitmap(x, y, sprite_serverSlot, 4, 8, WHITE);
+const uint8_t PROGMEM sprite_serverSlot1[] = {
   0x0f, 0x09, 0x09, 0x0e,
 };
 
 // 4x8, 1 frame(s), 4 bytes
-// Example: Arduboy2Base::drawBitmap(x, y, serverSlot2, 4, 8, WHITE);
-const uint8_t PROGMEM serverSlot2[] = {
+// Example: Arduboy2Base::drawBitmap(x, y, sprite_serverSlot2, 4, 8, WHITE);
+const uint8_t PROGMEM sprite_serverSlot2[] = {
   0x0f, 0x0d, 0x09, 0x0e,
 };
 
 // 4x8, 1 frame(s), 4 bytes
-// Example: Arduboy2Base::drawBitmap(x, y, serverSlot3, 4, 8, WHITE);
-const uint8_t PROGMEM serverSlot3[] = {
+// Example: Arduboy2Base::drawBitmap(x, y, sprite_serverSlot3, 4, 8, WHITE);
+const uint8_t PROGMEM sprite_serverSlot3[] = {
   0x0f, 0x0d, 0x0b, 0x0e,
 };
 
 // 4x8, 1 frame(s), 4 bytes
-// Example: Arduboy2Base::drawBitmap(x, y, serverSlot4, 4, 8, WHITE);
-const uint8_t PROGMEM serverSlot4[] = {
+// Example: Arduboy2Base::drawBitmap(x, y, sprite_serverSlot4, 4, 8, WHITE);
+const uint8_t PROGMEM sprite_serverSlot4[] = {
   0x0f, 0x0f, 0x0f, 0x0e,
 };
 
 // array of pointers to server slots
-const uint8_t* const serverSlots[] PROGMEM = {
-  serverSlot1,
-  serverSlot2,
-  serverSlot3,
-  serverSlot4,
+const uint8_t* const sprite_serverSlots[] PROGMEM = {
+  sprite_serverSlot1,
+  sprite_serverSlot2,
+  sprite_serverSlot3,
+  sprite_serverSlot4,
 };
 
 
 // 5x8, 1 frame(s), 5 bytes
-// Example: Arduboy2Base::drawBitmap(x, y, cursor, 5, 8, WHITE);
-const uint8_t PROGMEM cursor[] = {
+// Example: Arduboy2Base::drawBitmap(x, y, sprite_cursor, 5, 8, WHITE);
+const uint8_t PROGMEM sprite_cursor[] = {
   0x09, 0x0f, 0x06, 0x06, 0x00,
 };
 
 // 5x8, 1 frame(s), 5 bytes
-// Example: Arduboy2Base::drawBitmap(x, y, currencySymbol, 5, 8, WHITE);
-const uint8_t PROGMEM currencySymbol[] = {
+// Example: Arduboy2Base::drawBitmap(x, y, sprite_currencySymbol, 5, 8, WHITE);
+const uint8_t PROGMEM sprite_currencySymbol[] = {
   0x32, 0x2a, 0x7f, 0x2a, 0x26,
 };
 
 // 5x8, 1 frame(s), 5 bytes
-// Example: Arduboy2Base::drawBitmap(x, y, loadSymbol, 5, 8, WHITE);
-const uint8_t PROGMEM loadSymbol[] = {
+// Example: Arduboy2Base::drawBitmap(x, y, sprite_loadSymbol, 5, 8, WHITE);
+const uint8_t PROGMEM sprite_loadSymbol[] = {
   0x63, 0x13, 0x08, 0x64, 0x63,
 };
 
 // 7x8, 1 frame(s), 7 bytes
-// Example: Arduboy2Base::drawBitmap(x, y, buttonsRight, 7, 8, WHITE);
-const uint8_t PROGMEM buttonsRight[] = {
+// Example: Arduboy2Base::drawBitmap(x, y, sprite_buttonsRight, 7, 8, WHITE);
+const uint8_t PROGMEM sprite_buttonsRight[] = {
   0x30, 0x48, 0x48, 0x36, 0x0f, 0x0f, 0x06,
 };
 
 // 7x8, 1 frame(s), 7 bytes
-// Example: Arduboy2Base::drawBitmap(x, y, buttonsLeft, 7, 8, WHITE);
-const uint8_t PROGMEM buttonsLeft[] = {
+// Example: Arduboy2Base::drawBitmap(x, y, sprite_buttonsLeft, 7, 8, WHITE);
+const uint8_t PROGMEM sprite_buttonsLeft[] = {
   0x30, 0x78, 0x78, 0x36, 0x09, 0x09, 0x06,
 };
 
 // 3x8, 1 frame(s), 3 bytes
-// Example: Arduboy2Base::drawBitmap(x, y, plusSign, 3, 8, WHITE);
-const uint8_t PROGMEM plusSign[] = {
+// Example: Arduboy2Base::drawBitmap(x, y, sprite_plusSign, 3, 8, WHITE);
+const uint8_t PROGMEM sprite_plusSign[] = {
   0x02, 0x07, 0x02,
 };
 
 // 18x32, 1 frame(s), 72 bytes
-// Example: Arduboy2Base::drawBitmap(x, y, compainion, 18, 32, WHITE);
-const uint8_t PROGMEM compainion[] = {
+// Example: Arduboy2Base::drawBitmap(x, y, sprite_compainion, 18, 32, WHITE);
+const uint8_t PROGMEM sprite_compainion[] = {
   0x00, 0x00, 0x00, 0x90, 0x88, 0x04, 0x02, 0x01, 0x01, 0x01, 0x01, 0x01,
   0x01, 0x06, 0x38, 0x00, 0x00, 0x00, 0x31, 0x49, 0x45, 0x44, 0x38, 0x00,
   0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0xe1, 0x11, 0x12, 0x92, 0xe2, 0x04,
@@ -153,8 +153,8 @@ const uint8_t PROGMEM compainion[] = {
 };
 
 // 51x48, 2 frame(s), 614 bytes
-// Example: Sprites::drawOverwrite(x, y, claudia, frame);
-const uint8_t PROGMEM claudia[] = {
+// Example: Sprites::drawOverwrite(x, y, sprite_claudia, frame);
+const uint8_t PROGMEM sprite_claudia[] = {
   51, 48,
   // Frame 0
   0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x80, 0x00, 0x00, 0x00,

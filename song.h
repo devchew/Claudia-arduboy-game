@@ -3,7 +3,7 @@
 #include <ArduboyTones.h>
 
 // Ambient idle theme - C minor, slow & atmospheric
-const uint16_t song[] PROGMEM = {
+const uint16_t music_song[] PROGMEM = {
   // Part 1: Awakening - gentle Cm arpeggios
   NOTE_C4H, 512,   NOTE_DS4H, 512,  NOTE_G4H, 640,
   NOTE_DS4H, 384,  NOTE_C4H, 512,   NOTE_G3H, 640,
