@@ -197,7 +197,7 @@ void compainionHelp() {
     // od 21 do 25
     if (finalSequence < 255) {
       if (drawCompainionHelp(finalSequence)) {
-        companionPopupTimeout = 50;
+        companionPopupTimeout = 0;
         companionPopupCloseTimeout = 30;
         finalSequence++;
         if (finalSequence > 25) {
