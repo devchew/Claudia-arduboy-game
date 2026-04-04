@@ -15,7 +15,7 @@ const uint32_t rackPrice = 100000;
 uint8_t availableRacks = 1;
 bool currentRackEmpty = false;
 
-#define serverLevelCapacityScale 15
+#define serverLevelCapacityScale 18
 #define serverCostFactor 2
 #define moneyPerUser 9
 #define startingInbound 1
@@ -79,8 +79,8 @@ void recalculateStats() {
     visibleUpgrades = MaxUpgrades -1; // unlock all but the last upgrade
   }
 
-  // if at least 3 ai upgrades bought, unlock the last upgrade
-  if (upgrades[5].have > 0 && upgrades[6].have > 0 && upgrades[7].have > 0 && visibleUpgrades <= 8) {
+  // if at least 3 ai upgrades maxed, unlock the last upgrade
+  if (upgrades[5].have >= upgrades[5].max && upgrades[6].have >= upgrades[6].max && upgrades[7].have >= upgrades[7].max && upgrades[8].have >= upgrades[8].max && visibleUpgrades < MaxUpgrades - 1) {
     visibleUpgrades = MaxUpgrades; // unlock all upgrades
   }
 }

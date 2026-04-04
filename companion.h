@@ -193,7 +193,8 @@ void compainionHelp() {
   }
 
   // ostatni dodatek AI kupiony, claudia self aware
-  if (upgrades[8].have > 0) {
+  if (upgrades[MaxUpgrades - 1].have >= upgrades[MaxUpgrades - 1].max) {
+     drawCompainionHelp(21);
     // od 21 do 25
     if (finalSequence < 255) {
       if (drawCompainionHelp(finalSequence)) {

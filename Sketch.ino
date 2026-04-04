@@ -19,7 +19,7 @@
 
 todo:
 
-- [ ] ostatnia porcja komunikatw claudii, wyswietla sie tylko pierwszy i od razu pojawia sie ekran końćowey.
+- [x] ostatnia porcja komunikatw claudii, wyswietla sie tylko pierwszy i od razu pojawia sie ekran końćowey.
 brakuje pozstałych komunikatów, a powinny sie pojawiać po kolei co x sekund, a po ostatnim pojawiać ekran końcowy.
 - [ ] ostatni upgrade powinien kosztować 1mln, a nie 100k
 - [ ] poprzednie dwa upgrade poiwnny być droższe, żeby gracz nie kupował ich od razu po odblokowaniu
