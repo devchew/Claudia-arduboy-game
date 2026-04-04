@@ -7,10 +7,8 @@
 #include "OfficeScreen.h"
 #include "SettingsScreen.h"
 #include "gameLogic.h"
-
-#include <ArduboyPlaytune.h>
-#include "intro.h"
-#include "loop.h"
+#include "music.h"
+#include <ArduboyTones.h>
 #include "companion.h"
 #include "splashScreen.h"
 #include "screenTurnOffAnimation.h"
@@ -26,7 +24,7 @@ brakuje pozstałych komunikatów, a powinny sie pojawiać po kolei co x sekund, 
 
 */
 
-ArduboyPlaytune tune(arduboy.audio.enabled);
+ArduboyTones sound(arduboy.audio.enabled);
 
 Arduboy2 arduboy;
 Font3x5 font3x5 = Font3x5();
@@ -37,11 +35,12 @@ void setup() {
   arduboy.setFrameRate(60);
   recalculateStats();
 
-  arduboy.audio.on();
-  tune.initChannel(PIN_SPEAKER_1);
-  tune.initChannel(PIN_SPEAKER_2);
+  arduboy.audio.begin();
+  music = arduboy.audio.enabled();
 
-  tune.playScore(music_intro);
+  if (music) {
+    sound.tones(music_loop);
+  }
 }
 
 
@@ -59,8 +58,8 @@ void loop() {
 
   }
 
-  // if (!tune.playing() && music) {
-  //   tune.playScore(music_loop);
+  // if (!sound.playing() && music) {
+  //   sound.tones(music_loop);
   // }
 
   // every x frames, update the game state

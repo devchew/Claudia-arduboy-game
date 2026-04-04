@@ -1,15 +1,14 @@
 #pragma once
 
-#include <Arduboy2.h>
 #include "Font3x5.h"
 #include "image.h"
 #include "State.h"
-#include <ArduboyPlaytune.h>
+#include <ArduboyTones.h>
 
 extern Arduboy2 arduboy;
 extern Font3x5 font3x5;
-extern ArduboyPlaytune tune;
-extern const byte music_intro[] PROGMEM;
+extern ArduboyTones sound;
+extern const uint16_t music_loop[] PROGMEM;
 
 uint8_t settingsCursor = 0;
 const uint8_t settingsCount = 2;
@@ -67,10 +66,13 @@ void screenSettings() {
     if (settingsCursor == 0) {
       music = !music;
       if (music) {
-        tune.playScore(music_intro);
+        arduboy.audio.on();
+        sound.tones(music_loop);
       } else {
-        tune.stopScore();
+        sound.noTone();
+        arduboy.audio.off();
       }
+      arduboy.audio.saveOnOff();
     }
   }
 

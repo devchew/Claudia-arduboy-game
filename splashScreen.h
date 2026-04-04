@@ -4,7 +4,6 @@
 #include "Font3x5.h"
 #include "image.h"
 #include "State.h"
-#include <ArduboyPlaytune.h>
 
 bool blink = false;
 bool splashScreenDone = false;
