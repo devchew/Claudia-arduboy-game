@@ -13,6 +13,7 @@
 #include "loop.h"
 #include "companion.h"
 #include "splashScreen.h"
+#include "screenTurnOffAnimation.h"
 
 /**
 
@@ -27,9 +28,9 @@ upgrade office powinna kończyć się na 150% capacity serwera userów, aby prze
 - [x] overload od 110% - komunikat o overloadzie i potrzebie dokupienia serwerów
 - [x] overload od 150% - komunikat o krytycznym overloadzie i odpływie userów
 - [x] po wykupieniu 2go serwera odblokowują się kolejne upgrade do nr 7, komunikat o nowych upgrade
-- claudia zaczyna byc self aware po pierwszych ai update
-- po wykupieniu 3ch serwerów i minimum 3/4 wypełnienia każdego odblokowuje się ostatnia seria upgrade
-- po zakupieniu ostatniego upgrade claudia wyswietla ostatni komunikat i konic gry
+- [x] claudia zaczyna byc self aware po pierwszych ai update
+- [x] po wykupieniu 3ch serwerów i minimum 3/4 wypełnienia każdego odblokowuje się ostatnia seria upgrade
+- [ ] po zakupieniu ostatniego upgrade claudia wyswietla ostatni komunikat i konic gry
 
 */
 
@@ -58,6 +59,7 @@ void loop() {
   if (!splashScreen()) {
     return;
   }
+
 
   if (++frameTimer >= FRAME_DELAY) {
     frameTimer = 0;
@@ -94,7 +96,7 @@ void loop() {
   }
 
   arduboy.clear();
-  if (introSequence == 255) {
+  if (introSequence == 255 && finalSequence != 255) {
     drawStatusBar();
 
     if (currentScreen == 0){
@@ -106,6 +108,10 @@ void loop() {
     if (currentScreen == 2) {
       screenSettings();
     }
+  }
+
+  if (finalSequence == 255) {
+    screenTurnOffAnimation();
   }
 
   compainionHelp();

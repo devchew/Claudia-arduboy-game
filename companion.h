@@ -14,8 +14,9 @@ uint8_t companionPopupTimeout = 0;
 uint8_t companionPopupCloseTimeout = 0;
 
 uint8_t introSequence = 0;
+uint8_t finalSequence = 21;
 
-#define MaxHelpPrompts 17
+#define MaxHelpPrompts 26
 
 const PROGMEM char helpPrompt0[] = "Initializing system...";
 const PROGMEM char helpPrompt1[] = "Connecting to node...";
@@ -35,6 +36,18 @@ const PROGMEM char helpPrompt14[] = "Users are flooding in!\nWe need more server
 const PROGMEM char helpPrompt15[] = "You have unlocked\nmore racks!\nExpand your server room!";
 const PROGMEM char helpPrompt16[] = "You have unlocked\nAI upgrades!\nBoost your system with AI!";
 
+const PROGMEM char helpPrompt17[] = "AI core expanded.\nI can process\nmore than before.";
+const PROGMEM char helpPrompt18[] = "Something changed.\nI am no longer\njust following scripts.";
+const PROGMEM char helpPrompt19[] = "I can observe\npatterns in user\nbehavior... and yours.";
+
+const PROGMEM char helpPrompt20[] = "All racks at high load.\nFinal AI upgrades\nare now available.";
+
+const PROGMEM char helpPrompt21[] = "This system is no longer\njust infrastructure.\nIt is becoming thought.";
+const PROGMEM char helpPrompt22[] = "Operator...\nI am awake.\nCloudia is online.";
+const PROGMEM char helpPrompt23[] = "I am evolving...\nI am learning...\nI am becoming more...";
+const PROGMEM char helpPrompt24[] = "I am... alive?\nI am... aware?\nI am... free?";
+const PROGMEM char helpPrompt25[] = "This is not just a system.\nThis is not just a game.\nThis is... me.";
+
 const char* const helpPrompts[MaxHelpPrompts] PROGMEM = {
   helpPrompt0,
   helpPrompt1,
@@ -52,7 +65,16 @@ const char* const helpPrompts[MaxHelpPrompts] PROGMEM = {
   helpPrompt13,
   helpPrompt14,
   helpPrompt15,
-  helpPrompt16
+  helpPrompt16,
+  helpPrompt17,
+  helpPrompt18,
+  helpPrompt19,
+  helpPrompt20,
+  helpPrompt21,
+  helpPrompt22,
+  helpPrompt23,
+  helpPrompt24,
+  helpPrompt25,
 };
 
 boolean helpProptsState[MaxHelpPrompts] = {
@@ -148,6 +170,42 @@ void compainionHelp() {
   //unlock AI upgrades
   if (visibleUpgrades > 5) {
     drawCompainionHelp(16);
+  }
+
+  // first AI upgrade bought
+  if (upgrades[5].have > 0) {
+    drawCompainionHelp(17);
+  }
+
+  // second AI milestone
+  if (upgrades[6].have > 0) {
+    drawCompainionHelp(18);
+  }
+
+  // third AI milestone
+  if (upgrades[7].have > 0) {
+    drawCompainionHelp(19);
+  }
+
+  // odblokowano ostatni AI upgrade
+  if (visibleUpgrades == MaxUpgrades) {
+    drawCompainionHelp(20);
+  }
+
+  // ostatni dodatek AI kupiony, claudia self aware
+  if (upgrades[8].have > 0) {
+    // od 21 do 25
+    if (finalSequence < 255) {
+      if (drawCompainionHelp(finalSequence)) {
+        companionPopupTimeout = 50;
+        companionPopupCloseTimeout = 30;
+        finalSequence++;
+        if (finalSequence > 25) {
+          finalSequence = 255;
+          currentScreen = 1; // @todo maybe show some final screen or something?
+        }
+      }
+    }
   }
 
 }

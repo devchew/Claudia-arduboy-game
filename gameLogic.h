@@ -78,6 +78,11 @@ void recalculateStats() {
   if (filledRacksSlots > RackSize && visibleUpgrades <= 5) {
     visibleUpgrades = MaxUpgrades -1; // unlock all but the last upgrade
   }
+
+  // if at least 3 ai upgrades bought, unlock the last upgrade
+  if (upgrades[5].have > 0 && upgrades[6].have > 0 && upgrades[7].have > 0 && visibleUpgrades <= 8) {
+    visibleUpgrades = MaxUpgrades; // unlock all upgrades
+  }
 }
 
 void tickUpdate() {
