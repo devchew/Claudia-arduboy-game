@@ -67,9 +67,9 @@ void loop() {
 
   }
 
-  if (!tune.playing() && music) {
-    tune.playScore(music_loop);
-  }
+  // if (!tune.playing() && music) {
+  //   tune.playScore(music_loop);
+  // }
 
   // every x frames, update the game state
   if (currentFrame == 0 && introSequence == 255) {
