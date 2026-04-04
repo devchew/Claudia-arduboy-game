@@ -11,7 +11,7 @@ uint32_t totalCapacity = 0;
 bool inboundPenalty = false;
 
 const uint16_t serverPrice = 1000;
-const uint16_t rackPrice = 100000;
+const uint32_t rackPrice = 100000;
 uint8_t availableRacks = 1;
 bool currentRackEmpty = false;
 
