@@ -13,7 +13,6 @@ bool music = true;
 #define MaxRacks 3
 #define MaxServerLevel 20
 
-uint8_t racksAmmount = 1;
 //all racks
 uint8_t racks[MaxRacks][RackSize] = {
   {0, 0, 0, 1},

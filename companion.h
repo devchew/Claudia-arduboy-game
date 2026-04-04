@@ -34,10 +34,10 @@ const PROGMEM char helpPrompt12[] = "System is overloaded\nusers are leaving!";
 const PROGMEM char helpPrompt13[] = "Great progress!\nUsers are flowing in.\nSystems are stable.";
 const PROGMEM char helpPrompt14[] = "Users are flooding in!\nWe need more servers\nto handle the load.";
 const PROGMEM char helpPrompt15[] = "You have unlocked\nmore racks!\nExpand your server room!";
-const PROGMEM char helpPrompt16[] = "You have unlocked\nAI upgrades!\nBoost your system with AI!";
+const PROGMEM char helpPrompt16[] = "You have unlocked\nAI upgrades!\nBoost your system\nwith AI!";
 
 const PROGMEM char helpPrompt17[] = "AI core expanded.\nI can process\nmore than before.";
-const PROGMEM char helpPrompt18[] = "Something changed.\nI am no longer\njust following scripts.";
+const PROGMEM char helpPrompt18[] = "Something changed.\nI am no longer\njust following\nscripts.";
 const PROGMEM char helpPrompt19[] = "I can observe\npatterns in user\nbehavior... and yours.";
 
 const PROGMEM char helpPrompt20[] = "All racks at high load.\nFinal AI upgrades\nare now available.";

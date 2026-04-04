@@ -47,7 +47,7 @@ void recalculateStats() {
   totalCapacity = 0;
 
   filledRacksSlots = 0;
-  for(uint8_t r = 0; r < racksAmmount; r++) {
+  for(uint8_t r = 0; r < availableRacks; r++) {
     for(uint8_t s = 0; s < RackSize; s++) {
       totalCapacity += racks[r][s] * serverLevelCapacityScale;
       if (racks[r][s] > 0) {
