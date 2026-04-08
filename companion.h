@@ -13,7 +13,7 @@ bool helpVisible = false;
 uint8_t companionPopupTimeout = 0;
 uint8_t companionPopupOpenTimer = 0;
 
-uint8_t introSequence = 0;
+uint8_t introSequence = 255;
 uint8_t finalSequence = 21;
 
 #define MaxHelpPrompts 26

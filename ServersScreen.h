@@ -64,14 +64,14 @@ void drawRack(int8_t x, uint8_t y, uint8_t state[RackSize]) {
 
 void drawServerStats() {
   
-  arduboy.drawLine(85, 11, 85, 33, WHITE);
-  arduboy.drawLine(85, 33, 126, 33, WHITE);
+  arduboy.drawLine(85, 11, 85, 26, WHITE);
+  arduboy.drawLine(85, 26, 126, 26, WHITE);
 
-  font3x5.setCursor(90, 12);
+  font3x5.setCursor(88, 11);
   font3x5.print(F("Capacity"));
 
-  arduboy.drawBitmap(90, 23, sprite_inboundSymbol, 13, 8, WHITE);
-  font3x5.setCursor(107, 22);
+  arduboy.drawBitmap(88, 19, sprite_inboundSymbol, 13, 8, WHITE);
+  font3x5.setCursor(107, 18);
   printValue(totalCapacity);
 
 }
@@ -104,23 +104,32 @@ uint32_t getServerPurchasePrice() {
   return serverPrice;
 }
 
+uint32_t getServerNextBonus() {
+  return serverLevelCapacityScale;
+}
+
 void drawSelectedCost() {
   if (!canPurchaseSelectedServer()){
     return;
   }
 
-  arduboy.drawBitmap(85, 45, sprite_currencySymbol, 5,8);
-
-  font3x5.setCursor(85, 35);
+  font3x5.setCursor(85, 27);
   if (racks[visibleRack][cursorPosition] > 0) {
     font3x5.print(F("Upgrade"));
   } else {
     font3x5.print(F("Buy"));
   }
   
-  font3x5.setCursor(93, 45);
+  //price
+  arduboy.drawBitmap(85, 37, sprite_currencySymbol, 5,8);
+  font3x5.setCursor(93, 37);
   printValue(getServerPurchasePrice());
 
+  // bonus
+  arduboy.drawBitmap(85, 46, sprite_inboundSymbol, 13,8);
+  font3x5.setCursor(101, 45);
+  font3x5.print(F("+"));
+  printValue(getServerNextBonus());
 }
 
 void drawServersNavigation() {
@@ -238,6 +247,8 @@ void screenServer() {
     drawCursor(0, (cursorPosition * 9) + 16);
   }
 
+  // background to prevent artifacts during rack scroll
+  arduboy.fillRect(85, 11, 42, 46, BLACK);
   drawSelectedCost();
   drawServerStats();
   drawServersNavigation();

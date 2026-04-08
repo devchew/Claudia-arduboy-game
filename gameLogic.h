@@ -12,10 +12,10 @@ bool inboundPenalty = false;
 
 const uint16_t serverPrice = 1000;
 const uint32_t rackPrice = 100000;
-uint8_t availableRacks = 1;
+uint8_t availableRacks = 2;
 bool currentRackEmpty = false;
 
-#define serverLevelCapacityScale 18
+#define serverLevelCapacityScale 19
 #define serverCostFactor 2
 #define moneyPerUser 1
 #define startingInbound 1
