@@ -11,7 +11,7 @@ extern Font3x5 font3x5;
 
 bool helpVisible = false;
 uint8_t companionPopupTimeout = 0;
-uint8_t companionPopupCloseTimeout = 0;
+uint8_t companionPopupOpenTimer = 0;
 
 uint8_t introSequence = 0;
 uint8_t finalSequence = 21;
@@ -91,20 +91,23 @@ boolean drawCompainionHelp(uint8_t helpIndex) {
   }
   
   helpVisible = true;
-  if(companionPopupCloseTimeout++ > 100) {
-    companionPopupCloseTimeout = 100;
+  if(companionPopupOpenTimer++ > 100) {
+    companionPopupOpenTimer = 100;
   }
 
   arduboy.fillRoundRect(8, 6, 115, 50, 5, BLACK);
   arduboy.drawRoundRect(8, 5, 115, 50, 5, WHITE);
   if (helpIndex >= 6) {
     Sprites::drawOverwrite(90, 18, sprite_claudia, 0); //@todo blink eye fliping the 0
-    arduboy.drawLine(12, 52, min(companionPopupCloseTimeout, 90) + 20, 52, WHITE);
   }
   font3x5.setCursor(11, 8);
 
   char buffer[64];
   strcpy_P(buffer, (char*)pgm_read_word(&(helpPrompts[helpIndex])));
+  uint8_t len = strlen(buffer);
+  if (companionPopupOpenTimer < len) {
+    buffer[companionPopupOpenTimer] = '\0';
+  }
   font3x5.print(buffer);
 
   arduboy.fillRect(0, 56,128,8, BLACK);
@@ -112,11 +115,11 @@ boolean drawCompainionHelp(uint8_t helpIndex) {
   font3x5.setCursor(100, 57);
   font3x5.print(F("Ok"));
 
-  if (arduboy.justPressed(B_BUTTON) && companionPopupCloseTimeout > 50) {
+  if (arduboy.justPressed(B_BUTTON) && companionPopupOpenTimer > len) {
     helpVisible = false;
     helpProptsState[helpIndex] = true;
-    companionPopupCloseTimeout = 0;
-    companionPopupTimeout = 150;
+    companionPopupOpenTimer = 0;
+    companionPopupTimeout = 50;
     return true;
   }
   return false;
@@ -133,7 +136,6 @@ void compainionHelp() {
   if (introSequence < 255) {
     if (drawCompainionHelp(introSequence)) {
       companionPopupTimeout = 0;
-      companionPopupCloseTimeout = 30;
       introSequence++;
       if (introSequence > 10) {
         introSequence = 255;
