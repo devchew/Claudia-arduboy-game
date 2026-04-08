@@ -20,8 +20,10 @@ void drawServerSlot(uint8_t x, uint8_t y) {
 
 void drawServer(uint8_t x, uint8_t y, uint8_t level) {
   arduboy.drawRoundRect(x,y,28,8,1,WHITE);
-  for (int i = 0; i <= level / 5; i++) {
-    arduboy.drawBitmap(x+2 + (i * 5), y+2, sprite_serverSlots[max(min(level - (i * 4),3),3)], 4, 8, WHITE); //@todo fix the slot number
+  for (int i = 0; i < 5 && level > i * 4; i++) {
+    uint8_t remaining = level - (i * 4);
+    uint8_t fill = remaining > 4 ? 4 : remaining;
+    arduboy.drawBitmap(x+2 + (i * 5), y+2, (const uint8_t*)pgm_read_ptr(&sprite_serverSlots[fill - 1]), 4, 8, WHITE);
   }
 }
 
