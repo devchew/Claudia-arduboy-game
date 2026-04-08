@@ -84,8 +84,6 @@ void loop() {
 
   arduboy.clear();
   if (introSequence == 255 && finalSequence != 255) {
-    drawStatusBar();
-
     if (currentScreen == 0){
       screenServer();
     }
@@ -95,6 +93,8 @@ void loop() {
     if (currentScreen == 2) {
       screenSettings();
     }
+
+    drawStatusBar();
   }
 
   if (finalSequence == 255) {

@@ -28,6 +28,7 @@ void drawCursor(uint8_t x, uint8_t y) {
 }
 
 void drawStatusBar() {
+  arduboy.fillRect(0, 0, 128, 10, BLACK);
   arduboy.drawLine(0, 9, 128, 9, WHITE);
 
   // money

@@ -1,5 +1,7 @@
 
 uint8_t listOffest = 0;
+int8_t scrollAnimY = 0;
+const int8_t SCROLL_SPEED = 4;
 
 bool canPurchaseSelectedOfficeUpgrade() {
   return upgrades[listOffest].have < upgrades[listOffest].max;
@@ -88,14 +90,20 @@ void drawUpgrade(int8_t x, int8_t y, uint8_t upgradeIndex) {
 
 void drawUpgades() {
 
-  drawCursor(0, 18);
-
-  for(int i = 0; i <= 2; i++) {
-    if (i + listOffest < visibleUpgrades) {
-      drawUpgrade(5, 12 + (i*18), i + listOffest);
+  for(int i = -1; i <= 3; i++) {
+    int8_t itemIndex = i + listOffest;
+    if (itemIndex >= 0 && itemIndex < visibleUpgrades) {
+      int8_t y = 12 + (i * 18) + scrollAnimY;
+      if (y > -17 && y < 56) {
+        drawUpgrade(5, y, itemIndex);
+      }
     }
   }
 
+  // clip top and bottom to hide partially scrolled items
+  arduboy.fillRect(0, 10, 128, 2, BLACK);
+
+  drawCursor(0, 18);
 }
 
 
@@ -103,20 +111,33 @@ void screenOffice() {
   if (helpVisible) {
     return;
   }
-  if (arduboy.justPressed(UP_BUTTON)) {
-    if (listOffest == 0) {
-      listOffest = visibleUpgrades - 1;
-    } else {
-      listOffest--;
+  if (scrollAnimY == 0) {
+    if (arduboy.justPressed(UP_BUTTON)) {
+      if (listOffest == 0) {
+        listOffest = visibleUpgrades - 1;
+      } else {
+        listOffest--;
+      }
+      scrollAnimY = -18;
+    }
+
+    if (arduboy.justPressed(DOWN_BUTTON)) {
+      if (listOffest >= visibleUpgrades - 1) {
+        listOffest = 0;
+      } else {
+        listOffest++;
+      }
+      scrollAnimY = 18;
     }
   }
 
-  if (arduboy.justPressed(DOWN_BUTTON)) {
-    if (listOffest >= visibleUpgrades - 1) {
-      listOffest = 0;
-    } else {
-      listOffest++;
-    }
+  // animate scroll
+  if (scrollAnimY > 0) {
+    scrollAnimY -= SCROLL_SPEED;
+    if (scrollAnimY < 0) scrollAnimY = 0;
+  } else if (scrollAnimY < 0) {
+    scrollAnimY += SCROLL_SPEED;
+    if (scrollAnimY > 0) scrollAnimY = 0;
   }
 
   if (arduboy.justPressed(B_BUTTON)) {
