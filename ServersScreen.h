@@ -13,6 +13,13 @@ extern Font3x5 font3x5;
 uint8_t cursorPosition = 3;
 uint8_t visibleRack = 0;
 
+// rack scroll animation
+int8_t rackScrollX = 0;
+uint8_t prevVisibleRack = 0;
+bool prevRackEmpty = false;
+const int8_t RACK_SCROLL_SPEED = 10;
+const int8_t RACK_SCROLL_WIDTH = 80;
+
 void drawServerSlot(uint8_t x, uint8_t y) {
   arduboy.drawBitmap(x, y, sprite_serverBlank, 28, 8, WHITE);
 }
@@ -28,7 +35,7 @@ void drawServer(uint8_t x, uint8_t y, uint8_t level) {
 }
 
 
-void drawRack(uint8_t x, uint8_t y, uint8_t state[RackSize]) {
+void drawRack(int8_t x, uint8_t y, uint8_t state[RackSize]) {
 
   if (currentRackEmpty) {
     Sprites::drawOverwrite(x, y, sprite_rack, 1);
@@ -172,23 +179,38 @@ void screenServer() {
     }
   }
 
-  if (availableRacks > 1) {
+  if (availableRacks > 1 && rackScrollX == 0) {
     if (arduboy.justPressed(LEFT_BUTTON)) {
+      prevVisibleRack = visibleRack;
+      prevRackEmpty = currentRackEmpty;
       if (visibleRack < 1) {
         visibleRack = availableRacks - 1;
       } else {
         visibleRack--;
       }
       changeRack();
+      rackScrollX = -RACK_SCROLL_WIDTH;
     }
     if (arduboy.justPressed(RIGHT_BUTTON)) {
+      prevVisibleRack = visibleRack;
+      prevRackEmpty = currentRackEmpty;
       if (visibleRack >= availableRacks - 1) {
         visibleRack = 0;
       } else {
         visibleRack++;
       }
       changeRack();
+      rackScrollX = RACK_SCROLL_WIDTH;
     }
+  }
+
+  // animate rack scroll
+  if (rackScrollX > 0) {
+    rackScrollX -= RACK_SCROLL_SPEED;
+    if (rackScrollX < 0) rackScrollX = 0;
+  } else if (rackScrollX < 0) {
+    rackScrollX += RACK_SCROLL_SPEED;
+    if (rackScrollX > 0) rackScrollX = 0;
   }
 
   if (arduboy.justPressed(B_BUTTON)) {
@@ -201,8 +223,20 @@ void screenServer() {
 
 
 
-  drawRack(4, 11, racks[visibleRack]);
-  drawCursor(0, (cursorPosition * 9) + 16);
+  if (rackScrollX != 0) {
+    // draw old rack sliding out
+    bool savedEmpty = currentRackEmpty;
+    currentRackEmpty = prevRackEmpty;
+    int8_t oldRackX = 4 + rackScrollX + (rackScrollX < 0 ? RACK_SCROLL_WIDTH : -RACK_SCROLL_WIDTH);
+    drawRack(oldRackX, 11, racks[prevVisibleRack]);
+    currentRackEmpty = savedEmpty;
+
+    // draw new rack sliding in
+    drawRack(4 + rackScrollX, 11, racks[visibleRack]);
+  } else {
+    drawRack(4, 11, racks[visibleRack]);
+    drawCursor(0, (cursorPosition * 9) + 16);
+  }
 
   drawSelectedCost();
   drawServerStats();
