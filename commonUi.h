@@ -10,6 +10,9 @@
 
 extern Arduboy2 arduboy;
 extern Font3x5 font3x5;
+uint16_t displayedLoadPercent = 0;
+uint32_t displayedMoney = 350;
+uint32_t displayedInbound = 0;
 
 void printValue(uint32_t value) {
   if (value < 1000) {
@@ -31,15 +34,29 @@ void drawStatusBar() {
   arduboy.fillRect(0, 0, 128, 10, BLACK);
   arduboy.drawLine(0, 9, 128, 9, WHITE);
 
+  // smoothly animate money toward target
+  if (displayedMoney < money) {
+    displayedMoney += max((money - displayedMoney) / 4, (uint32_t)1);
+  } else if (displayedMoney > money) {
+    displayedMoney -= max((displayedMoney - money) / 4, (uint32_t)1);
+  }
+
+  // smoothly animate inbound toward target
+  if (displayedInbound < inbound) {
+    displayedInbound += max((inbound - displayedInbound) / 4, (uint32_t)1);
+  } else if (displayedInbound > inbound) {
+    displayedInbound -= max((displayedInbound - inbound) / 4, (uint32_t)1);
+  }
+
   // money
   arduboy.drawBitmap(1,1, sprite_currencySymbol, 5,8);
   font3x5.setCursor(8, 1);
-  printValue(money);
+  printValue(displayedMoney);
 
   // inbound
   arduboy.drawBitmap(35, 2, sprite_inboundSymbol, 13, 8, WHITE);
   font3x5.setCursor(50, 1);
-  printValue(inbound);
+  printValue(displayedInbound);
   if (inboundPenalty) {
     font3x5.print(F("!"));
   }
@@ -47,10 +64,19 @@ void drawStatusBar() {
   //load
   arduboy.drawBitmap(70,1, sprite_loadSymbol, 5, 8, WHITE);
   arduboy.drawRect(77, 1, 50, 7, WHITE);
-  arduboy.drawBitmap(78, 2, sprite_loadBarFilled, min(loadPercent/2,48) , 8);
+  // smoothly animate load bar toward target
+  if (displayedLoadPercent < loadPercent) {
+    displayedLoadPercent += max((loadPercent - displayedLoadPercent) / 4, 1);
+    if (displayedLoadPercent > loadPercent) displayedLoadPercent = loadPercent;
+  } else if (displayedLoadPercent > loadPercent) {
+    displayedLoadPercent -= max((displayedLoadPercent - loadPercent) / 4, 1);
+    if (displayedLoadPercent < loadPercent) displayedLoadPercent = loadPercent;
+  }
+
+  arduboy.drawBitmap(78, 2, sprite_loadBarFilled, min(displayedLoadPercent/2,48) , 8);
   //linfill;
-  if (loadPercent < 100) {
-    arduboy.drawLine(77 + loadPercent/2, 1, 77 + loadPercent/2, 7, WHITE);
+  if (displayedLoadPercent < 100) {
+    arduboy.drawLine(77 + displayedLoadPercent/2, 1, 77 + displayedLoadPercent/2, 7, WHITE);
   }
 
   if (loadPercent > 105) {

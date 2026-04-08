@@ -47,19 +47,8 @@ void loop() {
     return;
   }
 
-
-  if (++frameTimer >= FRAME_DELAY) {
-    frameTimer = 0;
-    if (++currentFrame >= FRAME_COUNT) currentFrame = 0;
-
-  }
-
-  // if (!sound.playing() && music) {
-  //   sound.tones(music_loop);
-  // }
-
   // every x frames, update the game state
-  if (currentFrame == 0 && introSequence == 255) {
+  if (arduboy.everyXFrames(20)) {
     tickUpdate();
   }
 

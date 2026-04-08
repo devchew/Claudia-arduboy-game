@@ -2,11 +2,6 @@
 
 uint8_t currentScreen = 1; // 0 - server; 1 - office; 2 - settings
 
-uint8_t currentFrame = 0;
-uint8_t frameTimer = 0;
-const uint8_t FRAME_COUNT = 20;
-const uint8_t FRAME_DELAY = 8;  // game frames between animation steps (~7 fps at 60 fps)
-
 bool music;
 
 #define RackSize 4

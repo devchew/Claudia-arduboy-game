@@ -33,8 +33,11 @@ void drawRack(uint8_t x, uint8_t y, uint8_t state[RackSize]) {
     return;
   }
   Sprites::drawOverwrite(x, y, sprite_rack, 0);
-  arduboy.drawPixel(32 + x, y + 1, currentFrame % 10 ? BLACK : WHITE); //@todo: tweak this to blink more randomly
-  arduboy.drawPixel(34 + x, y + 1, currentFrame % 12 ? BLACK : WHITE); //@todo: tweak this to blink more randomly
+  uint8_t fc = arduboy.frameCount >> 3; // slow down ~8x (every 8 frames)
+  arduboy.drawPixel(28 + x, y + 1, ((fc >> 0) ^ (fc >> 2) ^ (fc >> 6)) & 1 ? WHITE : BLACK);
+  arduboy.drawPixel(30 + x, y + 1, ((fc >> 1) ^ (fc >> 4) ^ (fc >> 6)) & 1 ? WHITE : BLACK);
+  arduboy.drawPixel(32 + x, y + 1, ((fc >> 1) ^ (fc >> 3) ^ (fc >> 5)) & 1 ? WHITE : BLACK);
+  arduboy.drawPixel(34 + x, y + 1, ((fc >> 2) ^ (fc >> 4) ^ (fc >> 7)) & 1 ? WHITE : BLACK);
   
   for(int i = 0; i < RackSize; i++) {
     font3x5.setCursor(40 + x, 4 + y + (i * 9));
