@@ -17,7 +17,7 @@ bool currentRackEmpty = false;
 
 #define serverLevelCapacityScale 18
 #define serverCostFactor 2
-#define moneyPerUser 9
+#define moneyPerUser 1
 #define startingInbound 1
 #define maxUsersPenaltyCap 10
 

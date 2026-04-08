@@ -36,8 +36,8 @@ void drawStatusBar() {
   printValue(money);
 
   // inbound
-  arduboy.drawBitmap(32, 2, sprite_inboundSymbol, 13, 8, WHITE);
-  font3x5.setCursor(47, 1);
+  arduboy.drawBitmap(35, 2, sprite_inboundSymbol, 13, 8, WHITE);
+  font3x5.setCursor(50, 1);
   printValue(inbound);
   if (inboundPenalty) {
     font3x5.print(F("!"));
