@@ -25,13 +25,33 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      - name: Setup Arduino CLI
+        uses: arduino/setup-arduino-cli@v2
+
+      - name: Install platform & libraries
+        run: |
+          arduino-cli core update-index
+          arduino-cli core install arduino:avr
+          arduino-cli lib update-index
+          arduino-cli lib install "Arduboy2"
+          arduino-cli lib install "ArduboyTones"
+          arduino-cli lib install "EEPROM"
+
+      - name: Compile Sketch
+        run: arduino-cli compile --fqbn arduino:avr:leonardo Sketch/Sketch.ino --build-path build
+
+      - name: Prepare site
+        run: |
+          mkdir -p web/games
+          cp build/Sketch.ino.hex web/games/cloudia.hex
+
       - name: Setup Pages
         uses: actions/configure-pages@v5
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: '.'
+          path: 'web'
 
       - name: Deploy to GitHub Pages
         id: deployment

@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Arduboy Player</title>
+  <title>Cloudia — Arduboy</title>
   <style>
     *, *::before, *::after {
       box-sizing: border-box;
@@ -52,41 +52,6 @@
       flex-direction: column;
       align-items: center;
       gap: 24px;
-    }
-
-    /* ── No-game placeholder ─────────────────────────────────── */
-    .no-game {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 24px;
-      padding: 40px 20px;
-      text-align: center;
-    }
-
-    .no-game img.bg {
-      width: 260px;
-      max-width: 90vw;
-      filter: drop-shadow(0 4px 24px rgba(0, 180, 255, 0.35));
-    }
-
-    .no-game h2 {
-      font-size: 1.4rem;
-      color: #aad4ff;
-    }
-
-    .no-game p {
-      max-width: 560px;
-      line-height: 1.6;
-      color: #b0b8cc;
-    }
-
-    .no-game code {
-      background: rgba(255, 255, 255, 0.08);
-      padding: 2px 6px;
-      border-radius: 4px;
-      font-size: 0.9em;
-      color: #7ecfff;
     }
 
     /* ── Emulator layout ─────────────────────────────────────── */
@@ -176,66 +141,32 @@
       color: #e8e8e8;
     }
 
-    /* ── Game library ────────────────────────────────────────── */
-    .library {
-      width: 100%;
-      display: flex;
-      flex-direction: column;
+    /* ── Download button ─────────────────────────────────────── */
+    .download-btn {
+      display: inline-flex;
       align-items: center;
-      gap: 24px;
-      padding: 16px 0;
-    }
-
-    .library h2 {
-      font-size: 1.4rem;
-      color: #aad4ff;
-    }
-
-    .game-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-      gap: 20px;
-      width: 100%;
-    }
-
-    .game-card {
-      background: rgba(255, 255, 255, 0.05);
-      border: 1px solid rgba(255, 255, 255, 0.12);
-      border-radius: 10px;
-      padding: 20px 16px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 12px;
-      cursor: pointer;
-      transition: background 0.2s, border-color 0.2s, transform 0.15s;
-      text-align: center;
-      text-decoration: none;
-      color: inherit;
-    }
-
-    .game-card:hover {
-      background: rgba(126, 207, 255, 0.12);
-      border-color: rgba(126, 207, 255, 0.5);
-      transform: translateY(-2px);
-    }
-
-    .game-card img {
-      width: 64px;
-      height: 64px;
-      object-fit: contain;
-      filter: drop-shadow(0 2px 8px rgba(0, 180, 255, 0.4));
-    }
-
-    .game-card span {
+      gap: 8px;
+      padding: 10px 20px;
+      background: rgba(126, 207, 255, 0.15);
+      border: 1px solid rgba(126, 207, 255, 0.5);
+      border-radius: 8px;
+      color: #7ecfff;
       font-size: 0.95rem;
       font-weight: 600;
-      color: #e0e0e0;
+      text-decoration: none;
+      transition: background 0.2s, transform 0.15s;
+      cursor: pointer;
     }
 
-    .library-error {
-      color: #ff8080;
-      font-size: 0.9rem;
+    .download-btn:hover {
+      background: rgba(126, 207, 255, 0.25);
+      transform: translateY(-1px);
+    }
+
+    .download-btn svg {
+      width: 18px;
+      height: 18px;
+      fill: currentColor;
     }
 
     footer {
@@ -261,11 +192,35 @@
 
   <header>
     <img class="logo" src="assets/arduboy.png" alt="Arduboy" />
-    <h1>Arduboy Player</h1>
+    <h1>Cloudia</h1>
   </header>
 
   <main id="main">
-    <!-- Content injected by JavaScript -->
+    <div class="player-layout">
+      <div class="emulator-wrapper">
+        <iframe id="emulator" title="Arduboy Emulator" allowfullscreen></iframe>
+      </div>
+      <div class="sidebar">
+        <img class="device" src="assets/arduboy.png" alt="Arduboy device" />
+
+        <a class="download-btn" href="games/cloudia.hex" download="cloudia.hex">
+          <svg viewBox="0 0 24 24"><path d="M5 20h14v-2H5v2zm7-18v12.17l3.59-3.58L17 12l-5 5-5-5 1.41-1.41L12 14.17V2z"/></svg>
+          Download .hex
+        </a>
+
+        <div class="controls-card">
+          <h2>Controls</h2>
+          <table class="controls-table"><tbody>
+            <tr><td><span class="key">↑</span> <span class="key">↓</span> <span class="key">←</span> <span class="key">→</span></td><td>D-pad</td></tr>
+            <tr><td><span class="key">A</span> <span class="key">Z</span></td><td>A button</td></tr>
+            <tr><td><span class="key">S</span> <span class="key">X</span> <span class="key">B</span></td><td>B button</td></tr>
+            <tr><td><span class="key">F2</span></td><td>Save screenshot</td></tr>
+            <tr><td><span class="key">F3</span></td><td>Toggle GIF recording</td></tr>
+            <tr><td><span class="key">F8</span></td><td>Reset</td></tr>
+          </tbody></table>
+        </div>
+      </div>
+    </div>
   </main>
 
   <footer>
@@ -275,117 +230,10 @@
 
   <script>
     (function () {
-      var params = new URLSearchParams(window.location.search);
-      var gameSlug = params.get('game');
-      var main = document.getElementById('main');
-
-      var controls = [
-        { keys: ['↑', '↓', '←', '→'], desc: 'D-pad' },
-        { keys: ['A', 'Z'], desc: 'A button' },
-        { keys: ['S', 'X', 'B'], desc: 'B button' },
-        { keys: ['F2'], desc: 'Save screenshot' },
-        { keys: ['F3'], desc: 'Toggle GIF recording' },
-        { keys: ['F8'], desc: 'Reset' },
-      ];
-
-      function buildKeySpans(keys) {
-        return keys.map(function (k) {
-          return '<span class="key">' + k + '</span>';
-        }).join(' ');
-      }
-
-      function buildControlsCard() {
-        var rows = controls.map(function (c) {
-          return '<tr><td>' + buildKeySpans(c.keys) + '</td><td>' + c.desc + '</td></tr>';
-        }).join('');
-        return '<div class="controls-card">'
-          + '<h2>Controls</h2>'
-          + '<table class="controls-table"><tbody>' + rows + '</tbody></table>'
-          + '</div>';
-      }
-
-      function escapeHtml(str) {
-        return String(str)
-          .replace(/&/g, '&amp;')
-          .replace(/</g, '&lt;')
-          .replace(/>/g, '&gt;')
-          .replace(/"/g, '&quot;');
-      }
-
-      function buildGameUrl(game) {
-        var base = window.location.href.split('?')[0];
-        return base + '?game=' + encodeURIComponent(game.slug);
-      }
-
-      function launchGame(game) {
-        var fileUrl = new URL(game.file, window.location.href).href;
-        var ardensUrl = 'https://tiberiusbrown.github.io/Ardens/player.html?file=' + encodeURIComponent(fileUrl);
-        main.innerHTML =
-          '<div class="player-layout">'
-          + '<div class="emulator-wrapper">'
-          +   '<iframe src="' + ardensUrl + '" title="Arduboy Emulator" allowfullscreen></iframe>'
-          + '</div>'
-          + '<div class="sidebar">'
-          +   '<img class="device" src="assets/arduboy.png" alt="Arduboy device" />'
-          +   buildControlsCard()
-          + '</div>'
-          + '</div>';
-      }
-
-      function renderLibrary(games) {
-        if (!games || games.length === 0) {
-          return '<div class="library"><h2>No games found</h2><p class="library-error">Add <code>.hex</code> files to the <code>games/</code> folder and update <code>games/index.json</code>.</p></div>';
-        }
-        var cards = games.map(function (g) {
-          var url = buildGameUrl(g);
-          return '<a class="game-card" href="' + escapeHtml(url) + '">'
-            + '<img src="assets/arduboy.png" alt="' + escapeHtml(g.name) + '" />'
-            + '<span>' + escapeHtml(g.name) + '</span>'
-            + '</a>';
-        }).join('');
-        return '<div class="library">'
-          + '<h2>Select a Game</h2>'
-          + '<div class="game-grid">' + cards + '</div>'
-          + '</div>';
-      }
-
-      if (gameSlug) {
-        fetch('games/index.json')
-          .then(function (r) { return r.json(); })
-          .then(function (games) {
-            var game = games.find(function (g) { return g.slug === gameSlug; });
-            if (game) {
-              launchGame(game);
-            } else {
-              main.innerHTML = '<div class="no-game">'
-                + '<h2>Game not found</h2>'
-                + '<p class="library-error">No game with slug <code>' + escapeHtml(gameSlug) + '</code> was found.</p>'
-                + '</div>';
-            }
-          })
-          .catch(function () {
-            main.innerHTML = '<div class="no-game">'
-              + '<img class="bg" src="assets/arduboy.png" alt="Arduboy device" />'
-              + '<h2>Could not load game list</h2>'
-              + '<p class="library-error">Unable to fetch <code>games/index.json</code>.</p>'
-              + buildControlsCard()
-              + '</div>';
-          });
-      } else {
-        fetch('games/index.json')
-          .then(function (r) { return r.json(); })
-          .then(function (games) {
-            main.innerHTML = renderLibrary(games);
-          })
-          .catch(function () {
-            main.innerHTML = '<div class="no-game">'
-              + '<img class="bg" src="assets/arduboy.png" alt="Arduboy device" />'
-              + '<h2>Could not load game list</h2>'
-              + '<p class="library-error">Unable to fetch <code>games/index.json</code>.</p>'
-              + buildControlsCard()
-              + '</div>';
-          });
-      }
+      var hexFile = 'games/cloudia.hex';
+      var fileUrl = new URL(hexFile, window.location.href).href;
+      var ardensUrl = 'https://tiberiusbrown.github.io/Ardens/player.html?file=' + encodeURIComponent(fileUrl);
+      document.getElementById('emulator').src = ardensUrl;
     })();
   </script>
 
