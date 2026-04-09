@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cloudia — Arduboy</title>
+  <style>
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: #1a1a2e;
+      color: #e0e0e0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    header {
+      width: 100%;
+      padding: 16px 24px;
+      background: rgba(0, 0, 0, 0.4);
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    header img.logo {
+      height: 48px;
+      width: auto;
+    }
+
+    header h1 {
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: #ffffff;
+      letter-spacing: 1px;
+    }
+
+    main {
+      flex: 1;
+      width: 100%;
+      max-width: 1200px;
+      padding: 24px 16px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 24px;
+    }
+
+    /* ── Emulator layout ─────────────────────────────────────── */
+    .player-layout {
+      width: 100%;
+      display: flex;
+      gap: 24px;
+      align-items: flex-start;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .emulator-wrapper {
+      flex: 1 1 640px;
+      min-height: 480px;
+      background: #000;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 4px 32px rgba(0, 180, 255, 0.2);
+    }
+
+    .emulator-wrapper iframe {
+      width: 100%;
+      height: 640px;
+      border: none;
+      display: block;
+    }
+
+    /* ── Sidebar ─────────────────────────────────────────────── */
+    .sidebar {
+      flex: 0 0 260px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .sidebar img.device {
+      width: 100%;
+      filter: drop-shadow(0 4px 24px rgba(0, 180, 255, 0.35));
+    }
+
+    .controls-card {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 10px;
+      padding: 16px 20px;
+    }
+
+    .controls-card h2 {
+      font-size: 1rem;
+      color: #7ecfff;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 12px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      padding-bottom: 8px;
+    }
+
+    .controls-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.88rem;
+    }
+
+    .controls-table tr + tr td {
+      border-top: 1px solid rgba(255, 255, 255, 0.06);
+    }
+
+    .controls-table td {
+      padding: 6px 4px;
+      vertical-align: top;
+    }
+
+    .controls-table td:first-child {
+      white-space: nowrap;
+      padding-right: 12px;
+    }
+
+    .key {
+      display: inline-block;
+      background: rgba(255, 255, 255, 0.12);
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      border-radius: 4px;
+      padding: 1px 6px;
+      font-family: monospace;
+      font-size: 0.85em;
+      color: #e8e8e8;
+    }
+
+    /* ── Download button ─────────────────────────────────────── */
+    .download-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 20px;
+      background: rgba(126, 207, 255, 0.15);
+      border: 1px solid rgba(126, 207, 255, 0.5);
+      border-radius: 8px;
+      color: #7ecfff;
+      font-size: 0.95rem;
+      font-weight: 600;
+      text-decoration: none;
+      transition: background 0.2s, transform 0.15s;
+      cursor: pointer;
+    }
+
+    .download-btn:hover {
+      background: rgba(126, 207, 255, 0.25);
+      transform: translateY(-1px);
+    }
+
+    .download-btn svg {
+      width: 18px;
+      height: 18px;
+      fill: currentColor;
+    }
+
+    footer {
+      width: 100%;
+      padding: 16px 24px;
+      text-align: center;
+      font-size: 0.8rem;
+      color: #666;
+      border-top: 1px solid rgba(255, 255, 255, 0.06);
+    }
+
+    footer a {
+      color: #7ecfff;
+      text-decoration: none;
+    }
+
+    footer a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <img class="logo" src="assets/arduboy.png" alt="Arduboy" />
+    <h1>Cloudia</h1>
+  </header>
+
+  <main id="main">
+    <div class="player-layout">
+      <div class="emulator-wrapper">
+        <iframe id="emulator" title="Arduboy Emulator" allowfullscreen></iframe>
+      </div>
+      <div class="sidebar">
+        <img class="device" src="assets/arduboy.png" alt="Arduboy device" />
+
+        <a class="download-btn" href="games/cloudia.hex" download="cloudia.hex">
+          <svg viewBox="0 0 24 24"><path d="M5 20h14v-2H5v2zm7-18v12.17l3.59-3.58L17 12l-5 5-5-5 1.41-1.41L12 14.17V2z"/></svg>
+          Download .hex
+        </a>
+
+        <div class="controls-card">
+          <h2>Controls</h2>
+          <table class="controls-table"><tbody>
+            <tr><td><span class="key">↑</span> <span class="key">↓</span> <span class="key">←</span> <span class="key">→</span></td><td>D-pad</td></tr>
+            <tr><td><span class="key">A</span> <span class="key">Z</span></td><td>A button</td></tr>
+            <tr><td><span class="key">S</span> <span class="key">X</span> <span class="key">B</span></td><td>B button</td></tr>
+            <tr><td><span class="key">F2</span></td><td>Save screenshot</td></tr>
+            <tr><td><span class="key">F3</span></td><td>Toggle GIF recording</td></tr>
+            <tr><td><span class="key">F8</span></td><td>Reset</td></tr>
+          </tbody></table>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    Powered by <a href="https://github.com/tiberiusbrown/Ardens" target="_blank" rel="noopener">Ardens</a> &mdash;
+    Arduboy image from <a href="https://github.com/felipemanga/ProjectABE" target="_blank" rel="noopener">ProjectABE</a>
+  </footer>
+
+  <script>
+    (function () {
+      var hexFile = 'games/cloudia.hex';
+      var fileUrl = new URL(hexFile, window.location.href).href;
+      var ardensUrl = 'https://tiberiusbrown.github.io/Ardens/player.html?file=' + encodeURIComponent(fileUrl);
+      document.getElementById('emulator').src = ardensUrl;
+    })();
+  </script>
+
+</body>
+</html>
