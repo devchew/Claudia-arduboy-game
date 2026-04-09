@@ -65,19 +65,19 @@ const char* const upgradesNames[MaxUpgrades] PROGMEM = {
 
 
 Upgrade upgrades[MaxUpgrades] = {
-/*   cost | bonus | nextB | have | max | */
-  {80     ,  0  ,   10  ,  0   ,  5  }, // user messaging
-  {1000    ,  0  ,   22  ,  0   ,  5  }, // push notifications
-  {3500    ,  0  ,   45  ,  0   ,  2  }, // load balancing
-  {12000    ,  0  ,   60  ,  0   ,  2  }, // request routing
-  {40000    ,  0  ,   85  ,  0   ,  5  }, // async processing
+/* cost    | bonus | nextB | have | max | */
+  {80        ,  0  ,  10   ,  0   ,  5  }, // user messaging
+  {1000      ,  0  ,  22   ,  0   ,  5  }, // push notifications
+  {3500      ,  0  ,  45   ,  0   ,  2  }, // load balancing
+  {12000     ,  0  ,  60   ,  0   ,  2  }, // request routing
+  {40000     ,  0  ,  85   ,  0   ,  5  }, // async processing
   
-  // w tym momencie masz około 500k kasy więc ceny powinny być wysokie, ale bonusy też powinny być duże, żeby gracz czuł, że warto inwestować w te dodatki
-  {200000    ,  0  ,   30  ,  0   ,  5  }, // ai core upgrade
-  {400000   ,  0  ,   50  ,  0   ,  5  }, // ai context awareness
-  {4000000  ,  0  ,   60  ,  0   ,  5  }, // ai smart responses
-  {20000000  ,  0  ,   80  ,  0   ,  5  }, // predictive ai
-  {800000000,  0  ,   100 ,  0   ,  1  } // self evolving ai
+// w tym momencie masz około 500k kasy więc ceny powinny być wysokie, ale bonusy też powinny być duże, żeby gracz czuł, że warto inwestować w te dodatki
+  {200000    ,  0  ,  120  ,  0   ,  5  }, // ai core upgrade
+  {400000    ,  0  ,  200  ,  0   ,  5  }, // ai context awareness
+  {4000000   ,  0  ,  400  ,  0   ,  5  }, // ai smart responses
+  {20000000  ,  0  ,  800  ,  0   ,  5  }, // predictive ai
+  {800000000 ,  0  ,  1000 ,  0   ,  1  } // self evolving ai
 };
 
 
