@@ -35,7 +35,6 @@ jobs:
           arduino-cli lib update-index
           arduino-cli lib install "Arduboy2"
           arduino-cli lib install "ArduboyTones"
-          arduino-cli lib install "EEPROM"
 
       - name: Compile Sketch
         run: arduino-cli compile --fqbn arduino:avr:leonardo Sketch/Sketch.ino --build-path build
