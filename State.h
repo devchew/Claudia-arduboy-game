@@ -4,6 +4,10 @@ uint8_t currentScreen = 1; // 0 - server; 1 - office; 2 - settings
 
 bool music;
 
+uint8_t introSequence = 0;
+uint8_t finalSequence = 21;
+
+#define MaxHelpPrompts 26
 #define RackSize 4
 #define MaxRacks 3
 #define MaxServerLevel 20

@@ -3,6 +3,7 @@
 #include "Font3x5.h"
 #include "image.h"
 #include "State.h"
+#include "SaveLoad.h"
 #include <ArduboyTones.h>
 
 extern Arduboy2 arduboy;
@@ -11,7 +12,7 @@ extern ArduboyTones sound;
 extern const uint16_t music_loop[] PROGMEM;
 
 uint8_t settingsCursor = 0;
-const uint8_t settingsCount = 2;
+const uint8_t settingsCount = 3;
 
 void drawSettingsNavigation() {
   arduboy.fillRect(0, 56, 128, 8, BLACK);
@@ -43,6 +44,16 @@ void drawSettingsItems() {
   font3x5.setCursor(90, 14);
   font3x5.print(music ? F("ON") : F("OFF"));
 
+  // Save game
+  arduboy.drawRoundRect(5, 24, 120, 11, 1, WHITE);
+  font3x5.setCursor(8, 26);
+  font3x5.print(F("Save game"));
+
+  // Load game
+  arduboy.drawRoundRect(5, 36, 120, 11, 1, WHITE);
+  font3x5.setCursor(8, 38);
+  font3x5.print(F("Load game"));
+
 }
 
 void screenSettings() {
@@ -73,6 +84,12 @@ void screenSettings() {
         arduboy.audio.off();
       }
       arduboy.audio.saveOnOff();
+    }
+    if (settingsCursor == 1) {
+      saveGame();
+    }
+    if (settingsCursor == 2) {
+      loadGame();
     }
   }
 

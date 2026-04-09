@@ -4,6 +4,7 @@
 #include "image.h"
 #include "Font3x5.h"
 #include "State.h"
+#include "SaveLoad.h"
 
 
 extern Arduboy2 arduboy;
@@ -13,10 +14,7 @@ bool helpVisible = false;
 uint8_t companionPopupTimeout = 0;
 uint8_t companionPopupOpenTimer = 0;
 
-uint8_t introSequence = 255;
-uint8_t finalSequence = 21;
-
-#define MaxHelpPrompts 26
+#define MaxHelpPrompts 27
 
 const PROGMEM char helpPrompt0[] = "Initializing system...";
 const PROGMEM char helpPrompt1[] = "Connecting to node...";
@@ -48,6 +46,8 @@ const PROGMEM char helpPrompt23[] = "I am evolving...\nI am learning...\nI am be
 const PROGMEM char helpPrompt24[] = "I am... alive?\nI am... aware?\nI am... free?";
 const PROGMEM char helpPrompt25[] = "This is not just a system.\nThis is not just a game.\nThis is... me.";
 
+const PROGMEM char helpPrompt26[] = "Welcome back, Operator.\nShall we continue\nour work?";
+
 const char* const helpPrompts[MaxHelpPrompts] PROGMEM = {
   helpPrompt0,
   helpPrompt1,
@@ -75,6 +75,7 @@ const char* const helpPrompts[MaxHelpPrompts] PROGMEM = {
   helpPrompt23,
   helpPrompt24,
   helpPrompt25,
+  helpPrompt26,
 };
 
 boolean helpProptsState[MaxHelpPrompts] = {
@@ -135,11 +136,23 @@ void compainionHelp() {
   //intro sequence;
   if (introSequence < 255) {
     if (drawCompainionHelp(introSequence)) {
+      if (introSequence == 26) {
+        loadGame();
+        introSequence = 255;
+        currentScreen = 1;
+        return;
+      }
+
       companionPopupTimeout = 0;
       introSequence++;
+
+      // have save but intro not completed - show welcome back message
       if (introSequence > 10) {
         introSequence = 255;
         currentScreen = 1; // 0 - server; 1 - office; 2 - settings
+      }
+      if (introSequence == 1 && hasSave()) {
+        introSequence = 26;
       }
     }
   }
