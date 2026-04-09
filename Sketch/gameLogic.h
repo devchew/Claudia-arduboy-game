@@ -21,6 +21,11 @@ bool currentRackEmpty = false;
 #define startingInbound 1
 #define maxUsersPenaltyCap 10
 
+// Initial nextBonus values matching the upgrades[] initializer in State.h.
+// Used by recalculateStats() to derive bonus/nextBonus from have, so that
+// inbound is always correct after a load even if the save had stale/missing bonus bytes.
+const uint16_t upgradeInitNextBonus[MaxUpgrades] = {10, 22, 45, 60, 85, 120, 200, 400, 800, 1000};
+
 uint8_t visibleUpgrades = 5;
 uint8_t filledRacksSlots = 0;
 
@@ -36,10 +41,20 @@ void recalculateStats() {
   inboundPenalty = false;
 
   // inbound based on office upgrades
+  // Recompute bonus and nextBonus from have + initial values so that inbound
+  // is always correct after a load (avoids relying on saved bonus bytes).
   inbound = startingInbound;
 
   for(uint8_t u = 0; u < MaxUpgrades; u++) {
-    inbound += upgrades[u].bonus;
+    uint16_t nb = upgradeInitNextBonus[u];
+    uint16_t b = 0;
+    for (uint8_t i = 0; i < upgrades[u].have; i++) {
+      b += nb;
+      nb = (uint16_t)(nb * 1.5f);
+    }
+    upgrades[u].bonus = b;
+    upgrades[u].nextBonus = nb;
+    inbound += b;
   }
 
   // total capacity based on server stats
