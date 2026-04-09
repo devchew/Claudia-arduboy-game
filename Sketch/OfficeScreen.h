@@ -8,19 +8,14 @@ bool canPurchaseSelectedOfficeUpgrade() {
 }
 
 void purchaseSelectedOfficeUpgrade() {
-  //update cost, bonus, nextBonus, have
+  //update cost, have
+  // bonus and nextBonus are recomputed by recalculateStats() after this call
 
-  //update const
+  //update cost
   upgrades[listOffest].cost = getOfficeUpgradeCost(upgrades[listOffest]);
 
-  //update bonus
-  upgrades[listOffest].bonus = upgrades[listOffest].bonus + upgrades[listOffest].nextBonus;
-
-  //update heve
+  //update have
   upgrades[listOffest].have++;
-
-  //update nextBonus
-  upgrades[listOffest].nextBonus *= 1.5;
 }
 
 uint32_t getOfficeUpgradePurchasePrice() {

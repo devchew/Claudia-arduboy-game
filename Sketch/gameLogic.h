@@ -46,15 +46,15 @@ void recalculateStats() {
   inbound = startingInbound;
 
   for(uint8_t u = 0; u < MaxUpgrades; u++) {
-    uint16_t nb = upgradeInitNextBonus[u];
-    uint16_t b = 0;
+    uint32_t nb = upgradeInitNextBonus[u];
+    uint32_t b = 0;
     for (uint8_t i = 0; i < upgrades[u].have; i++) {
       b += nb;
-      nb = (uint16_t)(nb * 1.5f);
+      nb = nb + (nb >> 1); // integer equivalent of *1.5, matches purchaseSelectedOfficeUpgrade()
     }
-    upgrades[u].bonus = b;
-    upgrades[u].nextBonus = nb;
-    inbound += b;
+    upgrades[u].bonus = (uint16_t)b;
+    upgrades[u].nextBonus = (uint16_t)nb;
+    inbound += (uint16_t)b;
   }
 
   // total capacity based on server stats
