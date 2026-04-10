@@ -24,23 +24,23 @@ bool currentRackEmpty = false;
 // Returns the bonus the next purchase of this upgrade would add.
 // Computed purely from upgrade.baseBonus and upgrade.have, mirroring
 // how getServerUpgradeCost() derives cost from a base price and level.
-uint16_t getOfficeUpgradeNextBonus(Upgrade upgrade) {
+uint32_t getOfficeUpgradeNextBonus(Upgrade upgrade) {
   uint32_t nb = upgrade.baseBonus;
   for (uint8_t i = 0; i < upgrade.have; i++) {
     nb = nb + (nb >> 1); // integer equivalent of *1.5
   }
-  return (uint16_t)nb;
+  return nb;
 }
 
 // Returns the total accumulated bonus from all purchased levels.
-uint16_t getOfficeUpgradeTotalBonus(Upgrade upgrade) {
+uint32_t getOfficeUpgradeTotalBonus(Upgrade upgrade) {
   uint32_t nb = upgrade.baseBonus;
   uint32_t b = 0;
   for (uint8_t i = 0; i < upgrade.have; i++) {
     b += nb;
     nb = nb + (nb >> 1);
   }
-  return (uint16_t)b;
+  return b;
 }
 
 uint8_t visibleUpgrades = 5;
@@ -61,7 +61,7 @@ void recalculateStats() {
   inbound = startingInbound;
 
   for(uint8_t u = 0; u < MaxUpgrades; u++) {
-    upgrades[u].bonus = getOfficeUpgradeTotalBonus(upgrades[u]);
+    upgrades[u].bonus = (uint16_t)getOfficeUpgradeTotalBonus(upgrades[u]);
     inbound += upgrades[u].bonus;
   }
 

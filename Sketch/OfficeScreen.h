@@ -9,7 +9,7 @@ bool canPurchaseSelectedOfficeUpgrade() {
 
 void purchaseSelectedOfficeUpgrade() {
   //update cost, have
-  // bonus and nextBonus are recomputed by recalculateStats() after this call
+  // bonus is recomputed by recalculateStats() after this call
 
   //update cost
   upgrades[listOffest].cost = getOfficeUpgradeCost(upgrades[listOffest]);
