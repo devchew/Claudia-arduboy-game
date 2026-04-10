@@ -77,7 +77,7 @@ void drawUpgrade(int8_t x, int8_t y, uint8_t upgradeIndex) {
     arduboy.drawBitmap(x + 85, y+9, sprite_inboundSymbol, 13, 8, WHITE);
     font3x5.setCursor(x + 102, y+8);
     font3x5.print(F("+"));
-    printValue(upgrades[upgradeIndex].nextBonus);
+    printValue(getOfficeUpgradeNextBonus(upgrades[upgradeIndex]));
   }
 
 

@@ -24,7 +24,7 @@ uint8_t racks[MaxRacks][RackSize] = {
 struct Upgrade {
   uint32_t cost;
   uint16_t bonus;
-  uint16_t nextBonus;
+  uint16_t baseBonus; // initial bonus per level, never changes
   uint8_t have;
   uint8_t max;
 };
@@ -65,7 +65,7 @@ const char* const upgradesNames[MaxUpgrades] PROGMEM = {
 
 
 Upgrade upgrades[MaxUpgrades] = {
-/* cost    | bonus | nextB | have | max | */
+/* cost    | bonus | baseB | have | max | */
   {80        ,  0  ,  10   ,  0   ,  5  }, // user messaging
   {1000      ,  0  ,  22   ,  0   ,  5  }, // push notifications
   {3500      ,  0  ,  45   ,  0   ,  2  }, // load balancing

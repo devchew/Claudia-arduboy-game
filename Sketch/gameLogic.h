@@ -21,10 +21,27 @@ bool currentRackEmpty = false;
 #define startingInbound 1
 #define maxUsersPenaltyCap 10
 
-// Initial nextBonus values matching the upgrades[] initializer in State.h.
-// Used by recalculateStats() to derive bonus/nextBonus from have, so that
-// inbound is always correct after a load even if the save had stale/missing bonus bytes.
-const uint16_t upgradeInitNextBonus[MaxUpgrades] = {10, 22, 45, 60, 85, 120, 200, 400, 800, 1000};
+// Returns the bonus the next purchase of this upgrade would add.
+// Computed purely from upgrade.baseBonus and upgrade.have, mirroring
+// how getServerUpgradeCost() derives cost from a base price and level.
+uint16_t getOfficeUpgradeNextBonus(Upgrade upgrade) {
+  uint32_t nb = upgrade.baseBonus;
+  for (uint8_t i = 0; i < upgrade.have; i++) {
+    nb = nb + (nb >> 1); // integer equivalent of *1.5
+  }
+  return (uint16_t)nb;
+}
+
+// Returns the total accumulated bonus from all purchased levels.
+uint16_t getOfficeUpgradeTotalBonus(Upgrade upgrade) {
+  uint32_t nb = upgrade.baseBonus;
+  uint32_t b = 0;
+  for (uint8_t i = 0; i < upgrade.have; i++) {
+    b += nb;
+    nb = nb + (nb >> 1);
+  }
+  return (uint16_t)b;
+}
 
 uint8_t visibleUpgrades = 5;
 uint8_t filledRacksSlots = 0;
@@ -41,20 +58,11 @@ void recalculateStats() {
   inboundPenalty = false;
 
   // inbound based on office upgrades
-  // Recompute bonus and nextBonus from have + initial values so that inbound
-  // is always correct after a load (avoids relying on saved bonus bytes).
   inbound = startingInbound;
 
   for(uint8_t u = 0; u < MaxUpgrades; u++) {
-    uint32_t nb = upgradeInitNextBonus[u];
-    uint32_t b = 0;
-    for (uint8_t i = 0; i < upgrades[u].have; i++) {
-      b += nb;
-      nb = nb + (nb >> 1); // integer equivalent of *1.5, matches purchaseSelectedOfficeUpgrade()
-    }
-    upgrades[u].bonus = (uint16_t)b;
-    upgrades[u].nextBonus = (uint16_t)nb;
-    inbound += (uint16_t)b;
+    upgrades[u].bonus = getOfficeUpgradeTotalBonus(upgrades[u]);
+    inbound += upgrades[u].bonus;
   }
 
   // total capacity based on server stats
