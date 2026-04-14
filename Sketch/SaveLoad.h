@@ -1,6 +1,7 @@
 #pragma once
 #include <EEPROM.h>
 #include "State.h"
+#include "companion.h"
 
 #define SAVE_MAGIC_0 0xAD
 #define SAVE_MAGIC_1 0xBE

@@ -169,47 +169,49 @@ void changeRack() {
 }
 
 void screenServer() {
-  if (helpVisible) {
+  if (helpboxFullHeight) {
     return;
   }
-  if (arduboy.justPressed(UP_BUTTON)) {
-    if (cursorPosition == 0) {
-      cursorPosition = RackSize - 1;
-    } else {
-      cursorPosition--;
-    }
-  }
-
-  if (arduboy.justPressed(DOWN_BUTTON)) {
-    if (cursorPosition >= RackSize - 1) {
-      cursorPosition = 0;
-    } else {
-      cursorPosition++;
-    }
-  }
-
-  if (availableRacks > 1 && rackScrollX == 0) {
-    if (arduboy.justPressed(LEFT_BUTTON)) {
-      prevVisibleRack = visibleRack;
-      prevRackEmpty = currentRackEmpty;
-      if (visibleRack < 1) {
-        visibleRack = availableRacks - 1;
+  if (!helpVisible) {
+    if (arduboy.justPressed(UP_BUTTON)) {
+      if (cursorPosition == 0) {
+        cursorPosition = RackSize - 1;
       } else {
-        visibleRack--;
+        cursorPosition--;
       }
-      changeRack();
-      rackScrollX = -RACK_SCROLL_WIDTH;
     }
-    if (arduboy.justPressed(RIGHT_BUTTON)) {
-      prevVisibleRack = visibleRack;
-      prevRackEmpty = currentRackEmpty;
-      if (visibleRack >= availableRacks - 1) {
-        visibleRack = 0;
+
+    if (arduboy.justPressed(DOWN_BUTTON)) {
+      if (cursorPosition >= RackSize - 1) {
+        cursorPosition = 0;
       } else {
-        visibleRack++;
+        cursorPosition++;
       }
-      changeRack();
-      rackScrollX = RACK_SCROLL_WIDTH;
+    }
+
+    if (availableRacks > 1 && rackScrollX == 0) {
+      if (arduboy.justPressed(LEFT_BUTTON)) {
+        prevVisibleRack = visibleRack;
+        prevRackEmpty = currentRackEmpty;
+        if (visibleRack < 1) {
+          visibleRack = availableRacks - 1;
+        } else {
+          visibleRack--;
+        }
+        changeRack();
+        rackScrollX = -RACK_SCROLL_WIDTH;
+      }
+      if (arduboy.justPressed(RIGHT_BUTTON)) {
+        prevVisibleRack = visibleRack;
+        prevRackEmpty = currentRackEmpty;
+        if (visibleRack >= availableRacks - 1) {
+          visibleRack = 0;
+        } else {
+          visibleRack++;
+        }
+        changeRack();
+        rackScrollX = RACK_SCROLL_WIDTH;
+      }
     }
   }
 

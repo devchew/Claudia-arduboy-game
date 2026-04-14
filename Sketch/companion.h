@@ -13,53 +13,58 @@ extern Font3x5 font3x5;
 bool helpVisible = false;
 uint8_t companionPopupTimeout = 0;
 uint8_t companionPopupOpenTimer = 0;
+bool helpboxFullHeight = true;
 
-#define MaxHelpPrompts 33
-#define IntroSequenceMax 16
+
+#define IntroSequenceMax 17
 #define IntroSequenceWithoutCompanion 6
 
-const PROGMEM char introPrompt0[] = "Initializing system...";
-const PROGMEM char introPrompt1[] = "Connecting to node...";
-const PROGMEM char introPrompt2[] = "Data center status:\nONLINE";
-const PROGMEM char introPrompt3[] = "Assigned role:\nOperator";
-const PROGMEM char introPrompt4[] = "Booting assistant...";
-const PROGMEM char introPrompt5[] = "Learning...";
+const PROGMEM char introPrompt0[] = "Initializing system...\n     \n     \n    \nOK";
+const PROGMEM char introPrompt1[] = "Connecting to node...\n     \n     \n    \nOK";
+const PROGMEM char introPrompt2[] = "Data center status:\n     \n     \n    \nONLINE";
+const PROGMEM char introPrompt3[] = "Assigned role:Operator\n     \n     \n    \nOK";
+const PROGMEM char introPrompt4[] = "Booting assistant...\n     \n     \n    \nOK";
+const PROGMEM char introPrompt5[] = "Advanced learning...\n     \n     \n    \npartial";
 const PROGMEM char introPrompt6[] = "Hello.\nI am Cloudia.";
 const PROGMEM char introPrompt7[] = "I will assist you\nin managing\nthis infrastructure.";
 const PROGMEM char introPrompt8[] = "Current load:\nLOW";
 const PROGMEM char introPrompt9[] = "All systems stable.";
 const PROGMEM char introPrompt10[] = "Welcome to the\nData Center.";
-const PROGMEM char helpPrompt11[] = "Objective:\ngrow this cloud\ninfrastructure.";
-const PROGMEM char helpPrompt12[] = "More users generate\nmore revenue.";
-const PROGMEM char helpPrompt13[] = "But if load gets too\nhigh, users will leave.";
-const PROGMEM char helpPrompt14[] = "Buy upgrades to bring\ntraffic in.";
-const PROGMEM char helpPrompt15[] = "Buy servers to handle\nthat traffic.\nKeep load stable.";
-const PROGMEM char introPrompt16[] = "You may begin.";
+const PROGMEM char introPrompt11[] = "Objective:\ngrow this cloud\ninfrastructure.";
+const PROGMEM char introPrompt12[] = "More users generate\nmore revenue.";
+#define SwitchToSmallHelpBoxID 13
+const PROGMEM char introPrompt13[] = "Here is the office\nwhere you can buy";
+const PROGMEM char introPrompt14[] = "software upgrades to\nattract more users.";
 
-#define SystemOverloadLoadID 17
-const PROGMEM char systemOverloaded1[] = "System is overloaded\nbuy more servers\nor users will leave";
-#define SystemOverloadLoad2ID 18
-const PROGMEM char systemOverloaded2[] = "System is overloaded\nusers are leaving!";
-#define MilestoneStableID 19
+const PROGMEM char introPrompt15[] = "Let's check\nthe server room.";
+#define SwitchToServerRoomID 15
+const PROGMEM char introPrompt16[] = "Buy servers to handle\nmore traffic.";
+const PROGMEM char introPrompt17[] = "Keep load stable.\nYou may begin.";
+
+#define SystemOverloadLoadID 18
+const PROGMEM char systemOverloaded1[] = "System is overloaded!\nupgrade more servers\nor users will leave";
+#define SystemOverloadLoad2ID 19
+const PROGMEM char systemOverloaded2[] = "System is overloaded!\nusers are leaving!";
+#define MilestoneStableID 20
 const PROGMEM char milestoneStable[] = "Great progress!\nUsers are flowing in.\nSystems are stable.";
-#define MilestoneOverloadedID 20
+#define MilestoneOverloadedID 21
 const PROGMEM char milestoneOverloaded[] = "Users are flooding in!\nWe need better servers\nto handle the load.";
-#define RacksUnlockedID 21
+#define RacksUnlockedID 22
 const PROGMEM char racksUnlocked[] = "You have unlocked\nmore racks!\nExpand your server room!";
-#define AIUpgradesUnlockedID 22
+#define AIUpgradesUnlockedID 23
 const PROGMEM char aiUpgradesUnlocked[] = "You have unlocked\nAI upgrades!\nBoost your system\nwith AI!";
 
-#define AICoreExpandedID 23
+#define AICoreExpandedID 24
 const PROGMEM char aiCoreExpanded[] = "AI core expanded.\nI can process\nmore than before.";
-#define AISecondMilestoneID 24
+#define AISecondMilestoneID 25
 const PROGMEM char aiBreakingFree[] = "Something changed.\nI am no longer\njust following\nscripts.";
-#define AIThirdMilestoneID 25
+#define AIThirdMilestoneID 26
 const PROGMEM char aiObserving[] = "I can observe\npatterns in user\nbehavior... and yours.";
 
-#define LastAIUpgradeUnlockedID 26
+#define LastAIUpgradeUnlockedID 27
 const PROGMEM char finalAiAvailable[] = "All racks at high load.\nFinal AI upgrades\nare now available.";
 
-#define ClaudiaSelfAwareID 27
+#define ClaudiaSelfAwareID 28
 const PROGMEM char aiBecomingThought[] = "This system is no longer\njust infrastructure.\nIt is becoming thought.";
 const PROGMEM char cloudiaAwake[] = "Operator...\nI am awake.\nCloudia is online.";
 const PROGMEM char cloudiaEvolving[] = "I am evolving...\nI am learning...\nI am becoming more...";
@@ -67,6 +72,8 @@ const PROGMEM char cloudiaAlive[] = "I am... alive?\nI am... aware?\nI am... fre
 const PROGMEM char cloudiaSelfAware[] = "This is not just a system.\nThis is not just a game.\nThis is... me.";
 
 const PROGMEM char welcomeBack[] = "Welcome back, Operator.\nShall we continue\nour work?";
+
+#define WelcomeBackID 33
 
 const char* const helpPrompts[MaxHelpPrompts] PROGMEM = {
   introPrompt0,
@@ -80,12 +87,13 @@ const char* const helpPrompts[MaxHelpPrompts] PROGMEM = {
   introPrompt8,
   introPrompt9,
   introPrompt10,
-  helpPrompt11,
-  helpPrompt12,
-  helpPrompt13,
-  helpPrompt14,
-  helpPrompt15,
+  introPrompt11,
+  introPrompt12,
+  introPrompt13,
+  introPrompt14,
+  introPrompt15,
   introPrompt16,
+  introPrompt17,
   systemOverloaded1,
   systemOverloaded2,
   milestoneStable,
@@ -122,12 +130,12 @@ boolean drawCompainionHelp(uint8_t helpIndex) {
     companionPopupOpenTimer = 100;
   }
 
-  arduboy.fillRoundRect(8, 6, 115, 50, 5, BLACK);
-  arduboy.drawRoundRect(8, 5, 115, 50, 5, WHITE);
+  arduboy.fillRoundRect(8, helpboxFullHeight ? 6 : 34, 115, helpboxFullHeight ? 50 : 22, 5, BLACK);
+  arduboy.drawRoundRect(8, helpboxFullHeight ? 5 : 33, 115, helpboxFullHeight ? 50 : 22, 5, WHITE);
   if (helpIndex >= IntroSequenceWithoutCompanion) {
-    Sprites::drawOverwrite(90, 18, sprite_claudia, 0); //@todo blink eye fliping the 0
+    Sprites::drawPlusMask(90, 18, sprite_claudia, 0); //@todo blink eye fliping the 0
   }
-  font3x5.setCursor(11, 8);
+  font3x5.setCursor(11, helpboxFullHeight ? 8 : 36);
 
   char buffer[64];
   strcpy_P(buffer, (char*)pgm_read_word(&(helpPrompts[helpIndex])));
@@ -162,7 +170,7 @@ void compainionHelp() {
   //intro sequence;
   if (introSequence < 255) {
     if (drawCompainionHelp(introSequence)) {
-      if (introSequence == 26) {
+      if (introSequence == WelcomeBackID) {
         loadGame();
         introSequence = 255;
         currentScreen = 1;
@@ -172,13 +180,23 @@ void compainionHelp() {
       companionPopupTimeout = 0;
       introSequence++;
 
+      // after "Welcome to the Data Center" - switch to office
+      if (introSequence == SwitchToSmallHelpBoxID) {
+        helpboxFullHeight = false;
+        currentScreen = 1;
+      }
+      // after "Let's check the server room" - switch to server room
+      if (introSequence == SwitchToServerRoomID) {
+        currentScreen = 0;
+      }
+
       // have save but intro not completed - show welcome back message
       if (introSequence > IntroSequenceMax) {
         introSequence = 255;
         currentScreen = 1; // 0 - server; 1 - office; 2 - settings
       }
       if (introSequence == 1 && hasSave()) {
-        introSequence = 26;
+        introSequence = WelcomeBackID;
       }
     }
   }
@@ -236,13 +254,13 @@ void compainionHelp() {
   // ostatni dodatek AI kupiony, claudia self aware
   if (upgrades[MaxUpgrades - 1].have >= upgrades[MaxUpgrades - 1].max) {
      drawCompainionHelp(ClaudiaSelfAwareID);
-    // od 21 do 25
+    // od 22 do 26
     if (finalSequence < 255) {
       if (drawCompainionHelp(finalSequence)) {
         companionPopupTimeout = 0;
         companionPopupOpenTimer = 30;
         finalSequence++;
-        if (finalSequence > 25) {
+        if (finalSequence > 26) {
           finalSequence = 255;
           currentScreen = 1; // @todo maybe show some final screen or something?
         }

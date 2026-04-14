@@ -57,39 +57,41 @@ void drawSettingsItems() {
 }
 
 void screenSettings() {
-  if (arduboy.justPressed(UP_BUTTON)) {
-    if (settingsCursor == 0) {
-      settingsCursor = settingsCount - 1;
-    } else {
-      settingsCursor--;
-    }
-  }
-
-  if (arduboy.justPressed(DOWN_BUTTON)) {
-    if (settingsCursor >= settingsCount - 1) {
-      settingsCursor = 0;
-    } else {
-      settingsCursor++;
-    }
-  }
-
-  if (arduboy.justPressed(B_BUTTON)) {
-    if (settingsCursor == 0) {
-      music = !music;
-      if (music) {
-        arduboy.audio.on();
-        sound.tones(music_loop);
+  if (!helpVisible) {
+    if (arduboy.justPressed(UP_BUTTON)) {
+      if (settingsCursor == 0) {
+        settingsCursor = settingsCount - 1;
       } else {
-        sound.noTone();
-        arduboy.audio.off();
+        settingsCursor--;
       }
-      arduboy.audio.saveOnOff();
     }
-    if (settingsCursor == 1) {
-      saveGame();
+
+    if (arduboy.justPressed(DOWN_BUTTON)) {
+      if (settingsCursor >= settingsCount - 1) {
+        settingsCursor = 0;
+      } else {
+        settingsCursor++;
+      }
     }
-    if (settingsCursor == 2) {
-      loadGame();
+
+    if (arduboy.justPressed(B_BUTTON)) {
+      if (settingsCursor == 0) {
+        music = !music;
+        if (music) {
+          arduboy.audio.on();
+          sound.tones(music_loop);
+        } else {
+          sound.noTone();
+          arduboy.audio.off();
+        }
+        arduboy.audio.saveOnOff();
+      }
+      if (settingsCursor == 1) {
+        saveGame();
+      }
+      if (settingsCursor == 2) {
+        loadGame();
+      }
     }
   }
 

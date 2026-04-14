@@ -108,46 +108,48 @@ void drawUpgades() {
 
 
 void screenOffice() {
-  if (helpVisible) {
+  if (helpboxFullHeight) {
     return;
   }
-  if (scrollAnimY == 0) {
-    if (arduboy.justPressed(UP_BUTTON)) {
-      if (listOffest == 0) {
-        listOffest = visibleUpgrades - 1;
-      } else {
-        listOffest--;
+  if (!helpVisible) {
+    if (scrollAnimY == 0) {
+      if (arduboy.justPressed(UP_BUTTON)) {
+        if (listOffest == 0) {
+          listOffest = visibleUpgrades - 1;
+        } else {
+          listOffest--;
+        }
+        scrollAnimY = -18;
       }
-      scrollAnimY = -18;
-    }
 
-    if (arduboy.justPressed(DOWN_BUTTON)) {
-      if (listOffest >= visibleUpgrades - 1) {
-        listOffest = 0;
-      } else {
-        listOffest++;
+      if (arduboy.justPressed(DOWN_BUTTON)) {
+        if (listOffest >= visibleUpgrades - 1) {
+          listOffest = 0;
+        } else {
+          listOffest++;
+        }
+        scrollAnimY = 18;
       }
-      scrollAnimY = 18;
-    }
-  }
-
-  // animate scroll
-  if (scrollAnimY > 0) {
-    scrollAnimY -= SCROLL_SPEED;
-    if (scrollAnimY < 0) scrollAnimY = 0;
-  } else if (scrollAnimY < 0) {
-    scrollAnimY += SCROLL_SPEED;
-    if (scrollAnimY > 0) scrollAnimY = 0;
-  }
-
-  if (arduboy.justPressed(B_BUTTON)) {
-    // buy or upgrade
-
-    if (canPurchaseSelectedOfficeUpgrade() && buyIfPosible(getOfficeUpgradePurchasePrice())) {
-      purchaseSelectedOfficeUpgrade();
-      recalculateStats();
     }
 
+    // animate scroll
+    if (scrollAnimY > 0) {
+      scrollAnimY -= SCROLL_SPEED;
+      if (scrollAnimY < 0) scrollAnimY = 0;
+    } else if (scrollAnimY < 0) {
+      scrollAnimY += SCROLL_SPEED;
+      if (scrollAnimY > 0) scrollAnimY = 0;
+    }
+
+    if (arduboy.justPressed(B_BUTTON)) {
+      // buy or upgrade
+
+      if (canPurchaseSelectedOfficeUpgrade() && buyIfPosible(getOfficeUpgradePurchasePrice())) {
+        purchaseSelectedOfficeUpgrade();
+        recalculateStats();
+      }
+
+    }
   }
 
   drawUpgades();

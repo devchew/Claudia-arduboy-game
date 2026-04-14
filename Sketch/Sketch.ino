@@ -72,7 +72,7 @@ void loop() {
   }
 
   arduboy.clear();
-  if (introSequence == 255 && finalSequence != 255) {
+  if (introSequence >= SwitchToSmallHelpBoxID && finalSequence != 255) {
     if (currentScreen == 0){
       screenServer();
     }
