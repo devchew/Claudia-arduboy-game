@@ -28,11 +28,11 @@ const PROGMEM char introPrompt4[] = "Booting assistant...\n     \n     \n    \nO
 const PROGMEM char introPrompt5[] = "Advanced learning...\n     \n     \n    \npartial";
 const PROGMEM char introPrompt6[] = "Hello.\nI am Cloudia.";
 const PROGMEM char introPrompt7[] = "I will assist you\nin managing\nthis infrastructure.";
-const PROGMEM char introPrompt8[] = "Current load:\nLOW";
-const PROGMEM char introPrompt9[] = "All systems stable.";
-const PROGMEM char introPrompt10[] = "Welcome to the\nData Center.";
-const PROGMEM char introPrompt11[] = "Objective:\ngrow this cloud\ninfrastructure.";
-const PROGMEM char introPrompt12[] = "More users generate\nmore revenue.";
+const PROGMEM char introPrompt8[] = "Welcome to the\nData Center.";
+const PROGMEM char introPrompt9[] = "Objective:\ngrow this cloud\ninfrastructure.";
+const PROGMEM char introPrompt10[] = "More users generate\nmore revenue.";
+const PROGMEM char introPrompt11[] = "Current load:\nLOW";
+const PROGMEM char introPrompt12[] = "All systems stable.";
 #define SwitchToSmallHelpBoxID 13
 const PROGMEM char introPrompt13[] = "Here is the office\nwhere you can buy";
 const PROGMEM char introPrompt14[] = "software upgrades to\nattract more users.";
