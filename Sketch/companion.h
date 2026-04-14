@@ -14,6 +14,7 @@ bool helpVisible = false;
 uint8_t companionPopupTimeout = 0;
 uint8_t companionPopupOpenTimer = 0;
 bool helpboxFullHeight = true;
+uint8_t helpboxHeightLines = 2;
 
 
 #define IntroSequenceMax 17
@@ -130,16 +131,25 @@ boolean drawCompainionHelp(uint8_t helpIndex) {
     companionPopupOpenTimer = 100;
   }
 
-  arduboy.fillRoundRect(8, helpboxFullHeight ? 6 : 34, 115, helpboxFullHeight ? 50 : 22, 5, BLACK);
-  arduboy.drawRoundRect(8, helpboxFullHeight ? 5 : 33, 115, helpboxFullHeight ? 50 : 22, 5, WHITE);
+  arduboy.fillRoundRect(7, helpboxFullHeight ? 4 : 54 - (helpboxHeightLines * 11), 115, helpboxFullHeight ? 52 : helpboxHeightLines * 11 + 2, 5, BLACK);
+  arduboy.drawRoundRect(8, helpboxFullHeight ? 5 : 55 - (helpboxHeightLines * 11), 115, helpboxFullHeight ? 50 : helpboxHeightLines * 11, 5, WHITE);
   if (helpIndex >= IntroSequenceWithoutCompanion) {
-    Sprites::drawPlusMask(90, 18, sprite_claudia, 0); //@todo blink eye fliping the 0
+    Sprites::drawPlusMask(90, 18, sprite_claudia, 0);
   }
-  font3x5.setCursor(11, helpboxFullHeight ? 8 : 36);
+  font3x5.setCursor(11, helpboxFullHeight ? 8 : 58 - (helpboxHeightLines * 11));
 
   char buffer[64];
   strcpy_P(buffer, (char*)pgm_read_word(&(helpPrompts[helpIndex])));
   uint8_t len = strlen(buffer);
+  uint8_t lines = 1;
+  for (uint8_t i = 0; i < len; i++) {
+    if (buffer[i] == '\n') {
+      lines++;
+    }
+  }
+  if (lines != helpboxHeightLines) {
+    helpboxHeightLines = lines;
+  }
   if (companionPopupOpenTimer < len) {
     buffer[companionPopupOpenTimer] = '\0';
   }
@@ -155,6 +165,7 @@ boolean drawCompainionHelp(uint8_t helpIndex) {
     helpProptsState[helpIndex] = true;
     companionPopupOpenTimer = 0;
     companionPopupTimeout = 50;
+    helpboxHeightLines = 2;
     return true;
   }
   return false;
