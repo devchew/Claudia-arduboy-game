@@ -8,7 +8,84 @@
 bool blink = false;
 bool splashScreenDone = false;
 uint8_t blinkCounter = 0;
+bool showSplashMenu = false;
+uint8_t splashMenuCursor = 0;
 
+
+void splashScreenMenu() {
+  bool saveExists = hasSave();
+  uint8_t menuItemCount = saveExists ? 3 : 2;
+
+  if (arduboy.justPressed(UP_BUTTON)) {
+    if (splashMenuCursor == 0) {
+      splashMenuCursor = menuItemCount - 1;
+    } else {
+      splashMenuCursor--;
+    }
+  }
+
+  if (arduboy.justPressed(DOWN_BUTTON)) {
+    if (splashMenuCursor >= menuItemCount - 1) {
+      splashMenuCursor = 0;
+    } else {
+      splashMenuCursor++;
+    }
+  }
+
+  if (arduboy.justPressed(A_BUTTON) || arduboy.justPressed(B_BUTTON)) {
+    uint8_t action = splashMenuCursor;
+    if (!saveExists) action++;
+
+    if (action == 0) {
+      splashScreenDone = true;
+      return;
+    } else if (action == 1) {
+      eraseSave();
+      splashScreenDone = true;
+      return;
+    } else if (action == 2) {
+      music = !music;
+      if (music) {
+        arduboy.audio.on();
+        sound.tones(music_loop);
+      } else {
+        sound.noTone();
+        arduboy.audio.off();
+      }
+      arduboy.audio.saveOnOff();
+    }
+  }
+
+  arduboy.clear();
+
+  uint8_t y = 20;
+  uint8_t itemIndex = 0;
+
+  if (saveExists) {
+    if (splashMenuCursor == itemIndex) drawCursor(15, y);
+    arduboy.drawRoundRect(20, y - 1, 90, 9, 1, WHITE);
+    font3x5.setCursor(23, y);
+    font3x5.print(F("Continue"));
+    y += 12;
+    itemIndex++;
+  }
+
+  if (splashMenuCursor == itemIndex) drawCursor(15, y);
+  arduboy.drawRoundRect(20, y - 1, 90, 9, 1, WHITE);
+  font3x5.setCursor(23, y);
+  font3x5.print(F("New Game"));
+  y += 12;
+  itemIndex++;
+
+  if (splashMenuCursor == itemIndex) drawCursor(15, y);
+  arduboy.drawRoundRect(20, y - 1, 90, 9, 1, WHITE);
+  font3x5.setCursor(23, y);
+  font3x5.print(F("Music"));
+  font3x5.setCursor(80, y);
+  font3x5.print(music ? F("ON") : F("OFF"));
+
+  arduboy.display();
+}
 
 bool splashScreen() {
   if (splashScreenDone) {
@@ -16,8 +93,13 @@ bool splashScreen() {
   }
   arduboy.pollButtons();
 
+  if (showSplashMenu) {
+    splashScreenMenu();
+    return false;
+  }
+
   if (arduboy.justPressed(A_BUTTON) || arduboy.justPressed(B_BUTTON)) {
-    splashScreenDone = true;
+    showSplashMenu = true;
   }
 
   arduboy.clear();
