@@ -4,7 +4,7 @@ uint8_t currentScreen = 1; // 0 - server; 1 - office; 2 - settings
 
 bool music;
 
-uint8_t introSequence = 12;
+uint8_t introSequence = 0;
 uint8_t finalSequence = 22;
 
 #define MaxHelpPrompts 34
