@@ -138,7 +138,7 @@ boolean drawCompainionHelp(uint8_t helpIndex) {
   }
   font3x5.setCursor(11, helpboxFullHeight ? 8 : 58 - (helpboxHeightLines * 11));
 
-  char buffer[64];
+  char buffer[80];
   strcpy_P(buffer, (char*)pgm_read_word(&(helpPrompts[helpIndex])));
   uint8_t len = strlen(buffer);
   uint8_t lines = 1;
