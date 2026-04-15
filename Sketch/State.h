@@ -10,7 +10,7 @@ uint16_t autosaveCounter = 0;
 uint8_t introSequence = 0;
 uint8_t finalSequence = 22;
 
-#define MaxHelpPrompts 34
+#define MaxHelpPrompts 35
 #define RackSize 4
 #define MaxRacks 3
 #define MaxServerLevel 20

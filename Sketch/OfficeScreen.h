@@ -1,7 +1,38 @@
+#pragma once
+
+#include <Arduboy2.h>
+#include "image.h"
+#include "Font3x5.h"
+#include "State.h"
+#include "commonUi.h"
+#include "gameLogic.h"
+#include "companion.h"
+
+extern Arduboy2 arduboy;
+extern Font3x5 font3x5;
+
 
 uint8_t listOffest = 0;
 int8_t scrollAnimY = 0;
 const int8_t SCROLL_SPEED = 4;
+
+bool isUpgradeRackLocked(uint8_t upgradeIndex) {
+  if (upgradeIndex < 5) {
+    return false;
+  }
+
+  // check if server rack 2 and 3 are empty, 
+  // because if they are not empty, it means player has at least 2 racks, even if they are not fully filled
+  
+  for (uint8_t r = 1; r < MaxRacks; r++) {
+    for (uint8_t s = 0; s < RackSize; s++) {
+      if (racks[r][s] > 0) {
+        return false;
+      }
+    }
+  }
+  return true;
+}
 
 bool canPurchaseSelectedOfficeUpgrade() {
   return upgrades[listOffest].have < upgrades[listOffest].max;
@@ -133,9 +164,16 @@ void screenOffice() {
     if (arduboy.justPressed(B_BUTTON)) {
       // buy or upgrade
 
-      if (canPurchaseSelectedOfficeUpgrade() && buyIfPosible(getOfficeUpgradePurchasePrice())) {
-        purchaseSelectedOfficeUpgrade();
-        recalculateStats();
+      // if try to buy ai without 2 racks, show companion popup about needing racks
+      if (isUpgradeRackLocked(listOffest)) {
+        showBuyMoreRacksPopup = true;
+        // allow to show this prompt again if player tries to buy AI upgrade without enough racks
+        helpProptsState[NeedRacksID] = false;
+      } else {
+        if (canPurchaseSelectedOfficeUpgrade() && buyIfPosible(getOfficeUpgradePurchasePrice())) {
+          purchaseSelectedOfficeUpgrade();
+          recalculateStats();
+        }
       }
 
     }

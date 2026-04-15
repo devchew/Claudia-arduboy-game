@@ -16,6 +16,7 @@ uint8_t companionPopupOpenTimer = 0;
 bool helpboxFullHeight = true;
 uint8_t helpboxHeightLines = 2;
 
+bool showBuyMoreRacksPopup = false;
 
 #define IntroSequenceMax 17
 #define IntroSequenceWithoutCompanion 6
@@ -53,7 +54,7 @@ const PROGMEM char milestoneOverloaded[] = "Users are flooding in!\nWe need bett
 #define RacksUnlockedID 22
 const PROGMEM char racksUnlocked[] = "You have unlocked\nmore racks!\nExpand your server room!";
 #define AIUpgradesUnlockedID 23
-const PROGMEM char aiUpgradesUnlocked[] = "You have unlocked\nAI upgrades!\nBoost your system\nwith AI!";
+const PROGMEM char aiUpgradesUnlocked[] = "You have unlocked AI\nBoost your system\nwith AI upgrades! ";
 
 #define AICoreExpandedID 24
 const PROGMEM char aiCoreExpanded[] = "AI core expanded.\nI can process\nmore than before.";
@@ -74,7 +75,10 @@ const PROGMEM char cloudiaSelfAware[] = "This is not just a system.\nThis is not
 
 const PROGMEM char welcomeBack[] = "Welcome back, Operator.\nShall we continue\nour work?";
 
-#define WelcomeBackID 33
+#define NeedRacksID 33
+const PROGMEM char needRacksMsg[] = "AI upgrades require\nat least 2 server racks.";
+
+#define WelcomeBackID 34
 
 const char* const helpPrompts[MaxHelpPrompts] PROGMEM = {
   introPrompt0,
@@ -110,6 +114,7 @@ const char* const helpPrompts[MaxHelpPrompts] PROGMEM = {
   cloudiaEvolving,
   cloudiaAlive,
   cloudiaSelfAware,
+  needRacksMsg,
   welcomeBack,
 };
 
@@ -235,13 +240,17 @@ void compainionHelp() {
   }
 
   // more racks unlocked - message about unlocking more racks
-  if (availableRacks > 1) {
-    drawCompainionHelp(RacksUnlockedID);
-  }
+  // if (availableRacks > 1) {
+  //   drawCompainionHelp(RacksUnlockedID);
+  // }
 
   //unlock AI upgrades
   if (visibleUpgrades > 5) {
     drawCompainionHelp(AIUpgradesUnlockedID);
+  }
+
+  if (showBuyMoreRacksPopup) {
+    drawCompainionHelp(NeedRacksID);
   }
 
   // first AI upgrade bought

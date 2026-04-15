@@ -213,22 +213,26 @@ void screenServer() {
         rackScrollX = RACK_SCROLL_WIDTH;
       }
     }
-  }
 
-  // animate rack scroll
-  if (rackScrollX > 0) {
-    rackScrollX -= RACK_SCROLL_SPEED;
-    if (rackScrollX < 0) rackScrollX = 0;
-  } else if (rackScrollX < 0) {
-    rackScrollX += RACK_SCROLL_SPEED;
-    if (rackScrollX > 0) rackScrollX = 0;
-  }
+    // animate rack scroll
+    if (rackScrollX > 0) {
+      rackScrollX -= RACK_SCROLL_SPEED;
+      if (rackScrollX < 0) {
+        rackScrollX = 0;
+      }
+    } else if (rackScrollX < 0) {
+      rackScrollX += RACK_SCROLL_SPEED;
+      if (rackScrollX > 0) {
+        rackScrollX = 0;
+      }
+    }
 
-  if (arduboy.justPressed(B_BUTTON)) {
-    // buy or upgrade
-    if (canPurchaseSelectedServer() && buyIfPosible(getServerPurchasePrice())) {
-      purchaseSelectedServer();
-      recalculateStats();
+    if (arduboy.justPressed(B_BUTTON)) {
+      // buy or upgrade
+      if (canPurchaseSelectedServer() && buyIfPosible(getServerPurchasePrice())) {
+        purchaseSelectedServer();
+        recalculateStats();
+      }
     }
   }
 

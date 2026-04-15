@@ -104,9 +104,10 @@ void recalculateStats() {
     availableRacks = MaxRacks;
   }
 
-  // if there is at least morse than 1 rack fully filled, unlock all but the last upgrade
-  if (filledRacksSlots > RackSize && visibleUpgrades <= 5) {
+  // if async processing is purchased, show AI upgrades
+  if (upgrades[4].have > 0 && visibleUpgrades <= 5) {
     visibleUpgrades = MaxUpgrades - 1; // unlock all but the last upgrade
+    availableRacks = MaxRacks;
   }
 
   // if at least 3 ai upgrades maxed, unlock the last upgrade
