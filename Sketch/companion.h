@@ -205,8 +205,10 @@ void compainionHelp() {
       if (introSequence > IntroSequenceMax) {
         introSequence = 255;
         currentScreen = 1; // 0 - server; 1 - office; 2 - settings
+        helpboxFullHeight = false;
       }
       if (introSequence == 1 && hasSave()) {
+        helpboxFullHeight = false;
         introSequence = WelcomeBackID;
       }
     }
