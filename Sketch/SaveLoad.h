@@ -3,8 +3,12 @@
 #include "State.h"
 #include "companion.h"
 
+extern Arduboy2 arduboy;
+
 #define SAVE_MAGIC_0 0xAD
 #define SAVE_MAGIC_1 0xBE
+
+uint8_t saveLedTimer = 0;
 
 extern uint32_t money;
 extern boolean helpProptsState[];
@@ -42,6 +46,8 @@ void saveGame() {
   }
 
   EEPROM.update(addr++, autosave ? 1 : 0);
+
+  saveLedTimer = 20;
 }
 
 bool loadGame() {

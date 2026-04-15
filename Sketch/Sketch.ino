@@ -98,7 +98,20 @@ void loop() {
     autosaveCounter = 0;
   }
 
-  // Your code here
+  // Save LED blink (fade in/out)
+  if (saveLedTimer > 0) {
+    uint8_t brightness;
+    if (saveLedTimer > 10) {
+      brightness = (20 - saveLedTimer) * 12; // fade in: 0 -> ~120
+    } else {
+      brightness = saveLedTimer * 12;         // fade out: ~120 -> 0
+    }
+    arduboy.setRGBled(0, brightness, 0);
+    saveLedTimer--;
+    if (saveLedTimer == 0) {
+      arduboy.setRGBled(0, 0, 0);
+    }
+  }
 
   arduboy.display();
 }
