@@ -13,13 +13,6 @@
 #include "splashScreen.h"
 #include "screenTurnOffAnimation.h"
 
-/**
-
-todo:
-- [] muzyka, strasznie irytująca - może jakieś dźwięki przy kupowaniu serwerów i ulepszeń?
-
-*/
-
 ArduboyTones sound(arduboy.audio.enabled);
 
 Arduboy2 arduboy;
@@ -32,7 +25,9 @@ void setup() {
   recalculateStats();
 
   arduboy.audio.begin();
-  music = arduboy.audio.enabled();
+  // temporary disable music, because it is really annoying, and I want to focus on making the game fun first
+  // music = arduboy.audio.enabled();
+  music = false;
 
   if (music) {
     sound.tones(music_loop);
