@@ -87,6 +87,17 @@ void loop() {
 
   compainionHelp();
 
+  // Autosave logic
+  if (autosave) {
+    autosaveCounter++;
+    if (autosaveCounter >= AUTOSAVE_INTERVAL) {
+      saveGame();
+      autosaveCounter = 0;
+    }
+  } else {
+    autosaveCounter = 0;
+  }
+
   // Your code here
 
   arduboy.display();

@@ -3,6 +3,9 @@
 uint8_t currentScreen = 1; // 0 - server; 1 - office; 2 - settings
 
 bool music;
+bool autosave = false;
+uint16_t autosaveCounter = 0;
+#define AUTOSAVE_INTERVAL 1800 // ~30 seconds at 60fps
 
 uint8_t introSequence = 0;
 uint8_t finalSequence = 22;

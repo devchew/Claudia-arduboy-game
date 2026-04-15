@@ -12,7 +12,7 @@ extern ArduboyTones sound;
 extern const uint16_t music_loop[] PROGMEM;
 
 uint8_t settingsCursor = 0;
-const uint8_t settingsCount = 4;
+const uint8_t settingsCount = 5;
 
 void drawSettingsNavigation() {
   arduboy.fillRect(0, 56, 128, 8, BLACK);
@@ -35,28 +35,35 @@ void drawSettingsNavigation() {
 }
 
 void drawSettingsItems() {
-  drawCursor(0, (settingsCursor * 12) + 16);
+  drawCursor(0, (settingsCursor * 9) + 11);
 
   // Music toggle
-  arduboy.drawRoundRect(5, 12, 120, 11, 1, WHITE);
-  font3x5.setCursor(8, 14);
+  arduboy.drawRoundRect(5, 10, 120, 9, 1, WHITE);
+  font3x5.setCursor(8, 11);
   font3x5.print(F("Music"));
-  font3x5.setCursor(90, 14);
+  font3x5.setCursor(90, 11);
   font3x5.print(music ? F("ON") : F("OFF"));
 
+  // Autosave toggle
+  arduboy.drawRoundRect(5, 19, 120, 9, 1, WHITE);
+  font3x5.setCursor(8, 20);
+  font3x5.print(F("Autosave"));
+  font3x5.setCursor(90, 20);
+  font3x5.print(autosave ? F("ON") : F("OFF"));
+
   // Save game
-  arduboy.drawRoundRect(5, 24, 120, 11, 1, WHITE);
-  font3x5.setCursor(8, 26);
+  arduboy.drawRoundRect(5, 28, 120, 9, 1, WHITE);
+  font3x5.setCursor(8, 29);
   font3x5.print(F("Save game"));
 
   // Load game
-  arduboy.drawRoundRect(5, 36, 120, 11, 1, WHITE);
+  arduboy.drawRoundRect(5, 37, 120, 9, 1, WHITE);
   font3x5.setCursor(8, 38);
   font3x5.print(F("Load game"));
 
   // Erase save
-  arduboy.drawRoundRect(5, 48, 120, 11, 1, WHITE);
-  font3x5.setCursor(8, 50);
+  arduboy.drawRoundRect(5, 46, 120, 9, 1, WHITE);
+  font3x5.setCursor(8, 47);
   font3x5.print(F("Erase save"));
 
 }
@@ -92,12 +99,19 @@ void screenSettings() {
         arduboy.audio.saveOnOff();
       }
       if (settingsCursor == 1) {
-        saveGame();
+        autosave = !autosave;
+        if (autosave) {
+          autosaveCounter = 0;
+          saveGame();
+        }
       }
       if (settingsCursor == 2) {
-        loadGame();
+        saveGame();
       }
       if (settingsCursor == 3) {
+        loadGame();
+      }
+      if (settingsCursor == 4) {
         eraseSave();
       }
     }

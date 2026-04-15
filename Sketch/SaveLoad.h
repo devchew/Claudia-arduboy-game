@@ -40,6 +40,8 @@ void saveGame() {
   for (uint8_t u = 0; u < MaxUpgrades; u++) {
     EEPROM.update(addr++, upgrades[u].have);
   }
+
+  EEPROM.update(addr++, autosave ? 1 : 0);
 }
 
 bool loadGame() {
@@ -68,6 +70,8 @@ bool loadGame() {
     upgrades[u].have = EEPROM.read(addr++);
   }
 
+  autosave = EEPROM.read(addr++) != 0;
+
   recalculateStats();
   return true;
 }
@@ -76,4 +80,5 @@ void eraseSave() {
   uint16_t addr = EEPROM_STORAGE_SPACE_START;
   EEPROM.update(addr, 0xFF);
   EEPROM.update(addr + 1, 0xFF);
+  autosave = false;
 }
