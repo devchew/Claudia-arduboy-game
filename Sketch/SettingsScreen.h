@@ -12,7 +12,7 @@ extern ArduboyTones sound;
 extern const uint16_t music_loop[] PROGMEM;
 
 uint8_t settingsCursor = 0;
-const uint8_t settingsCount = 3;
+const uint8_t settingsCount = 4;
 
 void drawSettingsNavigation() {
   arduboy.fillRect(0, 56, 128, 8, BLACK);
@@ -54,6 +54,11 @@ void drawSettingsItems() {
   font3x5.setCursor(8, 38);
   font3x5.print(F("Load game"));
 
+  // Erase save
+  arduboy.drawRoundRect(5, 48, 120, 11, 1, WHITE);
+  font3x5.setCursor(8, 50);
+  font3x5.print(F("Erase save"));
+
 }
 
 void screenSettings() {
@@ -91,6 +96,9 @@ void screenSettings() {
       }
       if (settingsCursor == 2) {
         loadGame();
+      }
+      if (settingsCursor == 3) {
+        eraseSave();
       }
     }
   }
