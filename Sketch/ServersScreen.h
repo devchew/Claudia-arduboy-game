@@ -125,7 +125,7 @@ void drawSelectedCost() {
   font3x5.setCursor(93, 37);
   printValue(getServerPurchasePrice());
 
-  // bonus
+  // startingBonus
   arduboy.drawBitmap(85, 46, sprite_inboundSymbol, 13,8);
   font3x5.setCursor(101, 45);
   font3x5.print(F("+"));

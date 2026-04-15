@@ -24,6 +24,36 @@ bool currentRackEmpty = false;
 uint8_t visibleUpgrades = 5;
 uint8_t filledRacksSlots = 0;
 
+
+uint32_t getServerUpgradeCost(uint8_t level) {
+  return serverPrice * pow(1.4, level);
+}
+
+
+
+uint32_t getOfficeUpgradeCost(Upgrade upgrade){
+  return upgrade.startingPrice * pow(1.5, upgrade.have);
+}
+
+uint32_t getNextOfficeUpgradeCost(Upgrade upgrade){
+  return getOfficeUpgradeCost(Upgrade{upgrade.startingPrice, upgrade.startingBonus, upgrade.have + 1, upgrade.max});
+}
+
+uint32_t getOfficeUpgradeBonus(Upgrade upgrade) {
+  if (upgrade.have == 0) {
+    return 0;
+  }
+  uint32_t bonus = upgrade.startingBonus;
+  for (uint8_t i = 0; i < upgrade.have; i++) {
+    bonus += bonus * 0.5;
+  }
+  return bonus;
+}
+
+uint32_t getNextOfficeUpgradeBonus(Upgrade upgrade) {
+  return getOfficeUpgradeBonus(Upgrade{upgrade.startingPrice, upgrade.startingBonus, upgrade.have + 1, upgrade.max});
+}
+
 bool buyIfPosible(uint32_t price) {
   if (money >= price) {
     money -= price;
@@ -39,7 +69,7 @@ void recalculateStats() {
   inbound = startingInbound;
 
   for(uint8_t u = 0; u < MaxUpgrades; u++) {
-    inbound += upgrades[u].bonus;
+    inbound += getOfficeUpgradeBonus(upgrades[u]);
   }
 
   // total capacity based on server stats
@@ -87,12 +117,4 @@ void recalculateStats() {
 
 void tickUpdate() {
   money += min(inbound, totalCapacity) * moneyPerUser;
-}
-
-uint32_t getServerUpgradeCost(uint8_t level) {
-  return serverPrice * pow(1.4, level);
-}
-
-uint32_t getOfficeUpgradeCost(Upgrade upgrade){
-  return upgrade.cost * pow(1.5, upgrade.have);
 }

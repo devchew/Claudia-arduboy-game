@@ -39,8 +39,6 @@ void saveGame() {
 
   for (uint8_t u = 0; u < MaxUpgrades; u++) {
     EEPROM.update(addr++, upgrades[u].have);
-    EEPROM.put(addr, upgrades[u].bonus);
-    addr += sizeof(upgrades[u].bonus);
   }
 }
 
@@ -68,8 +66,6 @@ bool loadGame() {
 
   for (uint8_t u = 0; u < MaxUpgrades; u++) {
     upgrades[u].have = EEPROM.read(addr++);
-    EEPROM.get(addr, upgrades[u].bonus);
-    addr += sizeof(upgrades[u].bonus);
   }
 
   recalculateStats();

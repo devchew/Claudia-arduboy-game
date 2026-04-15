@@ -8,23 +8,12 @@ bool canPurchaseSelectedOfficeUpgrade() {
 }
 
 void purchaseSelectedOfficeUpgrade() {
-  //update cost, bonus, nextBonus, have
-
-  //update const
-  upgrades[listOffest].cost = getOfficeUpgradeCost(upgrades[listOffest]);
-
-  //update bonus
-  upgrades[listOffest].bonus = upgrades[listOffest].bonus + upgrades[listOffest].nextBonus;
-
   //update heve
   upgrades[listOffest].have++;
-
-  //update nextBonus
-  upgrades[listOffest].nextBonus *= 1.5;
 }
 
 uint32_t getOfficeUpgradePurchasePrice() {
-  return upgrades[listOffest].cost;
+  return getOfficeUpgradeCost(upgrades[listOffest]);
 }
 
 
@@ -71,18 +60,18 @@ void drawUpgrade(int8_t x, int8_t y, uint8_t upgradeIndex) {
   // inbound
   arduboy.drawBitmap(x + 2, y+9, sprite_inboundSymbol, 13, 8, WHITE);
   font3x5.setCursor(x + 18, y+8);
-  printValue(upgrades[upgradeIndex].bonus);
+  printValue(getOfficeUpgradeBonus(upgrades[upgradeIndex]));
 
   // cost
   if (upgrades[upgradeIndex].max > upgrades[upgradeIndex].have) {
     arduboy.drawBitmap(x+51, y+8, sprite_currencySymbol, 5,8);
     font3x5.setCursor(x+58, y+8);
-    printValue(upgrades[upgradeIndex].cost);
+    printValue(getNextOfficeUpgradeCost(upgrades[upgradeIndex]));
 
     arduboy.drawBitmap(x + 85, y+9, sprite_inboundSymbol, 13, 8, WHITE);
     font3x5.setCursor(x + 102, y+8);
     font3x5.print(F("+"));
-    printValue(upgrades[upgradeIndex].nextBonus);
+    printValue(getNextOfficeUpgradeBonus(upgrades[upgradeIndex]) - getOfficeUpgradeBonus(upgrades[upgradeIndex]));
   }
 
 
