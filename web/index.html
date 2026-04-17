@@ -186,6 +186,13 @@
     footer a:hover {
       text-decoration: underline;
     }
+
+    .build-info {
+      margin-bottom: 6px;
+      font-size: 0.75rem;
+      color: #555;
+      letter-spacing: 0.5px;
+    }
   </style>
 </head>
 <body>
@@ -224,6 +231,7 @@
   </main>
 
   <footer>
+    <div class="build-info">Build #<span id="build-number">#__BUILD_NUMBER__#</span> &mdash; <span id="build-date">#__BUILD_DATE__#</span></div>
     Powered by <a href="https://github.com/tiberiusbrown/Ardens" target="_blank" rel="noopener">Ardens</a> &mdash;
     Arduboy image from <a href="https://github.com/felipemanga/ProjectABE" target="_blank" rel="noopener">ProjectABE</a>
   </footer>

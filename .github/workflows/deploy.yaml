@@ -43,6 +43,8 @@ jobs:
         run: |
           mkdir -p web/games
           cp build/Sketch.ino.hex web/games/cloudia.hex
+          sed -i "s/#__BUILD_NUMBER__#/${{ github.run_number }}/" web/index.html
+          sed -i "s/#__BUILD_DATE__#/$(date -u +'%Y-%m-%d %H:%M UTC')/" web/index.html
 
       - name: Setup Pages
         uses: actions/configure-pages@v5
