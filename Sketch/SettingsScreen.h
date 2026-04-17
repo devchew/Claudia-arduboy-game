@@ -9,7 +9,7 @@
 extern Arduboy2 arduboy;
 extern Font3x5 font3x5;
 extern ArduboyTones sound;
-extern const uint16_t music_loop[] PROGMEM;
+// extern const uint16_t music_loop[] PROGMEM;
 
 uint8_t settingsCursor = 0;
 const uint8_t settingsCount = 5;
@@ -91,7 +91,7 @@ void screenSettings() {
         music = !music;
         if (music) {
           arduboy.audio.on();
-          sound.tones(music_loop);
+          // sound.tones(music_loop);
         } else {
           sound.noTone();
           arduboy.audio.off();

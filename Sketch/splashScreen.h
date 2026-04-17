@@ -47,7 +47,7 @@ void splashScreenMenu() {
       music = !music;
       if (music) {
         arduboy.audio.on();
-        sound.tones(music_loop);
+        // sound.tones(music_loop);
       } else {
         sound.noTone();
         arduboy.audio.off();

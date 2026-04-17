@@ -30,7 +30,7 @@ void setup() {
   music = false;
 
   if (music) {
-    sound.tones(music_loop);
+    // sound.tones(music_loop);
   }
 }
 
