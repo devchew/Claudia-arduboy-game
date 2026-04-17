@@ -1,0 +1,128 @@
+MAX CAPACITY = 12 slots x server_bonus(20)=2580 = 30960
+
+====================================================================================================
+  CAPACITY na roznych etapach gry
+====================================================================================================
+  Start (1 srv lvl 1)                 => capacity =     19
+  1 rack filled (4 srv lvl 1)         => capacity =     76
+  1 rack maxed (4 srv lvl 20)         => capacity = 10,320
+  3 racks filled lvl 5                => capacity =    624
+  3 racks filled lvl 10               => capacity =  2,268
+  3 racks filled lvl 15               => capacity =  8,352
+  ALL MAXED                           => capacity = 30,960
+
+====================================================================================================
+  SERVER LEVELS (1 serwer, lvl 1-20)
+====================================================================================================
+  Lvl |   Capacity |   Gain |   Upgrade cost |     Cumul cost |   Cost/cap
+    1 |         19 | +  19 |          1,400 |          1,400 |       73.7
+    2 |         24 | +   5 |          1,959 |          3,359 |      140.0
+    3 |         31 | +   7 |          2,743 |          6,102 |      196.8
+    4 |         40 | +   9 |          3,841 |          9,943 |      248.6
+    5 |         52 | +  12 |          5,378 |         15,321 |      294.6
+    6 |         67 | +  15 |          7,529 |         22,850 |      341.0
+    7 |         87 | +  20 |         10,541 |         33,391 |      383.8
+    8 |        113 | +  26 |         14,757 |         48,148 |      426.1
+    9 |        146 | +  33 |         20,661 |         68,809 |      471.3
+   10 |        189 | +  43 |         28,925 |         97,734 |      517.1
+   11 |        245 | +  56 |         40,495 |        138,229 |      564.2
+   12 |        318 | +  73 |         56,693 |        194,922 |      613.0
+   13 |        413 | +  95 |         79,371 |        274,293 |      664.1
+   14 |        536 | + 123 |        111,120 |        385,413 |      719.1
+   15 |        696 | + 160 |        155,568 |        540,981 |      777.3
+   16 |        904 | + 208 |        217,795 |        758,776 |      839.4
+   17 |      1,175 | + 271 |        304,913 |      1,063,689 |      905.3
+   18 |      1,527 | + 352 |        426,878 |      1,490,567 |      976.1
+   19 |      1,985 | + 458 |        597,630 |      2,088,197 |     1052.0
+   20 |      2,580 | + 595 |        836,682 |      2,924,879 |     1133.7
+
+====================================================================================================
+  OBECNE WARTOSCI (compound 50%)
+====================================================================================================
+   # | Upgrade                   |  Bonus | Max |    Contrib |      Cumul |    % cap
+   0 | User messaging            |     10 |  10 |        549 |        550 | [....................]   1.8%
+   1 | Push notifications        |     22 |  10 |      1,234 |      1,784 | [#...................]   5.8%
+   2 | Load balancing            |     45 |  10 |      2,553 |      4,337 | [##..................]  14.0%
+   3 | Request routing           |     60 |  10 |      3,444 |      7,781 | [#####...............]  25.1%
+   4 | Async processing          |     85 |  10 |      4,860 |     12,641 | [########............]  40.8%
+   5 | AI core upgrade           |    120 |   5 |        910 |     13,551 | [########............]  43.8%
+   6 | AI Context awareness      |    200 |   5 |      1,518 |     15,069 | [#########...........]  48.7%
+   7 | AI Smart responses        |    400 |   5 |      3,037 |     18,106 | [###########.........]  58.5%
+   8 | Predictive AI             |    800 |   5 |      6,075 |     24,181 | [###############.....]  78.1%
+   9 | Self evolving AI          |   1000 |   1 |      1,500 |     25,681 | [################....]  82.9%
+  TOTAL: 25,681 / 30,960 = 82.9%
+
+  Inbound po kazdym zakupie:
+    #  1 User messaging            lvl  1 => inbound=    16 [....................]   0.1%
+    #  2 User messaging            lvl  2 => inbound=    23 [....................]   0.1%
+    #  3 User messaging            lvl  3 => inbound=    34 [....................]   0.1%
+    #  4 User messaging            lvl  4 => inbound=    50 [....................]   0.2%
+    #  5 User messaging            lvl  5 => inbound=    74 [....................]   0.2%
+    #  6 User messaging            lvl  6 => inbound=   110 [....................]   0.4%
+    #  7 User messaging            lvl  7 => inbound=   164 [....................]   0.5%
+    #  8 User messaging            lvl  8 => inbound=   245 [....................]   0.8%
+    #  9 User messaging            lvl  9 => inbound=   367 [....................]   1.2%
+    # 10 User messaging            lvl 10 => inbound=   550 [....................]   1.8%
+    # 11 Push notifications        lvl  1 => inbound=   583 [....................]   1.9%
+    # 12 Push notifications        lvl  2 => inbound=   599 [....................]   1.9%
+    # 13 Push notifications        lvl  3 => inbound=   623 [....................]   2.0%
+    # 14 Push notifications        lvl  4 => inbound=   659 [....................]   2.1%
+    # 15 Push notifications        lvl  5 => inbound=   713 [....................]   2.3%
+    # 16 Push notifications        lvl  6 => inbound=   794 [....................]   2.6%
+    # 17 Push notifications        lvl  7 => inbound=   916 [....................]   3.0%
+    # 18 Push notifications        lvl  8 => inbound= 1,099 [....................]   3.5%
+    # 19 Push notifications        lvl  9 => inbound= 1,373 [....................]   4.4%
+    # 20 Push notifications        lvl 10 => inbound= 1,784 [#...................]   5.8%
+    # 21 Load balancing            lvl  1 => inbound= 1,851 [#...................]   6.0%
+    # 22 Load balancing            lvl  2 => inbound= 1,884 [#...................]   6.1%
+    # 23 Load balancing            lvl  3 => inbound= 1,934 [#...................]   6.2%
+    # 24 Load balancing            lvl  4 => inbound= 2,009 [#...................]   6.5%
+    # 25 Load balancing            lvl  5 => inbound= 2,121 [#...................]   6.9%
+    # 26 Load balancing            lvl  6 => inbound= 2,289 [#...................]   7.4%
+    # 27 Load balancing            lvl  7 => inbound= 2,541 [#...................]   8.2%
+    # 28 Load balancing            lvl  8 => inbound= 2,919 [#...................]   9.4%
+    # 29 Load balancing            lvl  9 => inbound= 3,486 [##..................]  11.3%
+    # 30 Load balancing            lvl 10 => inbound= 4,337 [##..................]  14.0%
+    # 31 Request routing           lvl  1 => inbound= 4,427 [##..................]  14.3%
+    # 32 Request routing           lvl  2 => inbound= 4,472 [##..................]  14.4%
+    # 33 Request routing           lvl  3 => inbound= 4,539 [##..................]  14.7%
+    # 34 Request routing           lvl  4 => inbound= 4,640 [##..................]  15.0%
+    # 35 Request routing           lvl  5 => inbound= 4,791 [###.................]  15.5%
+    # 36 Request routing           lvl  6 => inbound= 5,018 [###.................]  16.2%
+    # 37 Request routing           lvl  7 => inbound= 5,358 [###.................]  17.3%
+    # 38 Request routing           lvl  8 => inbound= 5,868 [###.................]  19.0%
+    # 39 Request routing           lvl  9 => inbound= 6,633 [####................]  21.4%
+    # 40 Request routing           lvl 10 => inbound= 7,781 [#####...............]  25.1%
+    # 41 Async processing          lvl  1 => inbound= 7,908 [#####...............]  25.5%
+    # 42 Async processing          lvl  2 => inbound= 7,971 [#####...............]  25.7%
+    # 43 Async processing          lvl  3 => inbound= 8,066 [#####...............]  26.1%
+    # 44 Async processing          lvl  4 => inbound= 8,208 [#####...............]  26.5%
+    # 45 Async processing          lvl  5 => inbound= 8,421 [#####...............]  27.2%
+    # 46 Async processing          lvl  6 => inbound= 8,741 [#####...............]  28.2%
+    # 47 Async processing          lvl  7 => inbound= 9,221 [#####...............]  29.8%
+    # 48 Async processing          lvl  8 => inbound= 9,941 [######..............]  32.1%
+    # 49 Async processing          lvl  9 => inbound=11,021 [#######.............]  35.6%
+    # 50 Async processing          lvl 10 => inbound=12,641 [########............]  40.8%
+    # 51 AI core upgrade           lvl  1 => inbound=12,821 [########............]  41.4%
+    # 52 AI core upgrade           lvl  2 => inbound=12,911 [########............]  41.7%
+    # 53 AI core upgrade           lvl  3 => inbound=13,046 [########............]  42.1%
+    # 54 AI core upgrade           lvl  4 => inbound=13,248 [########............]  42.8%
+    # 55 AI core upgrade           lvl  5 => inbound=13,551 [########............]  43.8%
+    # 56 AI Context awareness      lvl  1 => inbound=13,851 [########............]  44.7%
+    # 57 AI Context awareness      lvl  2 => inbound=14,001 [#########...........]  45.2%
+    # 58 AI Context awareness      lvl  3 => inbound=14,226 [#########...........]  45.9%
+    # 59 AI Context awareness      lvl  4 => inbound=14,563 [#########...........]  47.0%
+    # 60 AI Context awareness      lvl  5 => inbound=15,069 [#########...........]  48.7%
+    # 61 AI Smart responses        lvl  1 => inbound=15,669 [##########..........]  50.6%
+    # 62 AI Smart responses        lvl  2 => inbound=15,969 [##########..........]  51.6%
+    # 63 AI Smart responses        lvl  3 => inbound=16,419 [##########..........]  53.0%
+    # 64 AI Smart responses        lvl  4 => inbound=17,094 [###########.........]  55.2%
+    # 65 AI Smart responses        lvl  5 => inbound=18,106 [###########.........]  58.5%
+    # 66 Predictive AI             lvl  1 => inbound=19,306 [############........]  62.4%
+    # 67 Predictive AI             lvl  2 => inbound=19,906 [############........]  64.3%
+    # 68 Predictive AI             lvl  3 => inbound=20,806 [#############.......]  67.2%
+    # 69 Predictive AI             lvl  4 => inbound=22,156 [##############......]  71.6%
+    # 70 Predictive AI             lvl  5 => inbound=24,181 [###############.....]  78.1%
+    # 71 Self evolving AI          lvl  1 => inbound=25,681 [################....]  82.9%
+
+  Brak overflow - max inbound miesci sie w capacity

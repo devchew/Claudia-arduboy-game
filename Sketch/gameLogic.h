@@ -29,7 +29,20 @@ uint32_t getServerUpgradeCost(uint8_t level) {
   return serverPrice * pow(1.4, level);
 }
 
+uint32_t getServerUpgradeBonus(uint8_t level) {
+  if (level == 0) {
+    return 0;
+  }
+  uint32_t bonus = serverLevelCapacityScale;
+  for (uint8_t i = 1; i < level; i++) {
+    bonus = bonus * 1.3;
+  }
+  return bonus;
+}
 
+uint32_t getServerNextBonus(uint8_t level) {
+  return getServerUpgradeBonus(level + 1) - getServerUpgradeBonus(level);
+}
 
 uint32_t getOfficeUpgradeCost(Upgrade upgrade){
   return upgrade.startingPrice * pow(1.5, upgrade.have);
@@ -79,7 +92,7 @@ void recalculateStats() {
   filledRacksSlots = 0;
   for(uint8_t r = 0; r < availableRacks; r++) {
     for(uint8_t s = 0; s < RackSize; s++) {
-      totalCapacity += racks[r][s] * serverLevelCapacityScale;
+      totalCapacity += getServerUpgradeBonus(racks[r][s]);
       if (racks[r][s] > 0) {
         filledRacksSlots++;
       }

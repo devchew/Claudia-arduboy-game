@@ -104,9 +104,6 @@ uint32_t getServerPurchasePrice() {
   return serverPrice;
 }
 
-uint32_t getServerNextBonus() {
-  return serverLevelCapacityScale;
-}
 
 void drawSelectedCost() {
   if (!canPurchaseSelectedServer()){
@@ -129,7 +126,7 @@ void drawSelectedCost() {
   arduboy.drawBitmap(85, 46, sprite_inboundSymbol, 13,8);
   font3x5.setCursor(101, 45);
   font3x5.print(F("+"));
-  printValue(getServerNextBonus());
+  printValue(getServerNextBonus(racks[visibleRack][cursorPosition]));
 }
 
 void drawServersNavigation() {

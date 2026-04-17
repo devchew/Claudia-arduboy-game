@@ -62,10 +62,10 @@ const char* const upgradesNames[MaxUpgrades] PROGMEM = {
 
 Upgrade upgrades[MaxUpgrades] = {
 /* startingPrice | startingBonus |  have | max | */
-  {80            ,      10       ,  0    ,  25  }, // user messaging
-  {1000          ,      22       ,  0    ,  17  }, // push notifications
-  {3500          ,      45       ,  0    ,  15  }, // load balancing
-  {12000         ,      60       ,  0    ,  12  }, // request routing
+  {80            ,      10       ,  0    ,  10  }, // user messaging
+  {1000          ,      22       ,  0    ,  10  }, // push notifications
+  {3500          ,      45       ,  0    ,  10  }, // load balancing
+  {12000         ,      60       ,  0    ,  10  }, // request routing
   {40000         ,      85       ,  0    ,  10  }, // async processing
   
 // w tym momencie masz około 500k kasy więc ceny powinny być wysokie, ale bonusy też powinny być duże, żeby gracz czuł, że warto inwestować w te dodatki
