@@ -78,7 +78,7 @@ const PROGMEM char cloudiaSelfAware[] = "This is not just a system.\nThis is not
 const PROGMEM char needRacksMsg[] = "AI upgrades require\nat least 2 server racks.";
 
 #define UpgradeWillOverloadID 34
-const PROGMEM char upgradeWillOverloadMsg[] = "This upgrade will\ncause overload!\nUpgrading servers first";
+const PROGMEM char upgradeWillOverloadMsg[] = "This upgrade will\ncause overload!\nUpgrade servers first";
 
 #define WelcomeBackID 35
 const PROGMEM char welcomeBack[] = "Welcome back, Operator.\nShall we continue\nour work?";
