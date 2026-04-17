@@ -21,7 +21,7 @@ Font3x5 font3x5 = Font3x5();
 
 void setup() {
   arduboy.begin();
-  arduboy.setFrameRate(60);
+  arduboy.setFrameRate(30);
   recalculateStats();
 
   arduboy.audio.begin();

@@ -34,6 +34,21 @@ bool isUpgradeRackLocked(uint8_t upgradeIndex) {
   return true;
 }
 
+bool officeUpgradeSafe() {
+  // if the office upgrade is not safe, show warning popup
+  uint32_t nextBonus = getOfficeUpgradeBonus(upgrades[listOffest]);
+
+  // loadPercent = inbound * 100 / max(totalCapacity, 1);
+
+  if (inboundPenalty || (inbound + nextBonus) * 100 / max(totalCapacity, 1) > OverloadPenaltyThreshold) {
+    showUpgradeWillOverloadPopup = true;
+    helpProptsState[UpgradeWillOverloadID] = false;
+    return false;
+  }
+  return true;
+}
+
+
 bool canPurchaseSelectedOfficeUpgrade() {
   return upgrades[listOffest].have < upgrades[listOffest].max;
 }
@@ -170,7 +185,7 @@ void screenOffice() {
         // allow to show this prompt again if player tries to buy AI upgrade without enough racks
         helpProptsState[NeedRacksID] = false;
       } else {
-        if (canPurchaseSelectedOfficeUpgrade() && buyIfPosible(getOfficeUpgradePurchasePrice())) {
+        if (canPurchaseSelectedOfficeUpgrade() && officeUpgradeSafe() && buyIfPosible(getOfficeUpgradePurchasePrice())) {
           purchaseSelectedOfficeUpgrade();
           recalculateStats();
         }

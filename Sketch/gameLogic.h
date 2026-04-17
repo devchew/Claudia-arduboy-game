@@ -21,6 +21,9 @@ bool currentRackEmpty = false;
 #define startingInbound 1
 #define maxUsersPenaltyCap 10
 
+#define OverloadWarningThreshold 105
+#define OverloadPenaltyThreshold 190
+
 uint8_t visibleUpgrades = 5;
 uint8_t fulfilledRacksSlots = 0;
 
@@ -103,7 +106,7 @@ void recalculateStats() {
   loadPercent = inbound * 100 / max(totalCapacity, 1);
 
   // penalty for overload
-  if (loadPercent > 190) {
+  if (loadPercent > OverloadPenaltyThreshold) {
     inboundPenalty = true;
     inbound = inbound / 2;
     if (inbound > maxUsersPenaltyCap) {

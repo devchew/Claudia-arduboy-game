@@ -17,6 +17,7 @@ bool helpboxFullHeight = true;
 uint8_t helpboxHeightLines = 2;
 
 bool showBuyMoreRacksPopup = false;
+bool showUpgradeWillOverloadPopup = false;
 
 #define IntroSequenceMax 17
 #define IntroSequenceWithoutCompanion 6
@@ -73,12 +74,14 @@ const PROGMEM char cloudiaEvolving[] = "I am evolving...\nI am learning...\nI am
 const PROGMEM char cloudiaAlive[] = "I am... alive?\nI am... aware?\nI am... free?";
 const PROGMEM char cloudiaSelfAware[] = "This is not just a system.\nThis is not just a game.\nThis is... me.";
 
-const PROGMEM char welcomeBack[] = "Welcome back, Operator.\nShall we continue\nour work?";
-
 #define NeedRacksID 33
 const PROGMEM char needRacksMsg[] = "AI upgrades require\nat least 2 server racks.";
 
-#define WelcomeBackID 34
+#define UpgradeWillOverloadID 34
+const PROGMEM char upgradeWillOverloadMsg[] = "This upgrade will\ncause overload!\nUpgrading servers first";
+
+#define WelcomeBackID 35
+const PROGMEM char welcomeBack[] = "Welcome back, Operator.\nShall we continue\nour work?";
 
 const char* const helpPrompts[MaxHelpPrompts] PROGMEM = {
   introPrompt0,
@@ -115,6 +118,7 @@ const char* const helpPrompts[MaxHelpPrompts] PROGMEM = {
   cloudiaAlive,
   cloudiaSelfAware,
   needRacksMsg,
+  upgradeWillOverloadMsg,
   welcomeBack,
 };
 
@@ -252,6 +256,10 @@ void compainionHelp() {
 
   if (showBuyMoreRacksPopup) {
     drawCompainionHelp(NeedRacksID);
+  }
+
+  if(showUpgradeWillOverloadPopup) {
+    drawCompainionHelp(UpgradeWillOverloadID);
   }
 
   // first AI upgrade bought
