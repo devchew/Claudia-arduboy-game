@@ -51,8 +51,8 @@ const PROGMEM char systemOverloaded2[] = "System is overloaded!\nusers are leavi
 const PROGMEM char milestoneStable[] = "Great progress!\nUsers are flowing in.\nSystems are stable.";
 #define MilestoneOverloadedID 21
 const PROGMEM char milestoneOverloaded[] = "Users are flooding in!\nWe need better servers\nto handle the load.";
-#define RacksUnlockedID 22
-const PROGMEM char racksUnlocked[] = "You have unlocked\nmore racks!\nExpand your server room!";
+#define ToUnlockRacksId 22
+const PROGMEM char toUnlockRacks[] = "To unlock more racks,\nyou need async processing upgrade.\nGet it in the office.";
 #define AIUpgradesUnlockedID 23
 const PROGMEM char aiUpgradesUnlocked[] = "You have unlocked AI\nBoost your system\nwith AI upgrades! ";
 
@@ -103,7 +103,7 @@ const char* const helpPrompts[MaxHelpPrompts] PROGMEM = {
   systemOverloaded2,
   milestoneStable,
   milestoneOverloaded,
-  racksUnlocked,
+  toUnlockRacks,
   aiUpgradesUnlocked,
   aiCoreExpanded,
   aiBreakingFree,
@@ -239,10 +239,11 @@ void compainionHelp() {
     }
   }
 
-  // more racks unlocked - message about unlocking more racks
-  // if (availableRacks > 1) {
-  //   drawCompainionHelp(RacksUnlockedID);
-  // }
+
+  // if there is 1 full rack, unlock the second rack
+  if (fulfilledRacksSlots >= RackSize && availableRacks <= 1) {
+    drawCompainionHelp(ToUnlockRacksId);
+  }
 
   //unlock AI upgrades
   if (visibleUpgrades > 5) {

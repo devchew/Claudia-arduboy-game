@@ -22,7 +22,7 @@ bool currentRackEmpty = false;
 #define maxUsersPenaltyCap 10
 
 uint8_t visibleUpgrades = 5;
-uint8_t filledRacksSlots = 0;
+uint8_t fulfilledRacksSlots = 0;
 
 
 uint32_t getServerUpgradeCost(uint8_t level) {
@@ -89,12 +89,12 @@ void recalculateStats() {
 
   totalCapacity = 0;
 
-  filledRacksSlots = 0;
+  fulfilledRacksSlots = 0;
   for(uint8_t r = 0; r < availableRacks; r++) {
     for(uint8_t s = 0; s < RackSize; s++) {
       totalCapacity += getServerUpgradeBonus(racks[r][s]);
-      if (racks[r][s] > 0) {
-        filledRacksSlots++;
+      if (racks[r][s] >= MaxServerLevel) {
+        fulfilledRacksSlots++;
       }
     }
   }
@@ -109,12 +109,6 @@ void recalculateStats() {
     if (inbound > maxUsersPenaltyCap) {
       inbound = maxUsersPenaltyCap;
     }
-  }
-
-  // if there is at least total level 50 of servers, unlock all racks
-  // level 50 * serverLevelCapacityScale 15 = 750 total capacity
-  if (totalCapacity >= 750 && availableRacks <= 1) {
-    availableRacks = MaxRacks;
   }
 
   // if async processing is purchased, show AI upgrades
