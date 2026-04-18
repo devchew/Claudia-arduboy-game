@@ -38,7 +38,7 @@ uint32_t getServerUpgradeBonus(uint8_t level) {
   }
   uint32_t bonus = serverLevelCapacityScale;
   for (uint8_t i = 1; i < level; i++) {
-    bonus = bonus * 1.3;
+    bonus = bonus * 1.33;
   }
   return bonus;
 }

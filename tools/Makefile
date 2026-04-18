@@ -5,7 +5,7 @@ balance_upgrades: balance_upgrades.cpp ../Sketch/gameLogic.h ../Sketch/State.h
 	$(CXX) $(CXXFLAGS) -o $@ $<
 
 run: balance_upgrades
-	./balance_upgrades
+	./balance_upgrades | tee out.txt
 
 clean:
 	rm -f balance_upgrades

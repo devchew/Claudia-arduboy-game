@@ -27,8 +27,8 @@ TODO:
 - włączyć autosave by default
 - usunać erase z ustawień, dodać opcje exit/logout, ktra będzie wychodzić do ekranu startowego
 - gdy autosave jest włączone nie pokazyać opcji save w menu
-- gdy upgrade daję duo u/m powyej 1k nie mieści się w kafelku
-- po wczytaniu save, staty serwera są błędne i zanione dopiero po zakupie upgrade'u lub serwera, przeliczają się na poprawne
+- [x] gdy upgrade daję duo u/m powyej 1k nie mieści się w kafelku
+- [x] po wczytaniu save, staty serwera są błędne i zanione dopiero po zakupie upgrade'u lub serwera, przeliczają się na poprawne
 - ai context, moze mieć odrobiny większy boost aby przyśpieszyć zbieranie kasy na kolejne upgrade
 - [x] zakup kazdego ai upgrade oblokowuje ostatni finałowy upgrade, niekoniecznie wymaxowany level
 - [x] endgame nie działa

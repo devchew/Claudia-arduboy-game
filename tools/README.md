@@ -15,11 +15,7 @@ cd tools
 make run
 ```
 
-Wynik zapisany do pliku:
-
-```bash
-make && ./balance_upgrades > out.txt
-```
+Wynik jest wyświetlany na ekranie i jednocześnie zapisywany do `out.txt`.
 
 ## Co pokazuje
 
