@@ -81,6 +81,17 @@ bool buyIfPosible(uint32_t price) {
 void recalculateStats() {
   inboundPenalty = false;
 
+  // if async processing is purchased, show AI upgrades
+  if (upgrades[4].have > 0 && visibleUpgrades <= 5) {
+    visibleUpgrades = MaxUpgrades - 1; // unlock all but the last upgrade
+    availableRacks = MaxRacks;
+  }
+
+  // if at least 3 ai upgrades maxed, unlock the last upgrade
+  if (upgrades[5].have >= 1 && upgrades[6].have >= 1 && upgrades[7].have >= 1 && upgrades[8].have >= 1) {
+    visibleUpgrades = MaxUpgrades; // unlock all upgrades
+  }
+
   // inbound based on office upgrades
   inbound = startingInbound;
 
@@ -112,17 +123,6 @@ void recalculateStats() {
     if (inbound > maxUsersPenaltyCap) {
       inbound = maxUsersPenaltyCap;
     }
-  }
-
-  // if async processing is purchased, show AI upgrades
-  if (upgrades[4].have > 0 && visibleUpgrades <= 5) {
-    visibleUpgrades = MaxUpgrades - 1; // unlock all but the last upgrade
-    availableRacks = MaxRacks;
-  }
-
-  // if at least 3 ai upgrades maxed, unlock the last upgrade
-  if (upgrades[5].have >= 1 && upgrades[6].have >= 1 && upgrades[7].have >= 1 && upgrades[8].have >= 1) {
-    visibleUpgrades = MaxUpgrades; // unlock all upgrades
   }
 }
 
