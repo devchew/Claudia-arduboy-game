@@ -121,7 +121,7 @@ void recalculateStats() {
   }
 
   // if at least 3 ai upgrades maxed, unlock the last upgrade
-  if (upgrades[5].have >= upgrades[5].max && upgrades[6].have >= upgrades[6].max && upgrades[7].have >= upgrades[7].max && upgrades[8].have >= upgrades[8].max) {
+  if (upgrades[5].have >= 1 && upgrades[6].have >= 1 && upgrades[7].have >= 1 && upgrades[8].have >= 1) {
     visibleUpgrades = MaxUpgrades; // unlock all upgrades
   }
 }

@@ -11,12 +11,28 @@
 #include <ArduboyTones.h>
 #include "companion.h"
 #include "splashScreen.h"
-#include "screenTurnOffAnimation.h"
 
 ArduboyTones sound(arduboy.audio.enabled);
 
 Arduboy2 arduboy;
 Font3x5 font3x5 = Font3x5();
+
+/*
+
+TODO:
+
+- muzyka
+- usunąc komunikat claudii o overload, teraz jest zabezpieczneie przed kupnem, ewentualnie odblokować moliwosć kupna po komunikacie
+- zmienić komunikat przed kupnem, na informujacy o braku wystarczającej ilosci serwerw zamiast o overload
+- włączyć autosave by default
+- usunać erase z ustawień, dodać opcje exit/logout, ktra będzie wychodzić do ekranu startowego
+- gdy autosave jest włączone nie pokazyać opcji save w menu
+- gdy upgrade daję duo u/m powyej 1k nie mieści się w kafelku
+- po wczytaniu save, staty serwera są błędne i zanione dopiero po zakupie upgrade'u lub serwera, przeliczają się na poprawne
+- ai context, moze mieć odrobiny większy boost aby przyśpieszyć zbieranie kasy na kolejne upgrade
+- [x] zakup kazdego ai upgrade oblokowuje ostatni finałowy upgrade, niekoniecznie wymaxowany level
+- [x] endgame nie działa
+*/
 
 
 void setup() {
@@ -79,10 +95,6 @@ void loop() {
     }
 
     drawStatusBar();
-  }
-
-  if (finalSequence == 255) {
-    screenTurnOffAnimation();
   }
 
   compainionHelp();

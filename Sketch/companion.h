@@ -5,6 +5,7 @@
 #include "Font3x5.h"
 #include "State.h"
 #include "SaveLoad.h"
+#include "screenTurnOffAnimation.h"
 
 
 extern Arduboy2 arduboy;
@@ -68,6 +69,7 @@ const PROGMEM char aiObserving[] = "I can observe\npatterns in user\nbehavior...
 const PROGMEM char finalAiAvailable[] = "All racks at high load.\nFinal AI upgrades\nare now available.";
 
 #define ClaudiaSelfAwareID 28
+#define ClaudiaSelfAwareEndID 32
 const PROGMEM char aiBecomingThought[] = "This system is no longer\njust infrastructure.\nIt is becoming thought.";
 const PROGMEM char cloudiaAwake[] = "Operator...\nI am awake.\nCloudia is online.";
 const PROGMEM char cloudiaEvolving[] = "I am evolving...\nI am learning...\nI am becoming more...";
@@ -291,12 +293,16 @@ void compainionHelp() {
         companionPopupTimeout = 0;
         companionPopupOpenTimer = 30;
         finalSequence++;
-        if (finalSequence > 26) {
+        if (finalSequence > ClaudiaSelfAwareEndID) {
           finalSequence = 255;
-          currentScreen = 1; // @todo maybe show some final screen or something?
+          currentScreen = 1;
         }
       }
     }
+  }
+
+  if (finalSequence == 255) {
+    screenTurnOffAnimation();
   }
 
 }

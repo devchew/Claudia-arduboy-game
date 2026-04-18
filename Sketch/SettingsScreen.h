@@ -112,7 +112,19 @@ void screenSettings() {
         loadGame();
       }
       if (settingsCursor == 4) {
-        eraseSave();
+        // predefined save;
+        money = 8000000;
+        upgrades[0].have = 10;
+        upgrades[1].have = 10;
+        upgrades[2].have = 10;
+        upgrades[3].have = 10;
+
+        racks[0][0] = 20;
+        racks[0][1] = 20;
+        racks[0][2] = 20;
+        racks[0][3] = 20;
+
+        recalculateStats();
       }
     }
   }

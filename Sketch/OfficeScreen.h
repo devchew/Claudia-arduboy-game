@@ -94,7 +94,6 @@ void drawUpgrade(int8_t x, int8_t y, uint8_t upgradeIndex) {
   strcpy_P(buf, (const char*)pgm_read_ptr(&upgradesNames[upgradeIndex]));
   font3x5.print(buf);
 
-  // font3x5.print(String(upgradeIndex));
   if (upgrades[upgradeIndex].have > 0) {
     font3x5.print(F(" x"));
     font3x5.print(upgrades[upgradeIndex].have);
@@ -110,12 +109,12 @@ void drawUpgrade(int8_t x, int8_t y, uint8_t upgradeIndex) {
 
   // cost
   if (upgrades[upgradeIndex].max > upgrades[upgradeIndex].have) {
-    arduboy.drawBitmap(x+51, y+8, sprite_currencySymbol, 5,8);
-    font3x5.setCursor(x+58, y+8);
+    arduboy.drawBitmap(x+48, y+8, sprite_currencySymbol, 5,8);
+    font3x5.setCursor(x+55, y+8);
     printValue(getNextOfficeUpgradeCost(upgrades[upgradeIndex]));
 
-    arduboy.drawBitmap(x + 85, y+9, sprite_inboundSymbol, 13, 8, WHITE);
-    font3x5.setCursor(x + 102, y+8);
+    arduboy.drawBitmap(x + 82, y+9, sprite_inboundSymbol, 13, 8, WHITE);
+    font3x5.setCursor(x + 99, y+8);
     font3x5.print(F("+"));
     printValue(getNextOfficeUpgradeBonus(upgrades[upgradeIndex]) - getOfficeUpgradeBonus(upgrades[upgradeIndex]));
   }

@@ -70,10 +70,10 @@ Upgrade upgrades[MaxUpgrades] = {
   
 // w tym momencie masz około 500k kasy więc ceny powinny być wysokie, ale bonusy też powinny być duże, żeby gracz czuł, że warto inwestować w te dodatki
   {200000        ,      120      ,  0    ,  5  }, // ai core upgrade
-  {400000        ,      200      ,  0    ,  5  }, // ai context awareness
-  {4000000       ,      400      ,  0    ,  5  }, // ai smart responses
-  {20000000      ,      800      ,  0    ,  5  }, // predictive ai
-  {800000000     ,      1000     ,  0    ,  1  } // self evolving ai
+  {400000        ,      300      ,  0    ,  5  }, // ai context awareness
+  {1000000       ,      600      ,  0    ,  5  }, // ai smart responses
+  {3000000      ,      1000     ,  0    ,  5  }, // predictive ai
+  {80000000     ,      1500     ,  0    ,  1  } // self evolving ai
 };
 
 
