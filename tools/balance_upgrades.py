@@ -39,10 +39,10 @@ upgrades = [
     {"name": "Request routing",      "price": 12000,       "bonus": 60,   "max": 10},
     {"name": "Async processing",     "price": 40000,       "bonus": 85,   "max": 10},
     {"name": "AI core upgrade",      "price": 200000,      "bonus": 120,  "max": 5},
-    {"name": "AI Context awareness", "price": 400000,      "bonus": 200,  "max": 5},
-    {"name": "AI Smart responses",   "price": 4000000,     "bonus": 400,  "max": 5},
-    {"name": "Predictive AI",        "price": 20000000,    "bonus": 800,  "max": 5},
-    {"name": "Self evolving AI",     "price": 800000000,   "bonus": 1000, "max": 1},
+    {"name": "AI Context awareness", "price": 400000,      "bonus": 300,  "max": 5},
+    {"name": "AI Smart responses",   "price": 4000000,     "bonus": 600,  "max": 5},
+    {"name": "Predictive AI",        "price": 20000000,    "bonus": 1000,  "max": 5},
+    {"name": "Self evolving AI",     "price": 800000000,   "bonus": 1500, "max": 1},
 ]
 
 # === FORMUŁY ===
@@ -151,6 +151,33 @@ if __name__ == "__main__":
         cost_per_cap = cumul_cost / cap if cap > 0 else 0
         print(f"  {lvl:>3} | {cap:>10,} | +{gain:>4} | {cost:>14,} | {cumul_cost:>14,} | {cost_per_cap:>10.1f}")
         prev_cap = cap
+
+    # --- KOSZTY UPGRADE'OW ---
+    UPGRADE_RATE = 1.5
+    print("\n" + "=" * 100)
+    print("  KOSZTY UPGRADE'OW (price * 1.5^level)")
+    print("=" * 100)
+    for u in upgrades:
+        print(f"\n  {u['name']} (base price: {u['price']:,}, max lvl: {u['max']})")
+        print(f"  {'Lvl':>3} | {'Koszt lvl':>14} | {'Koszt cumul':>14} | {'Bonus':>10} | {'Cost/bonus':>10}")
+        cumul_cost = 0
+        for lvl in range(1, u["max"] + 1):
+            cost = int(u["price"] * (UPGRADE_RATE ** lvl))
+            cumul_cost += cost
+            bonus = bonus_compound(u["bonus"], lvl, COMPOUND_RATE)
+            cpb = cumul_cost / bonus if bonus > 0 else 0
+            print(f"  {lvl:>3} | {cost:>14,} | {cumul_cost:>14,} | {bonus:>10,} | {cpb:>10.1f}")
+
+    # Podsumowanie kosztów
+    print(f"\n  {'#':>2} | {'Upgrade':25s} | {'Koszt 1 lvl':>14} | {'Koszt max lvl':>14} | {'Koszt total':>14}")
+    grand_total = 0
+    for i, u in enumerate(upgrades):
+        cost_first = int(u["price"] * UPGRADE_RATE)
+        cost_last = int(u["price"] * (UPGRADE_RATE ** u["max"]))
+        total = sum(int(u["price"] * (UPGRADE_RATE ** lvl)) for lvl in range(1, u["max"] + 1))
+        grand_total += total
+        print(f"  {i:>2} | {u['name']:25s} | {cost_first:>14,} | {cost_last:>14,} | {total:>14,}")
+    print(f"  {'':>2} | {'GRAND TOTAL':25s} | {'':>14} | {'':>14} | {grand_total:>14,}")
 
     # --- OBECNE WARTOSCI ---
     analyze(
