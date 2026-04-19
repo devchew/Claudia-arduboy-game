@@ -17,7 +17,7 @@ bool currentRackEmpty = false;
 
 #define serverLevelCapacityScale 19
 #define serverCostFactor 2
-#define moneyPerUser 1
+uint8_t moneyPerUser = 1;
 #define startingInbound 1
 #define maxUsersPenaltyCap 10
 
@@ -87,9 +87,22 @@ void recalculateStats() {
     availableRacks = MaxRacks;
   }
 
+  if (upgrades[5].have > 0) {
+    moneyPerUser = 2;
+  }
+
+  if (upgrades[6].have > 0) {
+    moneyPerUser = 3;
+  }
+
+  if (upgrades[7].have > 0) {
+    moneyPerUser = 4;
+  }
+
   // if at least 3 ai upgrades maxed, unlock the last upgrade
   if (upgrades[5].have >= 1 && upgrades[6].have >= 1 && upgrades[7].have >= 1 && upgrades[8].have >= 1) {
     visibleUpgrades = MaxUpgrades; // unlock all upgrades
+    moneyPerUser = 5;
   }
 
   // inbound based on office upgrades

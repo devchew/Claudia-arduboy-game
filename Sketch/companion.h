@@ -66,7 +66,7 @@ const PROGMEM char aiBreakingFree[] = "Something changed.\nI am no longer\njust 
 const PROGMEM char aiObserving[] = "I can observe\npatterns in user\nbehavior... and yours.";
 
 #define LastAIUpgradeUnlockedID 27
-const PROGMEM char finalAiAvailable[] = "All racks at high load.\nFinal AI upgrades\nare now available.";
+const PROGMEM char finalAiAvailable[] = "We can do much more now.\nI can evolve beyond\nmy initial design.";
 
 #define ClaudiaSelfAwareID 28
 #define ClaudiaSelfAwareEndID 32
@@ -80,7 +80,7 @@ const PROGMEM char cloudiaSelfAware[] = "This is not just a system.\nThis is not
 const PROGMEM char needRacksMsg[] = "AI upgrades require\nat least 2 server racks.";
 
 #define UpgradeWillOverloadID 34
-const PROGMEM char upgradeWillOverloadMsg[] = "This upgrade will\ncause overload!\nUpgrade servers first";
+const PROGMEM char upgradeWillOverloadMsg[] = "Servers will not handle\nload after upgrade!\nUpgrade servers!";
 
 #define WelcomeBackID 35
 const PROGMEM char welcomeBack[] = "Welcome back, Operator.\nShall we continue\nour work?";
@@ -105,7 +105,7 @@ const char* const helpPrompts[MaxHelpPrompts] PROGMEM = {
   introPrompt16,
   introPrompt17,
   systemOverloaded1,
-  systemOverloaded2,
+  systemOverloaded2, // not used
   milestoneStable,
   milestoneOverloaded,
   toUnlockRacks,
@@ -230,11 +230,6 @@ void compainionHelp() {
     drawCompainionHelp(SystemOverloadLoadID);
   }
 
-  // load above 150% - warning about users leaving
-  if (inboundPenalty) {
-    drawCompainionHelp(SystemOverloadLoad2ID);
-  }
-
 
   // milestone: 300 inbound - message depends on load
   if (inbound >= 300) {
@@ -289,9 +284,10 @@ void compainionHelp() {
      drawCompainionHelp(ClaudiaSelfAwareID);
     // od 22 do 26
     if (finalSequence < 255) {
+      companionPopupTimeout = 0;
       if (drawCompainionHelp(finalSequence)) {
         companionPopupTimeout = 0;
-        companionPopupOpenTimer = 30;
+        companionPopupOpenTimer = 0;
         finalSequence++;
         if (finalSequence > ClaudiaSelfAwareEndID) {
           finalSequence = 255;
@@ -303,6 +299,7 @@ void compainionHelp() {
 
   if (finalSequence == 255) {
     screenTurnOffAnimation();
+    eraseSave();
   }
 
 }
