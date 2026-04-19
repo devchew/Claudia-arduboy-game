@@ -242,7 +242,7 @@ void compainionHelp() {
 
 
   // if there is 1 full rack, unlock the second rack
-  if (fulfilledRacksSlots >= RackSize && availableRacks <= 1) {
+  if (fulfilledRacksSlots >= RackSize && availableRacks <= 1 && !(upgrades[MaxUpgrades - 1].have >= upgrades[MaxUpgrades - 1].max)) {
     drawCompainionHelp(ToUnlockRacksId);
   }
 

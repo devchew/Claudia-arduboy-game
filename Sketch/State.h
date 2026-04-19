@@ -8,7 +8,7 @@ uint16_t autosaveCounter = 0;
 #define AUTOSAVE_INTERVAL 1800 // ~30 seconds at 60fps
 
 uint8_t introSequence = 0;
-uint8_t finalSequence = 22;
+uint8_t finalSequence = 28; // ClaudiaSelfAwareID
 
 #define MaxHelpPrompts 36
 #define RackSize 4
