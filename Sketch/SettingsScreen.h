@@ -12,7 +12,26 @@ extern ArduboyTones sound;
 // extern const uint16_t music_loop[] PROGMEM;
 
 uint8_t settingsCursor = 0;
-const uint8_t settingsCount = 5;
+const uint8_t settingsCount = 4 ;
+
+//settingsOptions
+#define MusicToggleID 0
+#define AutosaveToggleID 1
+#define SaveGameID 2
+#define LoadGameID 3
+
+const PROGMEM char   SettingsOptionMusic[] = "Music";
+const PROGMEM char   SettingsOptionAutosave[] = "Autosave";
+const PROGMEM char   SettingsOptionSaveGame[] = "Save game";
+const PROGMEM char   SettingsOptionLoadGame[] = "Load game";
+
+const char* const settingsOptions[settingsCount] PROGMEM = {
+  SettingsOptionMusic,
+  SettingsOptionAutosave,
+  SettingsOptionSaveGame,
+  SettingsOptionLoadGame,
+};
+
 
 void drawSettingsNavigation() {
   arduboy.fillRect(0, 56, 128, 8, BLACK);
@@ -35,36 +54,25 @@ void drawSettingsNavigation() {
 }
 
 void drawSettingsItems() {
-  drawCursor(0, (settingsCursor * 9) + 11);
+  drawCursor(0, (settingsCursor * 9) + 12);
 
-  // Music toggle
-  arduboy.drawRoundRect(5, 10, 120, 9, 1, WHITE);
-  font3x5.setCursor(8, 11);
-  font3x5.print(F("Music"));
-  font3x5.setCursor(90, 11);
-  font3x5.print(music ? F("ON") : F("OFF"));
+  for (uint8_t i = 0; i < settingsCount; i++) {
+    int8_t y = (i * 9) + 10;
+    arduboy.drawRoundRect(5, y, 120, 9, 1, WHITE);
+    char buf[24];
+    strcpy_P(buf, (const char*)pgm_read_ptr(&settingsOptions[i]));
+    font3x5.setCursor(8, y+1);
+    font3x5.print(buf);
+    font3x5.setCursor(100, y+1);
 
-  // Autosave toggle
-  arduboy.drawRoundRect(5, 19, 120, 9, 1, WHITE);
-  font3x5.setCursor(8, 20);
-  font3x5.print(F("Autosave"));
-  font3x5.setCursor(90, 20);
-  font3x5.print(autosave ? F("ON") : F("OFF"));
+    if (i == MusicToggleID) {
+      font3x5.print(music ? F("On") : F("Off"));
+    }
+    if (i == AutosaveToggleID) {
+      font3x5.print(autosave ? F("On") : F("Off"));
+    }
 
-  // Save game
-  arduboy.drawRoundRect(5, 28, 120, 9, 1, WHITE);
-  font3x5.setCursor(8, 29);
-  font3x5.print(F("Save game"));
-
-  // Load game
-  arduboy.drawRoundRect(5, 37, 120, 9, 1, WHITE);
-  font3x5.setCursor(8, 38);
-  font3x5.print(F("Load game"));
-
-  // Erase save
-  arduboy.drawRoundRect(5, 46, 120, 9, 1, WHITE);
-  font3x5.setCursor(8, 47);
-  font3x5.print(F("Erase save"));
+  }
 
 }
 
@@ -87,7 +95,7 @@ void screenSettings() {
     }
 
     if (arduboy.justPressed(B_BUTTON)) {
-      if (settingsCursor == 0) {
+      if (settingsCursor == MusicToggleID) {
         music = !music;
         if (music) {
           arduboy.audio.on();
@@ -98,33 +106,18 @@ void screenSettings() {
         }
         arduboy.audio.saveOnOff();
       }
-      if (settingsCursor == 1) {
+      if (settingsCursor == AutosaveToggleID) {
         autosave = !autosave;
         if (autosave) {
           autosaveCounter = 0;
           saveGame();
         }
       }
-      if (settingsCursor == 2) {
+      if (settingsCursor == SaveGameID) {
         saveGame();
       }
-      if (settingsCursor == 3) {
+      if (settingsCursor == LoadGameID) {
         loadGame();
-      }
-      if (settingsCursor == 4) {
-        // predefined save;
-        money = 8000000;
-        upgrades[0].have = 10;
-        upgrades[1].have = 10;
-        upgrades[2].have = 10;
-        upgrades[3].have = 10;
-
-        racks[0][0] = 20;
-        racks[0][1] = 20;
-        racks[0][2] = 20;
-        racks[0][3] = 20;
-
-        recalculateStats();
       }
     }
   }

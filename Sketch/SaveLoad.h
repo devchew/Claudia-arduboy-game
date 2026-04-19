@@ -86,5 +86,5 @@ void eraseSave() {
   uint16_t addr = EEPROM_STORAGE_SPACE_START;
   EEPROM.update(addr, 0xFF);
   EEPROM.update(addr + 1, 0xFF);
-  autosave = false;
+  autosave = true;
 }
