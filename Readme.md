@@ -35,7 +35,7 @@ I could quickly move between the sprite editor and hardware testing, building sc
 ![editor-rack](./assets/editor_rack.png)
 ![editor-rack2](./assets/editor_rack2.jpeg)
 ![cloud-editor](./assets/cloud-editor.png)
-![video](./assets/test.mp4)
+[![video](./assets/video_preview.png)](./assets/test.mp4)
 
 There was even a successful Dual Core test :grinning_face_with_smiling_eyes:
 
