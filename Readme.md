@@ -8,9 +8,9 @@ This is my first ever Arduboy game — and only my third game overall 😄
 
 Starting from a tiny setup, you’ll gradually transform your operation into a powerful digital empire. Efficient upgrades and smart expansion are the key to success.
 
-<img width="128" height="64" alt="image" src="https://github.com/user-attachments/assets/aae24009-6a88-41d3-a008-5dd6c45631f3" />
-<img width="128" height="64" alt="image" src="https://github.com/user-attachments/assets/756886c5-1a50-442d-b8c8-f50c49ec03f8" />
-<img width="128" height="64" alt="image" src="https://github.com/user-attachments/assets/7da7c0e7-326d-46a3-9d15-a1d266c93b0e" />
+![intro](./assets/intro.gif)
+![overload](./assets/overload.png)
+![servers](./assets/servers.png)
 
 ## Features
 
@@ -28,12 +28,18 @@ A big part of this project was using the web-based Arduboy tools. Much of the fi
 
 I started with the visual concept and UI layout, experimenting with how the game should look and feel. The sprite editor turned out to be an excellent tool for quick prototyping.
 
-<img width="565" height="500" alt="image" src="https://github.com/user-attachments/assets/9ec5fa3b-5ad6-4a3f-9b4a-2eed9a8b304d" />
+![editor-cloudia](./assets/editor_cloudia.jpeg)
 
 I could quickly move between the sprite editor and hardware testing, building screens, checking readability, and refining the interface directly on the device.
 
-<img width="649" height="500" alt="image" src="https://github.com/user-attachments/assets/fe84f633-1104-401f-8a7b-c700d5977e90" />
-<img width="413" height="308" alt="image" src="https://github.com/user-attachments/assets/dc27b58f-4895-4eef-91a1-3d657b9fe560" />
+![editor-rack](./assets/editor_rack.png)
+![editor-rack2](./assets/editor_rack2.jpeg)
+![cloud-editor](./assets/cloud-editor.png)
+![video](./assets/test.mp4)
+
+There was even a successful Dual Core test :grinning_face_with_smiling_eyes:
+
+![duallcore](./assets/arduboy-core.jpeg)
 
 ## About AI Assistance
 
